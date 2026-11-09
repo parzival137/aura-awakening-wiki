@@ -1,0 +1,543 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Aura Awakening Wiki</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;600&family=Pixelify+Sans:wght@500;700&display=swap">
+<style>
+/* Layout: fixed sidebar of page links + one article at a time, switched by URL hash. Dark denim/gold palette taken from the logo. */
+:root{
+  --bg:#0b1220; --surface:#111a2e; --surface2:#172340; --line:#243553;
+  --fg:#e6edf7; --muted:#a3b3cc; --accent:#ffd447; --accent-fill:#ffd447; --on-accent:#1a1400;
+  --denim:#8db3e6; --ok:#7fdc9b; --warn:#ffb86b; --bad:#ff8d8d; --code:#0a101e;
+  --font-display:"Pixelify Sans","Courier New",monospace; --font-body:"Inter",system-ui,-apple-system,"Segoe UI",sans-serif; --font-mono:"JetBrains Mono",ui-monospace,Menlo,Consolas,monospace;
+  color-scheme:dark;
+}
+@media (prefers-color-scheme: light){
+  :root:not([data-theme="dark"]){
+    --bg:#f3f5fa; --surface:#ffffff; --surface2:#e8edf7; --line:#cdd6e6;
+    --fg:#14203a; --muted:#4a5b7a; --accent:#8a5f00; --accent-fill:#ffd447; --on-accent:#1a1400;
+    --denim:#2f5d9e; --ok:#1c7a40; --warn:#9a5a00; --bad:#b02525; --code:#e8edf7; color-scheme:light;
+  }
+}
+:root[data-theme="light"]{
+  --bg:#f3f5fa; --surface:#ffffff; --surface2:#e8edf7; --line:#cdd6e6;
+  --fg:#14203a; --muted:#4a5b7a; --accent:#8a5f00; --accent-fill:#ffd447; --on-accent:#1a1400;
+  --denim:#2f5d9e; --ok:#1c7a40; --warn:#9a5a00; --bad:#b02525; --code:#e8edf7; color-scheme:light;
+}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--fg);font:16px/1.65 var(--font-body);margin:0;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+a{color:var(--accent)}
+.shell{max-width:1180px;margin:0 auto;display:grid;grid-template-columns:250px minmax(0,1fr);gap:40px;padding-block:20px 56px}
+.side{position:sticky;top:calc(env(safe-area-inset-top,0px) + 16px);align-self:start;max-height:calc(100vh - 32px);overflow:auto;padding-right:4px}
+.brand{display:flex;align-items:center;gap:12px;margin-bottom:16px;text-decoration:none;color:var(--fg)}
+.brand img{width:48px;height:48px;image-rendering:pixelated;border-radius:4px;flex:none}
+.brand b{font:700 19px/1.1 var(--font-display);letter-spacing:.02em;display:block}
+.brand span{font-size:12px;color:var(--muted)}
+.search{width:100%;padding:9px 12px;border:1px solid var(--line);background:var(--surface);color:var(--fg);border-radius:6px;font:inherit;font-size:14px;margin-bottom:10px}
+.search:focus-visible,a:focus-visible,button:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.results{list-style:none;margin:0 0 14px;padding:0;display:none;border:1px solid var(--line);border-radius:6px;background:var(--surface)}
+.results li a{display:block;padding:8px 12px;text-decoration:none;color:var(--fg);font-size:14px;border-bottom:1px solid var(--line)}
+.results li:last-child a{border-bottom:0}
+.results small{display:block;color:var(--muted);font-size:12px}
+.group{font:600 11px/1 var(--font-body);letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin:18px 0 6px}
+.nav a{display:block;padding:6px 10px;border-radius:5px;color:var(--fg);text-decoration:none;font-size:15px;border-left:3px solid transparent}
+.nav a:hover{background:var(--surface2)}
+.nav a[aria-current="page"]{background:var(--surface2);border-left-color:var(--accent-fill);font-weight:600}
+.menu-btn{display:none}
+main{min-width:0}
+article{display:none}
+article.on{display:block}
+h1{font:700 40px/1.1 var(--font-display);margin:0 0 8px;letter-spacing:.01em;text-wrap:balance}
+h2{font:700 24px/1.2 var(--font-display);margin:40px 0 10px;color:var(--accent);text-wrap:balance}
+h3{font:600 17px/1.3 var(--font-body);margin:26px 0 6px}
+.lede{font-size:18px;color:var(--muted);max-width:62ch;margin:0 0 22px}
+p,li{max-width:70ch}
+ul,ol{padding-left:22px}
+li{margin:4px 0}
+code,.cmd{font-family:var(--font-mono);font-size:.88em}
+code{background:var(--code);border:1px solid var(--line);padding:1px 6px;border-radius:4px}
+.cmd{display:inline-flex;align-items:center;gap:8px;background:var(--code);border:1px solid var(--line);color:var(--fg);padding:3px 10px;border-radius:5px;cursor:pointer;font-size:.86em}
+.cmd:hover{border-color:var(--accent)}
+.cmd::after{content:"copy";font:500 11px var(--font-body);color:var(--muted)}
+.cmd.done::after{content:"copied";color:var(--ok)}
+.formula{font-family:var(--font-mono);font-size:14px;background:var(--code);border:1px solid var(--line);border-left:3px solid var(--accent-fill);padding:12px 16px;border-radius:6px;overflow-x:auto;white-space:pre;margin:12px 0}
+.note{border:1px solid var(--line);border-left:3px solid var(--denim);background:var(--surface);padding:12px 16px;border-radius:6px;margin:16px 0;max-width:74ch}
+.note.warn{border-left-color:var(--warn)}
+.note.plan{border-left-color:var(--accent-fill);border-style:dashed;border-left-style:solid}
+.note b:first-child{display:block;font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-bottom:2px}
+.tw{overflow-x:auto;border:1px solid var(--line);border-radius:8px;margin:14px 0;background:var(--surface)}
+table{border-collapse:collapse;width:100%;font-size:14.5px;min-width:560px}
+th,td{text-align:left;padding:9px 14px;border-bottom:1px solid var(--line);vertical-align:top}
+th{font:600 12px var(--font-body);letter-spacing:.08em;text-transform:uppercase;color:var(--muted);background:var(--surface2);white-space:nowrap}
+tr:last-child td{border-bottom:0}
+td.n{font-variant-numeric:tabular-nums;white-space:nowrap}
+.tag{display:inline-block;font:600 11px var(--font-body);letter-spacing:.06em;text-transform:uppercase;padding:2px 8px;border-radius:99px;border:1px solid var(--line);color:var(--muted);margin-left:6px;vertical-align:middle}
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:14px;margin:18px 0}
+.card{display:block;background:var(--surface);border:1px solid var(--line);border-radius:8px;padding:16px;text-decoration:none;color:var(--fg)}
+.card:hover{border-color:var(--accent)}
+.card b{display:block;font:700 18px var(--font-display);color:var(--accent);margin-bottom:4px}
+.card span{color:var(--muted);font-size:14.5px}
+.steps{counter-reset:s;list-style:none;padding:0}
+.steps li{counter-increment:s;position:relative;padding:2px 0 14px 46px;max-width:68ch}
+.steps li::before{content:counter(s);position:absolute;left:0;top:0;width:32px;height:32px;display:grid;place-items:center;background:var(--accent-fill);color:var(--on-accent);font:700 16px var(--font-display);border-radius:4px}
+.pager{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;margin-top:48px;padding-top:18px;border-top:1px solid var(--line)}
+.pager a{text-decoration:none;border:1px solid var(--line);padding:8px 14px;border-radius:6px;background:var(--surface);color:var(--fg);font-size:14.5px}
+.pager a:hover{border-color:var(--accent)}
+.ver{border-left:2px solid var(--line);padding:0 0 6px 18px;margin:0 0 18px 4px;position:relative}
+.ver::before{content:"";position:absolute;left:-6px;top:6px;width:10px;height:10px;background:var(--accent-fill);border-radius:2px}
+.ver h3{margin:0 0 2px}
+.ver small{color:var(--muted)}
+@media (max-width:860px){
+  .shell{grid-template-columns:minmax(0,1fr);gap:16px}
+  .side{position:static;max-height:none;overflow:visible}
+  .menu-btn{display:block;width:100%;text-align:left;padding:9px 12px;border:1px solid var(--line);background:var(--surface);color:var(--fg);border-radius:6px;font:600 14px var(--font-body);margin-bottom:10px;cursor:pointer}
+  .navwrap{display:none}
+  .navwrap.open{display:block}
+  h1{font-size:32px}
+}
+@media (prefers-reduced-motion:no-preference){ article.on{animation:in .18s ease-out} @keyframes in{from{opacity:.4}to{opacity:1}} }
+</style>
+
+</head>
+<body>
+<div class="shell">
+<aside class="side">
+  <a class="brand" href="#home"><img src="data:image/png;base64,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" alt="Aura Awakening logo"><div><b>Aura Awakening</b><span>Datapack wiki · MC 26.3</span></div></a>
+  <input id="q" class="search" type="search" placeholder="Search the wiki" aria-label="Search the wiki" autocomplete="off">
+  <ul id="results" class="results"></ul>
+  <button class="menu-btn" id="menubtn" aria-expanded="false" aria-controls="navwrap">Pages ▾</button>
+  <div class="navwrap" id="navwrap"><nav class="nav" id="nav" aria-label="Wiki pages"></nav></div>
+</aside>
+
+<main id="main">
+
+<article data-page="home" data-group="Start" data-title="Home">
+  <h1>Aura Awakening</h1>
+  <p class="lede">A datapack that gives players a levelling "System". Survive a trial to awaken, pick one permanent path, then grow through levels, stats, mana and skills.</p>
+  <div class="cards">
+    <a class="card" href="#trial"><b>The Awakening Trial</b><span>300 kills, the Warden, the Wither, and a brush with death.</span></a>
+    <a class="card" href="#paths"><b>Choosing a Path</b><span>Shadow Monarch or Limitless. The choice is permanent.</span></a>
+    <a class="card" href="#stats"><b>Stats and Levels</b><span>XP, stat points, mana and every formula.</span></a>
+    <a class="card" href="#monarch"><b>Shadow Monarch</b><span>Six skills, extraction and an undead army.</span></a>
+    <a class="card" href="#limitless"><b>Limitless</b><span>Seven Gojo-inspired techniques up to Domain Expansion.</span></a>
+    <a class="card" href="#commands"><b>Commands</b><span>Every <code>/trigger</code>. No op needed.</span></a>
+  </div>
+  <h2>At a glance</h2>
+  <ul>
+    <li><b>Minecraft version:</b> 26.3 (data pack format 121).</li>
+    <li><b>Install:</b> drop the zip in <code>&lt;world&gt;/datapacks/</code> and run <code>/reload</code>. Server-side only, no mods.</li>
+    <li><b>Controls:</b> clickable chat menus and <code>/trigger</code> commands, so players never need operator permission.</li>
+    <li><b>Multiplayer:</b> every player has their own level, stats, mana and army.</li>
+    <li><b>Level cap:</b> 100.</li>
+  </ul>
+  <div class="note plan"><b>Planned, not in the pack yet</b>Demon Slayer and Demon paths, clans with friendly-fire protection, and a one-item skill cycler (right-click to cast, Q/F to cycle). This wiki documents only what the current pack does.</div>
+  <div class="pager"><span></span><a href="#install">Installation →</a></div>
+</article>
+
+<article data-page="install" data-group="Start" data-title="Installation">
+  <h1>Installation</h1>
+  <p class="lede">Three steps, and it works on any world.</p>
+  <ol class="steps">
+    <li><b>Download the zip.</b> Keep it zipped, or unzip it so the folder contains <code>pack.mcmeta</code> and <code>data/</code> directly.</li>
+    <li><b>Place it in your world.</b> Put it in <code>&lt;world&gt;/datapacks/</code>. On a server that is the <code>datapacks</code> folder inside the world folder.</li>
+    <li><b>Reload.</b> Run <span class="cmd">/reload</span> in game. Chat shows "Aura Awakening datapack loaded."</li>
+  </ol>
+  <div class="note"><b>Version</b>The pack declares format 121 for Minecraft 26.3. Other versions may refuse to load it or break its commands.</div>
+  <h2>Updating</h2>
+  <p>Replace the old zip and run <span class="cmd">/reload</span>. Scores are stored in the world, so levels, stats and shadows are kept.</p>
+  <h2>Uninstalling cleanly</h2>
+  <ol>
+    <li>Run <span class="cmd">/function sl:system/uninstall</span> once. It ends Combat Mode for everyone, removes all shadows, resets every player and deletes the scoreboards and team.</li>
+    <li>Delete the datapack from the <code>datapacks</code> folder and run <span class="cmd">/reload</span>.</li>
+  </ol>
+  <div class="pager"><a href="#home">← Home</a><a href="#trial">The Awakening Trial →</a></div>
+</article>
+
+<article data-page="trial" data-group="Start" data-title="The Awakening Trial">
+  <h1>The Awakening Trial</h1>
+  <p class="lede">Nobody starts with the System. Players earn it by passing a three-part trial.</p>
+  <h2>Requirements</h2>
+  <ol class="steps">
+    <li><b>Slay 300 monsters.</b> Counted from the first time the pack sees you, using Minecraft's own mob-kill statistic.</li>
+    <li><b>Slay the Warden.</b> Marks the first seal.</li>
+    <li><b>Slay the Wither.</b> Marks the second seal.</li>
+    <li><b>Reach the brink of death.</b> Once all three are done, you must be at <b>1.5 hearts or less</b> (3 health points).</li>
+  </ol>
+  <p>Check progress at any time with <span class="cmd">/trigger sl_trial</span>. It shows kills out of 300 and whether the Warden and Wither are slain.</p>
+  <h2>What you see</h2>
+  <ul>
+    <li>The first time you appear in the world you get a short message that "something ancient stirs".</li>
+    <li>Killing the Warden and the Wither each prints a hint from "???".</li>
+    <li>When the kills and both bosses are done, you are told that the System only chooses those at the edge of death. Drop to 1.5 hearts or less and you awaken.</li>
+  </ul>
+  <h2>On awakening</h2>
+  <ul>
+    <li>Level 1, 0 XP and 3 unspent stat points.</li>
+    <li>Max mana is calculated and your mana is filled.</li>
+    <li>You join the purple <code>sl_shadow</code> team (no friendly fire between awakened players and shadows).</li>
+    <li>The extraction prompt is switched on.</li>
+    <li>You are asked to choose your path.</li>
+  </ul>
+  <div class="note warn"><b>Before awakening</b>You fight the bosses by ordinary means. No skills or shadows exist until you awaken.</div>
+  <p>Admins can skip the trial with <span class="cmd">/function sl:system/force_awaken</span>, run as the player.</p>
+  <div class="pager"><a href="#install">← Installation</a><a href="#paths">Choosing a Path →</a></div>
+</article>
+
+<article data-page="paths" data-group="Playing" data-title="Choosing a Path">
+  <h1>Choosing a Path</h1>
+  <p class="lede">Right after awakening you pick one path. It is permanent unless an admin resets your System.</p>
+  <div class="tw"><table>
+    <thead><tr><th>Path</th><th>Button</th><th>Trigger</th><th>You get</th></tr></thead>
+    <tbody>
+      <tr><td><b>Shadow Monarch</b></td><td>[ARISE]</td><td><code>/trigger sl_pathsel set 1</code></td><td>Skills 1 to 6, Arise, Shadow Extraction, the shadow army, boss shadows and a Knight Killer dagger.</td></tr>
+      <tr><td><b>Limitless</b></td><td>[LIMITLESS]</td><td><code>/trigger sl_pathsel set 2</code></td><td>Skills 7 to 13: Blue, Red, Infinity, Six Eyes, Reverse Cursed Technique, Hollow Purple and Domain Expansion.</td></tr>
+    </tbody></table></div>
+  <p>Both paths share the same levels, stats, mana and HUD. Only the skill set differs.</p>
+  <h2>Rules</h2>
+  <ul>
+    <li>Until you choose, skill and army commands show the path prompt instead.</li>
+    <li>A skill from the other path gives an error and does nothing.</li>
+    <li>Extraction, Arise and boss shadows are Monarch-only. Limitless players do not get the extraction prompt.</li>
+    <li>The <b>Knight Killer</b> is an iron sword with +5 attack damage and a faster swing. Monarchs receive it when they choose.</li>
+    <li>To pick again, an admin runs <span class="cmd">/function sl:system/reset</span> on the player, who then awakens again and chooses anew.</li>
+  </ul>
+  <div class="pager"><a href="#trial">← The Awakening Trial</a><a href="#stats">Stats and Levels →</a></div>
+</article>
+
+<article data-page="stats" data-group="Playing" data-title="Stats and Levels">
+  <h1>Stats and Levels</h1>
+  <p class="lede">Kills give XP, levels give stat points, stat points shape your power.</p>
+  <h2>Earning XP</h2>
+  <ul>
+    <li>Every monster kill is worth <b>5 XP</b>.</li>
+    <li>Tougher monsters add bonus XP on top (see the <a href="#extraction">extraction tiers</a>): +5 to +20.</li>
+    <li>Bosses: <b>Warden +600</b>, <b>Wither +500</b>, <b>Ender Dragon +1000</b>.</li>
+  </ul>
+  <h2>Levelling</h2>
+  <div class="formula">XP needed for next level = level × 10 + 20
+Level 1 → 2: 30 XP    Level 10 → 11: 120 XP    Level 50 → 51: 520 XP
+Cap: level 100. Past it, XP no longer converts to levels.</div>
+  <p>Each level gives <b>3 stat points</b> (you also start with 3). A level up refills your mana, heals you and shows a title. When a level unlocks a skill, chat tells you.</p>
+  <h2>The five stats</h2>
+  <p>Spend points with the <b>[+]</b> buttons in <span class="cmd">/trigger sl_menu</span>, or <code>/trigger sl_stat set 1..5</code>. Each point costs one stat point.</p>
+  <div class="tw"><table>
+    <thead><tr><th>#</th><th>Stat</th><th>Per point</th><th>Also used for</th></tr></thead>
+    <tbody>
+      <tr><td class="n">1</td><td><b>STR</b></td><td>+0.4 attack damage</td><td>Dagger Rush damage. Half of it adds to your shadows' damage.</td></tr>
+      <tr><td class="n">2</td><td><b>AGI</b></td><td>+2% movement speed</td><td></td></tr>
+      <tr><td class="n">3</td><td><b>SENSE</b></td><td>+0.5 luck</td><td></td></tr>
+      <tr><td class="n">4</td><td><b>VIT</b></td><td>+2 max health (1 heart) and +0.5 armor</td><td></td></tr>
+      <tr><td class="n">5</td><td><b>INT</b></td><td>+10 max mana, faster mana regen</td><td>Spell damage, extraction chance, army size, boss odds.</td></tr>
+    </tbody></table></div>
+  <h2>Mana</h2>
+  <div class="formula">Max mana   = INT × 10 + level × 2 + 50
+Regen      = INT ÷ 4 + 2  per second   (whole numbers, capped at max)</div>
+  <p>The actionbar HUD refreshes about four times a second: <b>Lv, XP/needed, MP and unspent points</b>.</p>
+  <div class="note"><b>Example</b>A level 30 player with INT 10 has 10 × 10 + 30 × 2 + 50 = <b>210 max mana</b> and regenerates 10 ÷ 4 + 2 = <b>4 per second</b>.</div>
+  <div class="pager"><a href="#paths">← Choosing a Path</a><a href="#combat">Combat Mode →</a></div>
+</article>
+
+<article data-page="combat" data-group="Playing" data-title="Combat Mode">
+  <h1>Combat Mode</h1>
+  <p class="lede">Turns your hotbar into your skills. Right-click an item to cast it.</p>
+  <h2>Turning it on and off</h2>
+  <ul>
+    <li><span class="cmd">/trigger sl_combat set 1</span> toggles it. The <b>[Combat Mode]</b> button in the status and skill menus does the same.</li>
+    <li>You must have chosen a path first.</li>
+  </ul>
+  <h2>What happens</h2>
+  <ol>
+    <li><b>On:</b> your 9 hotbar slots are saved, emptied, and slots 1 to 7 are filled with your path's skill items (glowing carrots on a stick).</li>
+    <li><b>Right-click</b> a skill item to use that skill. Level and mana checks still apply, so a locked skill just tells you its level.</li>
+    <li><b>Off:</b> skill items are removed and each saved item returns to its slot. If a slot was filled meanwhile, the saved item drops at your feet.</li>
+  </ol>
+  <div class="tw"><table>
+    <thead><tr><th>Slot</th><th>Shadow Monarch</th><th>Limitless</th></tr></thead>
+    <tbody>
+      <tr><td class="n">1</td><td>Dagger Rush</td><td>Limitless: Blue</td></tr>
+      <tr><td class="n">2</td><td>Stealth</td><td>Reversal: Red</td></tr>
+      <tr><td class="n">3</td><td>Ruler's Authority</td><td>Infinity (toggle)</td></tr>
+      <tr><td class="n">4</td><td>Bloodlust</td><td>Six Eyes</td></tr>
+      <tr><td class="n">5</td><td>Shadow Exchange</td><td>Reverse Cursed Technique</td></tr>
+      <tr><td class="n">6</td><td>Monarch's Domain</td><td>Hollow Purple</td></tr>
+      <tr><td class="n">7</td><td>Arise</td><td>Domain Expansion: Unlimited Void</td></tr>
+    </tbody></table></div>
+  <h2>Safety</h2>
+  <ul>
+    <li>Dying while in Combat Mode ends it and restores your hotbar when you respawn.</li>
+    <li>Dropped skill items are deleted, so they cannot be given to anyone.</li>
+    <li>Resetting the System while in Combat Mode restores your hotbar first.</li>
+  </ul>
+  <div class="pager"><a href="#stats">← Stats and Levels</a><a href="#commands">Commands →</a></div>
+</article>
+
+<article data-page="commands" data-group="Playing" data-title="Commands">
+  <h1>Commands</h1>
+  <p class="lede">Everything players need is a <code>/trigger</code>, so it works without operator permission. Click a command to copy it.</p>
+  <div class="tw"><table>
+    <thead><tr><th>Command</th><th>Does</th></tr></thead>
+    <tbody>
+      <tr><td><span class="cmd">/trigger sl_menu</span></td><td>Status screen with clickable stat buttons.</td></tr>
+      <tr><td><span class="cmd">/trigger sl_menu set 2</span></td><td>Toggle the automatic "extract?" prompt (Monarch).</td></tr>
+      <tr><td><span class="cmd">/trigger sl_menu set 3</span></td><td>Skill list with [Use] buttons.</td></tr>
+      <tr><td><span class="cmd">/trigger sl_menu set 4</span></td><td>Toggle Combat Mode.</td></tr>
+      <tr><td><span class="cmd">/trigger sl_stat set 1</span></td><td>Spend a point: 1 STR, 2 AGI, 3 SENSE, 4 VIT, 5 INT.</td></tr>
+      <tr><td><span class="cmd">/trigger sl_skill set 1</span></td><td>Use a skill. 1 to 6 Monarch, 7 to 13 Limitless.</td></tr>
+      <tr><td><span class="cmd">/trigger sl_pathsel set 1</span></td><td>Choose a path: 1 Shadow Monarch, 2 Limitless.</td></tr>
+      <tr><td><span class="cmd">/trigger sl_combat set 1</span></td><td>Toggle Combat Mode.</td></tr>
+      <tr><td><span class="cmd">/trigger sl_extract set 1</span></td><td>Attempt Shadow Extraction (within 10 seconds of a kill). Value 2 dismisses the offer.</td></tr>
+      <tr><td><span class="cmd">/trigger sl_army set 1</span></td><td>Arise. 2 dismiss all, 3 roster.</td></tr>
+      <tr><td><span class="cmd">/trigger sl_army set 11</span></td><td>Summon boss shadow: 11 Warden, 12 Wither, 13 Ender Dragon.</td></tr>
+      <tr><td><span class="cmd">/trigger sl_trial</span></td><td>Show trial progress before you awaken.</td></tr>
+    </tbody></table></div>
+  <p>The clickable chat buttons run these same triggers, so anything you can click you can also type.</p>
+  <div class="pager"><a href="#combat">← Combat Mode</a><a href="#monarch">Shadow Monarch skills →</a></div>
+</article>
+
+<article data-page="monarch" data-group="Shadow Monarch" data-title="Monarch Skills">
+  <h1>Shadow Monarch Skills</h1>
+  <p class="lede">Six skills plus Arise. They hit hostile monsters only, never passive animals, villagers, other players or your own shadows.</p>
+  <div class="tw"><table>
+    <thead><tr><th>#</th><th>Skill</th><th>Level</th><th>Mana</th><th>Effect</th></tr></thead>
+    <tbody>
+      <tr><td class="n">1</td><td><b>Dagger Rush</b></td><td class="n">1</td><td class="n">10</td><td>Dash about 7 blocks forward, damaging every enemy you pass. Damage = level ÷ 5 + STR + 4.</td></tr>
+      <tr><td class="n">2</td><td><b>Stealth</b></td><td class="n">5</td><td class="n">20</td><td>Invisible for 15 seconds.</td></tr>
+      <tr><td class="n">3</td><td><b>Ruler's Authority</b></td><td class="n">10</td><td class="n">25</td><td>Pulls every enemy within 14 blocks toward you, lifts them briefly and slows them (Slowness III, 3 s). Damage = level ÷ 4 + INT ÷ 2 + 6.</td></tr>
+      <tr><td class="n">4</td><td><b>Bloodlust</b></td><td class="n">15</td><td class="n">30</td><td>Enemies within 14 blocks get Slowness IV, Weakness III and Glowing for 8 seconds.</td></tr>
+      <tr><td class="n">5</td><td><b>Shadow Exchange</b></td><td class="n">20</td><td class="n">20</td><td>Swap places with your nearest shadow within 80 blocks. Refunds the mana if you have none in range.</td></tr>
+      <tr><td class="n">6</td><td><b>Monarch's Domain</b></td><td class="n">30</td><td class="n">50</td><td>Enemies within 18 blocks: Slowness III, Weakness II, Glowing for 10 s. Your shadows within 24 blocks get Strength III, Speed II and Regeneration III. You get Strength II. All for 10 seconds.</td></tr>
+      <tr><td class="n">Arise</td><td><b>Arise</b></td><td class="n">1</td><td class="n">30</td><td>Summon your shadow army. See <a href="#army">Shadow Army</a>.</td></tr>
+    </tbody></table></div>
+  <h2>Which monsters are hit</h2>
+  <p>Zombies (including villager, husk, drowned), skeletons (stray, wither skeleton, bogged), spiders, creepers, witches, illagers (pillager, vindicator, evoker, ravager), vex, phantoms, blazes, ghasts, slimes, magma cubes, silverfish, endermites, hoglins, zoglins, piglin brutes, shulkers, breezes and creakings.</p>
+  <div class="note warn"><b>Not hit</b>Endermen, the Warden, the Wither and the Ender Dragon are not on the target list. Skills and shadows leave them alone, so those fights are yours to win by hand.</div>
+  <p>Skills show a red message if you are under the level or short of mana. Nothing is spent when a cast is refused.</p>
+  <div class="pager"><a href="#commands">← Commands</a><a href="#extraction">Shadow Extraction →</a></div>
+</article>
+
+<article data-page="extraction" data-group="Shadow Monarch" data-title="Shadow Extraction">
+  <h1>Shadow Extraction</h1>
+  <p class="lede">After killing certain monsters you get ten seconds to try to bind their shadow to your army.</p>
+  <h2>How it works</h2>
+  <ol class="steps">
+    <li><b>Kill a supported monster.</b> If the prompt is on, chat offers an <b>[Extract]</b> button.</li>
+    <li><b>Attempt within 10 seconds.</b> Click it, or use <span class="cmd">/trigger sl_extract set 1</span>. Only your latest kill can be extracted.</li>
+    <li><b>Pay 25 mana.</b> It is spent whether or not it succeeds.</li>
+    <li><b>Roll.</b> Success adds one shadow of that type to your roster. Failure: "the shadow crumbled to dust".</li>
+  </ol>
+  <p>Turn the automatic prompt off with <span class="cmd">/trigger sl_menu set 2</span>. You can still extract by command during the window.</p>
+  <h2>Chance</h2>
+  <div class="formula">chance % = INT × 2 + level ÷ 2 + 45 − (tier × 10)
+clamped between 10% and 95%</div>
+  <p>Example: level 30, INT 10 gives 80% for a tier 0 monster, 50% for tier 3 and 40% for a Ravager.</p>
+  <h2>Supported monsters</h2>
+  <div class="tw"><table>
+    <thead><tr><th>Tier</th><th>Monsters</th><th>Chance</th><th>Bonus XP per kill</th></tr></thead>
+    <tbody>
+      <tr><td class="n">0</td><td>Zombie, Skeleton, Spider, Cave Spider, Silverfish</td><td class="n">base</td><td class="n">0</td></tr>
+      <tr><td class="n">1</td><td>Husk, Drowned, Stray, Bogged, Creeper, Phantom, Pillager</td><td class="n">−10</td><td class="n">+5</td></tr>
+      <tr><td class="n">2</td><td>Witch, Vindicator, Blaze, Hoglin</td><td class="n">−20</td><td class="n">+10</td></tr>
+      <tr><td class="n">3</td><td>Wither Skeleton, Evoker, Piglin Brute, Enderman, Iron Golem</td><td class="n">−30</td><td class="n">+15</td></tr>
+      <tr><td class="n">4</td><td>Ravager</td><td class="n">−40</td><td class="n">+20</td></tr>
+      <tr><td class="n">5 to 7</td><td>Warden, Wither, Ender Dragon (see <a href="#bosses">Boss Shadows</a>)</td><td class="n">special</td><td class="n">+600 / +500 / +1000</td></tr>
+    </tbody></table></div>
+  <p>Higher tiers cost you chance but give more XP, so a strong INT matters most. Each extraction adds one to your count for that type, and you can hold many of one type.</p>
+  <div class="pager"><a href="#monarch">← Monarch skills</a><a href="#army">Shadow Army →</a></div>
+</article>
+
+<article data-page="army" data-group="Shadow Monarch" data-title="Shadow Army">
+  <h1>Shadow Army</h1>
+  <p class="lede">Your extracted shadows fight beside you until you dismiss them.</p>
+  <h2>Arise</h2>
+  <ul>
+    <li>Costs <b>30 mana</b>. Use the Arise item, <span class="cmd">/trigger sl_army set 1</span> or the menu button.</li>
+    <li>It first sends away your current shadows, then summons from your roster up to your army cap.</li>
+    <li>If your roster is empty, the mana is refunded and you are told to extract first.</li>
+  </ul>
+  <div class="formula">army cap    = level ÷ 4 + INT + 3
+shadow damage per hit = level ÷ 4 + STR ÷ 2 + 4</div>
+  <div class="note warn"><b>Fill order</b>When the cap is lower than your roster, shadows are summoned in the roster's fixed order, starting with zombies, then husks, drowned, skeletons and so on. Higher-tier types come last and may not fit.</div>
+  <h2>Behaviour</h2>
+  <ul>
+    <li>Shadows follow you and teleport to you if they fall more than 32 blocks behind.</li>
+    <li>They attack hostile monsters within 14 blocks, striking about every 0.6 seconds, and ignore passive mobs.</li>
+    <li>Each has Resistance II, Fire Resistance and Regeneration with no time limit.</li>
+    <li>They glow purple and are named "Shadow Zombie" and so on. They drop nothing and do not despawn.</li>
+    <li>They are on your team, so they never hurt you or each other.</li>
+    <li>If you leave the game, your shadows are dismissed.</li>
+  </ul>
+  <h2>Managing the army</h2>
+  <ul>
+    <li><span class="cmd">/trigger sl_army set 3</span> prints your roster with counts and boss buttons.</li>
+    <li><span class="cmd">/trigger sl_army set 2</span> dismisses every shadow.</li>
+  </ul>
+  <div class="pager"><a href="#extraction">← Shadow Extraction</a><a href="#bosses">Boss Shadows →</a></div>
+</article>
+
+<article data-page="bosses" data-group="Shadow Monarch" data-title="Boss Shadows">
+  <h1>Boss Shadows</h1>
+  <p class="lede">The Warden, the Wither and the Ender Dragon can be extracted as one-of-a-kind shadows. It is difficult and risky.</p>
+  <div class="tw"><table>
+    <thead><tr><th>Boss</th><th>Requires</th><th>Extract cost</th><th>Summon cost</th><th>Odds</th></tr></thead>
+    <tbody>
+      <tr><td><b>Warden</b></td><td>Level 60, INT 15</td><td class="n">100</td><td class="n">100</td><td>INT ÷ 5 + level ÷ 10 + 3</td></tr>
+      <tr><td><b>Wither</b></td><td>Level 75, INT 20</td><td class="n">150</td><td class="n">150</td><td>same, minus 3</td></tr>
+      <tr><td><b>Ender Dragon</b></td><td>Level 90, INT 25</td><td class="n">200</td><td class="n">200</td><td>same, minus 6</td></tr>
+    </tbody></table></div>
+  <p>Odds are clamped between <b>2% and 20%</b>. For example level 60 with INT 15 gives 12% for the Warden.</p>
+  <h2>Extracting</h2>
+  <ul>
+    <li>If you are under the requirements when the boss dies, chat tells you what is missing and nothing is offered.</li>
+    <li>Otherwise you get a 10 second window with an <b>[Attempt]</b> button.</li>
+    <li>Each attempt, pass or fail, starts a <b>10 minute</b> boss cooldown.</li>
+    <li>You can hold each boss shadow only once.</li>
+  </ul>
+  <div class="note warn"><b>Backlash</b>On failure your mana drops to 0 and you get Weakness II for 30 s, Slowness II for 15 s and Nausea for 8 s. The shadow is lost.</div>
+  <h2>Summoning</h2>
+  <p>Use the roster buttons or <code>/trigger sl_army set 11</code> (Warden), <code>12</code> (Wither), <code>13</code> (Ender Dragon). Only one boss shadow can be out at a time, and summoning another replaces it.</p>
+  <ul>
+    <li><b>Warden:</b> melee strikes and a sonic boom at range.</li>
+    <li><b>Wither:</b> fires skulls that inflict Wither at up to three targets.</li>
+    <li><b>Ender Dragon:</b> flies after enemies and sweeps everything within 10 blocks.</li>
+  </ul>
+  <p>Boss shadows follow the same team and target rules as normal shadows and scale from your level and STR.</p>
+  <div class="pager"><a href="#army">← Shadow Army</a><a href="#limitless">Limitless skills →</a></div>
+</article>
+
+<article data-page="limitless" data-group="Limitless" data-title="Limitless Skills">
+  <h1>Limitless Skills</h1>
+  <p class="lede">Seven Gojo-inspired techniques. They use the same levels and mana as everything else and hit hostile monsters only. Beams never break blocks.</p>
+  <div class="tw"><table>
+    <thead><tr><th>#</th><th>Skill</th><th>Level</th><th>Mana</th><th>Effect</th></tr></thead>
+    <tbody>
+      <tr><td class="n">7</td><td><b>Limitless: Blue</b></td><td class="n">12</td><td class="n">20</td><td>Creates a point 6 blocks ahead and pulls enemies within 14 blocks of it toward it, slowing them (Slowness IV, 3 s). Damage = level ÷ 5 + INT ÷ 2 + 2.</td></tr>
+      <tr><td class="n">8</td><td><b>Reversal: Red</b></td><td class="n">18</td><td class="n">30</td><td>A piercing 12-block blast that launches enemies about 6 blocks away. Damage = level ÷ 3 + INT + 8.</td></tr>
+      <tr><td class="n">9</td><td><b>Infinity</b></td><td class="n">22</td><td class="n">0</td><td><b>Toggle.</b> While on: Resistance III, every mob and player within about 3.5 blocks is pushed away and projectiles within 4 blocks vanish. Use it again to turn off. Items and similar non-creatures are ignored.</td></tr>
+      <tr><td class="n">10</td><td><b>Six Eyes</b></td><td class="n">25</td><td class="n">25</td><td>2 minutes of Night Vision, Speed and Haste. Enemies within 32 blocks glow for 15 seconds.</td></tr>
+      <tr><td class="n">11</td><td><b>Reverse Cursed Technique</b></td><td class="n">28</td><td class="n">40</td><td>Instant Health V, Regeneration IV for 8 s, Absorption III for 20 s. Cures poison, wither, slowness, weakness, blindness, nausea, hunger and mining fatigue.</td></tr>
+      <tr><td class="n">12</td><td><b>Hollow Purple</b></td><td class="n">35</td><td class="n">80</td><td>A 40-block beam with a 3.5-block hit radius. Damage = level + INT × 2 + 20.</td></tr>
+      <tr><td class="n">13</td><td><b>Domain Expansion: Unlimited Void</b></td><td class="n">40</td><td class="n">100</td><td>Every enemy within 20 blocks for 12 s: Slowness VII, Weakness V, Mining Fatigue V, Darkness, Nausea, Glowing. You get Strength III, Speed II and Resistance II.</td></tr>
+    </tbody></table></div>
+  <div class="note"><b>Infinity</b>It pushes players as well as mobs, so it also keeps other players at arm's length.</div>
+  <p>Hostile target list: see <a href="#monarch">Shadow Monarch skills</a>. Endermen and the three bosses are not affected.</p>
+  <div class="pager"><a href="#bosses">← Boss Shadows</a><a href="#admin">Admin tools →</a></div>
+</article>
+
+<article data-page="admin" data-group="Reference" data-title="Admin Tools">
+  <h1>Admin Tools</h1>
+  <p class="lede">These are <code>/function</code> commands and need operator permission. Run them as the player they affect.</p>
+  <div class="tw"><table>
+    <thead><tr><th>Command</th><th>Does</th></tr></thead>
+    <tbody>
+      <tr><td><span class="cmd">/function sl:system/force_awaken</span></td><td>Awakens the player immediately and skips the trial.</td></tr>
+      <tr><td><span class="cmd">/function sl:debug/xp</span></td><td>Gives 100 XP to test levelling.</td></tr>
+      <tr><td><span class="cmd">/function sl:system/reset</span></td><td>Resets one player's System: level, stats, path, shadows, kill counts and trial. Ends Combat Mode first and removes their attribute bonuses. They awaken and choose again.</td></tr>
+      <tr><td><span class="cmd">/function sl:system/purge_shadows</span></td><td>Kills every shadow in the world.</td></tr>
+      <tr><td><span class="cmd">/function sl:system/uninstall</span></td><td>Full clean-up before deleting the pack. See <a href="#install">Installation</a>.</td></tr>
+    </tbody></table></div>
+  <div class="note"><b>Example</b>To test a Limitless build quickly: <code>/function sl:system/force_awaken</code>, choose Limitless, then run <code>/function sl:debug/xp</code> repeatedly until the skills unlock.</div>
+  <div class="pager"><a href="#limitless">← Limitless skills</a><a href="#faq">FAQ →</a></div>
+</article>
+
+<article data-page="faq" data-group="Reference" data-title="FAQ">
+  <h1>FAQ</h1>
+  <h3>Nothing happens when I use a skill.</h3>
+  <p>You have not chosen a path yet, or you chose the other one. Run <span class="cmd">/trigger sl_menu</span> and check "Path". If it is blank, click a path button.</p>
+  <h3>"Skill locked. Requires level N."</h3>
+  <p>Your level is too low. The skill list at <code>/trigger sl_menu set 3</code> shows each level.</p>
+  <h3>My skills do not hit the Warden, Wither, Dragon or Enderman.</h3>
+  <p>They are not on the target list. This applies to your shadows too.</p>
+  <h3>Can I hurt other players?</h3>
+  <p>No. Skills and shadows only target monsters. Awakened players share a no-friendly-fire team, so normal melee between them is also blocked. Infinity does push players away.</p>
+  <h3>Do all players share levels or armies?</h3>
+  <p>No. Everything is per player.</p>
+  <h3>Can I change my path?</h3>
+  <p>Only if an admin resets you with <span class="cmd">/function sl:system/reset</span>. You then re-awaken and choose again.</p>
+  <h3>My hotbar vanished.</h3>
+  <p>You are in Combat Mode. Run <span class="cmd">/trigger sl_combat set 1</span> to get it back.</p>
+  <h3>The pack does not load.</h3>
+  <p>It is built for Minecraft 26.3 (format 121). Check the version and that <code>pack.mcmeta</code> sits at the top level of the zip or folder.</p>
+  <h3>My shadows disappeared.</h3>
+  <p>They are dismissed when you leave the game. Use Arise again after you rejoin.</p>
+  <div class="pager"><a href="#admin">← Admin Tools</a><a href="#history">Version History →</a></div>
+</article>
+
+<article data-page="history" data-group="Reference" data-title="Version History">
+  <h1>Version History</h1>
+  <p class="lede">Version numbers are informal, ordered by the time stamps in each build.</p>
+  <div class="ver"><h3>v5 <span class="tag">current</span></h3><small>8 Nov, 20:24</small>
+    <ul><li>Infinity became a no-mana toggle that also pushes players and deletes projectiles.</li><li>New <code>inert</code> entity tag stops it shoving items and non-creatures.</li><li>Skill menu and Limitless item text updated.</li></ul></div>
+  <div class="ver"><h3>v4: Aura Awakening</h3><small>8 Nov, 20:19</small>
+    <ul><li>Renamed from Solo Leveling to Aura Awakening.</li><li>Permanent path choice at awakening: Shadow Monarch or Limitless.</li><li>Combat Mode with saved hotbar and right-click skill items.</li><li>Path-gated skills, army and extraction.</li></ul></div>
+  <div class="ver"><h3>v3: Gojo merged</h3><small>8 Nov, 20:02</small>
+    <ul><li>Skills 7 to 13 added to the main pack, using the same levels and mana.</li><li>Every player had all 13 skills at this stage.</li></ul></div>
+  <div class="ver"><h3>Gojo Powers prototype</h3><small>8 Nov, 19:46</small>
+    <ul><li>Separate small pack with passive Infinity, Red and Domain. No levels or mana. Not part of the main line.</li></ul></div>
+  <div class="ver"><h3>v2: Trial and bosses</h3><small>8 Nov, 18:02</small>
+    <ul><li>Awakening locked behind the 300 kills, Warden, Wither and near-death trial.</li><li>Boss shadows for Warden, Wither and Ender Dragon with their own attacks, odds and cooldown.</li><li>Army cap calculation and roster with boss buttons.</li></ul></div>
+  <div class="ver"><h3>v1: Shadow Monarch</h3><small>8 Nov, 17:38</small>
+    <ul><li>XP, levels to 100, five stats, mana and HUD.</li><li>Six skills, Shadow Extraction for 22 mob types, and Arise.</li></ul></div>
+  <h2>Planned</h2>
+  <div class="note plan"><b>Not built yet</b>Demon Slayer and Demon paths, clans with friendly-fire protection, and a single cast item cycled with Q and F. None of these exist in v5.</div>
+  <div class="pager"><a href="#faq">← FAQ</a><span></span></div>
+</article>
+
+</main>
+</div>
+
+<script>
+(function(){
+  var arts=[].slice.call(document.querySelectorAll('article[data-page]'));
+  var nav=document.getElementById('nav'), q=document.getElementById('q'), res=document.getElementById('results');
+  var navwrap=document.getElementById('navwrap'), mb=document.getElementById('menubtn');
+  var lastGroup='';
+  arts.forEach(function(a){
+    var g=a.getAttribute('data-group');
+    if(g!==lastGroup){var h=document.createElement('div');h.className='group';h.textContent=g;nav.appendChild(h);lastGroup=g;}
+    var l=document.createElement('a');l.href='#'+a.getAttribute('data-page');l.textContent=a.getAttribute('data-title');l.setAttribute('data-p',a.getAttribute('data-page'));nav.appendChild(l);
+  });
+  function show(){
+    var id=(location.hash||'#home').slice(1);
+    var found=arts.some(function(a){return a.getAttribute('data-page')===id;});
+    if(!found)id='home';
+    arts.forEach(function(a){a.classList.toggle('on',a.getAttribute('data-page')===id);});
+    [].forEach.call(nav.querySelectorAll('a'),function(l){if(l.getAttribute('data-p')===id)l.setAttribute('aria-current','page');else l.removeAttribute('aria-current');});
+    window.scrollTo(0,0);
+    navwrap.classList.remove('open');mb.setAttribute('aria-expanded','false');
+    q.value='';res.style.display='none';
+  }
+  window.addEventListener('hashchange',show);show();
+  mb.addEventListener('click',function(){var o=navwrap.classList.toggle('open');mb.setAttribute('aria-expanded',o?'true':'false');});
+  var idx=arts.map(function(a){return {id:a.getAttribute('data-page'),t:a.getAttribute('data-title'),x:a.textContent.replace(/\s+/g,' ')};});
+  q.addEventListener('input',function(){
+    var s=q.value.trim().toLowerCase();res.innerHTML='';
+    if(s.length<2){res.style.display='none';return;}
+    var n=0;
+    idx.forEach(function(d){
+      var i=d.x.toLowerCase().indexOf(s);
+      if(i<0&&d.t.toLowerCase().indexOf(s)<0)return;
+      n++;var li=document.createElement('li'),a=document.createElement('a');a.href='#'+d.id;
+      a.textContent=d.t;var sm=document.createElement('small');
+      if(i>=0){sm.textContent='…'+d.x.slice(Math.max(0,i-30),i+60)+'…';}
+      a.appendChild(sm);li.appendChild(a);res.appendChild(li);
+    });
+    if(!n){var li=document.createElement('li'),a=document.createElement('a');a.href='#';a.textContent='No matches';a.addEventListener('click',function(e){e.preventDefault();});li.appendChild(a);res.appendChild(li);}
+    res.style.display='block';
+  });
+  document.addEventListener('click',function(e){
+    var c=e.target.closest&&e.target.closest('.cmd');if(!c)return;
+    var t=c.textContent.replace(/\s*copy(ed)?$/,'').trim();
+    function ok(){c.classList.add('done');setTimeout(function(){c.classList.remove('done');},1200);}
+    try{navigator.clipboard.writeText(t).then(ok,function(){sel(c);});}catch(x){sel(c);}
+  });
+  function sel(el){try{var r=document.createRange();r.selectNodeContents(el);var s=getSelection();s.removeAllRanges();s.addRange(r);}catch(x){}}
+})();
+</script>
+
+</body>
+</html>
