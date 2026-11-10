@@ -92,6 +92,10 @@ td.n{font-variant-numeric:tabular-nums;white-space:nowrap}
 .ver::before{content:"";position:absolute;left:-6px;top:6px;width:10px;height:10px;background:var(--accent-fill);border-radius:2px}
 .ver h3{margin:0 0 2px}
 .ver small{color:var(--muted)}
+.dot{display:inline-block;width:11px;height:11px;border-radius:3px;margin-right:7px;border:1px solid var(--line);vertical-align:-1px}
+.jump{display:flex;flex-wrap:wrap;gap:8px;margin:14px 0}
+.jump a{border:1px solid var(--line);background:var(--surface);padding:4px 11px;border-radius:99px;font-size:13.5px;text-decoration:none;color:var(--fg)}
+.jump a:hover{border-color:var(--accent)}
 @media (max-width:860px){
   .shell{grid-template-columns:minmax(0,1fr);gap:16px}
   .side{position:static;max-height:none;overflow:visible}
@@ -113,383 +117,463 @@ td.n{font-variant-numeric:tabular-nums;white-space:nowrap}
   <button class="menu-btn" id="menubtn" aria-expanded="false" aria-controls="navwrap">Pages ▾</button>
   <div class="navwrap" id="navwrap"><nav class="nav" id="nav" aria-label="Wiki pages"></nav></div>
 </aside>
-
 <main id="main">
-
 <article data-page="home" data-group="Start" data-title="Home">
-  <h1>Aura Awakening</h1>
-  <p class="lede">A datapack that gives players a levelling "System". Survive a trial to awaken, pick one permanent path, then grow through levels, stats, mana and skills.</p>
-  <div class="cards">
-    <a class="card" href="#trial"><b>The Awakening Trial</b><span>300 kills, the Warden, the Wither, and a brush with death.</span></a>
-    <a class="card" href="#paths"><b>Choosing a Path</b><span>Shadow Monarch or Limitless. The choice is permanent.</span></a>
-    <a class="card" href="#stats"><b>Stats and Levels</b><span>XP, stat points, mana and every formula.</span></a>
-    <a class="card" href="#monarch"><b>Shadow Monarch</b><span>Six skills, extraction and an undead army.</span></a>
-    <a class="card" href="#limitless"><b>Limitless</b><span>Seven Gojo-inspired techniques up to Domain Expansion.</span></a>
-    <a class="card" href="#commands"><b>Commands</b><span>Every <code>/trigger</code>. No op needed.</span></a>
-  </div>
-  <h2>At a glance</h2>
-  <ul>
-    <li><b>Minecraft version:</b> 26.3 (data pack format 121).</li>
-    <li><b>Install:</b> drop the zip in <code>&lt;world&gt;/datapacks/</code> and run <code>/reload</code>. Server-side only, no mods.</li>
-    <li><b>Controls:</b> clickable chat menus and <code>/trigger</code> commands, so players never need operator permission.</li>
-    <li><b>Multiplayer:</b> every player has their own level, stats, mana and army.</li>
-    <li><b>Level cap:</b> 100.</li>
-  </ul>
-  <div class="note plan"><b>Planned, not in the pack yet</b>Demon Slayer and Demon paths, clans with friendly-fire protection, and a one-item skill cycler (right-click to cast, Q/F to cycle). This wiki documents only what the current pack does.</div>
-  <div class="pager"><span></span><a href="#install">Installation →</a></div>
+<h1>Aura Awakening</h1>
+<p class="lede">A datapack that gives players a levelling "System". Survive a trial to awaken, pick one permanent path, then grow through levels, stats, mana and skills. Four paths, one weapon, and clans.</p>
+<div class="cards">
+<a class="card" href="#trial"><b>The Awakening Trial</b><span>300 kills, the Warden, the Wither, and a brush with death.</span></a>
+<a class="card" href="#paths"><b>Choosing a Path</b><span>Shadow Monarch, Limitless, Demon Slayer or Demon. Permanent.</span></a>
+<a class="card" href="#weapon"><b>Weapon and Casting</b><span>Right-click to cast. F and Q cycle your skills.</span></a>
+<a class="card" href="#slayer"><b>Demon Slayer</b><span>The System picks your breathing style from how you played.</span></a>
+<a class="card" href="#demon"><b>Demon</b><span>Blood Demon Arts, Moon ranks, Moon Breathing and sunlight.</span></a>
+<a class="card" href="#clans"><b>Clans</b><span>Found a clan so your skills and shadows never hurt your friends.</span></a>
+</div>
+<h2>At a glance</h2>
+<ul>
+<li><b>Minecraft version:</b> 26.3 (data pack format 121).</li>
+<li><b>Install:</b> drop the zip in <code>&lt;world&gt;/datapacks/</code> and run <code>/reload</code>. Server-side only, no mods.</li>
+<li><b>Controls:</b> one weapon item plus clickable chat menus and <code>/trigger</code> commands. Players never need operator permission.</li>
+<li><b>Multiplayer:</b> every player has their own level, stats, mana, skills and army.</li>
+<li><b>Level cap:</b> 100.</li>
+</ul>
+<div class="note plan"><b>New in v6</b>Demon Slayer and Demon paths, clans, and a single weapon that replaces the old hotbar Combat Mode. See the <a href="#history">version history</a>.</div>
 </article>
-
 <article data-page="install" data-group="Start" data-title="Installation">
-  <h1>Installation</h1>
-  <p class="lede">Three steps, and it works on any world.</p>
-  <ol class="steps">
-    <li><b>Download the zip.</b> Keep it zipped, or unzip it so the folder contains <code>pack.mcmeta</code> and <code>data/</code> directly.</li>
-    <li><b>Place it in your world.</b> Put it in <code>&lt;world&gt;/datapacks/</code>. On a server that is the <code>datapacks</code> folder inside the world folder.</li>
-    <li><b>Reload.</b> Run <span class="cmd">/reload</span> in game. Chat shows "Aura Awakening datapack loaded."</li>
-  </ol>
-  <div class="note"><b>Version</b>The pack declares format 121 for Minecraft 26.3. Other versions may refuse to load it or break its commands.</div>
-  <h2>Updating</h2>
-  <p>Replace the old zip and run <span class="cmd">/reload</span>. Scores are stored in the world, so levels, stats and shadows are kept.</p>
-  <h2>Uninstalling cleanly</h2>
-  <ol>
-    <li>Run <span class="cmd">/function sl:system/uninstall</span> once. It ends Combat Mode for everyone, removes all shadows, resets every player and deletes the scoreboards and team.</li>
-    <li>Delete the datapack from the <code>datapacks</code> folder and run <span class="cmd">/reload</span>.</li>
-  </ol>
-  <div class="pager"><a href="#home">← Home</a><a href="#trial">The Awakening Trial →</a></div>
+<h1>Installation</h1>
+<p class="lede">Three steps, and it works on any world.</p>
+<ol class="steps">
+<li><b>Download the zip.</b> Keep it zipped, or unzip it so the folder contains <code>pack.mcmeta</code> and <code>data/</code> directly.</li>
+<li><b>Place it in your world.</b> Put it in <code>&lt;world&gt;/datapacks/</code>. On a server that is the <code>datapacks</code> folder inside the world folder.</li>
+<li><b>Reload.</b> Run <span class="cmd">/reload</span> in game. Chat shows "Aura Awakening datapack loaded."</li>
+</ol>
+<div class="note"><b>Version</b>The pack declares format 121 for Minecraft 26.3. Other versions may refuse to load it or break its commands.</div>
+<h2>Updating from the old hotbar version</h2>
+<p>Replace the zip and run <span class="cmd">/reload</span>. Levels, stats and shadows are kept. Players who were in the old hotbar Combat Mode get their stored hotbar back automatically and receive the new weapon. Old shadows are moved onto their owner's new team.</p>
+<h2>Uninstalling cleanly</h2>
+<ol>
+<li>Run <span class="cmd">/function sl:system/uninstall</span> once. It puts weapons away, removes all shadows, resets every player and removes the scoreboards and teams.</li>
+<li>Delete the datapack from the <code>datapacks</code> folder and run <span class="cmd">/reload</span>.</li>
+</ol>
 </article>
-
 <article data-page="trial" data-group="Start" data-title="The Awakening Trial">
-  <h1>The Awakening Trial</h1>
-  <p class="lede">Nobody starts with the System. Players earn it by passing a three-part trial.</p>
-  <h2>Requirements</h2>
-  <ol class="steps">
-    <li><b>Slay 300 monsters.</b> Counted from the first time the pack sees you, using Minecraft's own mob-kill statistic.</li>
-    <li><b>Slay the Warden.</b> Marks the first seal.</li>
-    <li><b>Slay the Wither.</b> Marks the second seal.</li>
-    <li><b>Reach the brink of death.</b> Once all three are done, you must be at <b>1.5 hearts or less</b> (3 health points).</li>
-  </ol>
-  <p>Check progress at any time with <span class="cmd">/trigger sl_trial</span>. It shows kills out of 300 and whether the Warden and Wither are slain.</p>
-  <h2>What you see</h2>
-  <ul>
-    <li>The first time you appear in the world you get a short message that "something ancient stirs".</li>
-    <li>Killing the Warden and the Wither each prints a hint from "???".</li>
-    <li>When the kills and both bosses are done, you are told that the System only chooses those at the edge of death. Drop to 1.5 hearts or less and you awaken.</li>
-  </ul>
-  <h2>On awakening</h2>
-  <ul>
-    <li>Level 1, 0 XP and 3 unspent stat points.</li>
-    <li>Max mana is calculated and your mana is filled.</li>
-    <li>You join the purple <code>sl_shadow</code> team (no friendly fire between awakened players and shadows).</li>
-    <li>The extraction prompt is switched on.</li>
-    <li>You are asked to choose your path.</li>
-  </ul>
-  <div class="note warn"><b>Before awakening</b>You fight the bosses by ordinary means. No skills or shadows exist until you awaken.</div>
-  <p>Admins can skip the trial with <span class="cmd">/function sl:system/force_awaken</span>, run as the player.</p>
-  <div class="pager"><a href="#install">← Installation</a><a href="#paths">Choosing a Path →</a></div>
+<h1>The Awakening Trial</h1>
+<p class="lede">Nobody starts with the System. Players earn it by passing a three-part trial.</p>
+<h2>Requirements</h2>
+<ol class="steps">
+<li><b>Slay 300 monsters.</b> Counted from the first time the pack sees you, using Minecraft's own mob-kill statistic.</li>
+<li><b>Slay the Warden.</b> Marks the first seal.</li>
+<li><b>Slay the Wither.</b> Marks the second seal.</li>
+<li><b>Reach the brink of death.</b> Once all three are done, you must be at <b>1.5 hearts or less</b> (3 health points).</li>
+</ol>
+<p>Check progress at any time with <span class="cmd">/trigger sl_trial</span>. It shows kills out of 300 and whether the Warden and Wither are slain.</p>
+<h2>What you see</h2>
+<ul>
+<li>The first time you appear in the world you get a short message that "something ancient stirs".</li>
+<li>Killing the Warden and the Wither each prints a hint from "???".</li>
+<li>When the kills and both bosses are done, you are told that the System only chooses those at the edge of death. Drop to 1.5 hearts or less and you awaken.</li>
+</ul>
+<h2>On awakening</h2>
+<ul>
+<li>Level 1, 0 XP and 3 unspent stat points. Max mana is calculated and your mana is filled.</li>
+<li>You are asked to choose your path. Nothing else is unlocked until you do.</li>
+</ul>
+<div class="note warn"><b>Before awakening</b>You fight the bosses by ordinary means. No skills or shadows exist yet. Clans, however, are open to everybody from the start.</div>
+<p>Admins can skip the trial for a player with <span class="cmd">/execute as &lt;player&gt; run function sl:admin/awaken</span>.</p>
 </article>
-
 <article data-page="paths" data-group="Playing" data-title="Choosing a Path">
-  <h1>Choosing a Path</h1>
-  <p class="lede">Right after awakening you pick one path. It is permanent unless an admin resets your System.</p>
-  <div class="tw"><table>
-    <thead><tr><th>Path</th><th>Button</th><th>Trigger</th><th>You get</th></tr></thead>
-    <tbody>
-      <tr><td><b>Shadow Monarch</b></td><td>[ARISE]</td><td><code>/trigger sl_pathsel set 1</code></td><td>Skills 1 to 6, Arise, Shadow Extraction, the shadow army, boss shadows and a Knight Killer dagger.</td></tr>
-      <tr><td><b>Limitless</b></td><td>[LIMITLESS]</td><td><code>/trigger sl_pathsel set 2</code></td><td>Skills 7 to 13: Blue, Red, Infinity, Six Eyes, Reverse Cursed Technique, Hollow Purple and Domain Expansion.</td></tr>
-    </tbody></table></div>
-  <p>Both paths share the same levels, stats, mana and HUD. Only the skill set differs.</p>
-  <h2>Rules</h2>
-  <ul>
-    <li>Until you choose, skill and army commands show the path prompt instead.</li>
-    <li>A skill from the other path gives an error and does nothing.</li>
-    <li>Extraction, Arise and boss shadows are Monarch-only. Limitless players do not get the extraction prompt.</li>
-    <li>The <b>Knight Killer</b> is an iron sword with +5 attack damage and a faster swing. Monarchs receive it when they choose.</li>
-    <li>To pick again, an admin runs <span class="cmd">/function sl:system/reset</span> on the player, who then awakens again and chooses anew.</li>
-  </ul>
-  <div class="pager"><a href="#trial">← The Awakening Trial</a><a href="#stats">Stats and Levels →</a></div>
+<h1>Choosing a Path</h1>
+<p class="lede">Right after awakening you pick one path. It is permanent unless an admin resets or changes it.</p>
+<div class="tw"><table>
+<thead><tr><th>Path</th><th>Button</th><th>Trigger</th><th>Weapon</th><th>You get</th></tr></thead><tbody>
+<tr><td><b>1 Shadow Monarch</b></td><td>[ARISE]</td><td><code>/trigger sl_pathsel set 1</code></td><td>Dagger</td><td>Skills 1 to 6 and Arise, Shadow Extraction, the shadow army and boss shadows.</td></tr>
+<tr><td><b>2 Limitless</b></td><td>[LIMITLESS]</td><td><code>/trigger sl_pathsel set 2</code></td><td>Stick</td><td>Skills 7 to 13: Blue to Domain Expansion.</td></tr>
+<tr><td><b>3 Demon Slayer</b></td><td>[DEMON SLAYER]</td><td><code>/trigger sl_pathsel set 3</code></td><td>Nichirin blade</td><td>One breathing style picked by the System from how you played, its forms, plus three extra techniques.</td></tr>
+<tr><td><b>4 Demon</b></td><td>[DEMON]</td><td><code>/trigger sl_pathsel set 4</code>, then <code>41</code> to <code>46</code></td><td>Blood claw</td><td>A Blood Demon Art you choose, Moon Breathing, strong regeneration, and a weakness to sunlight.</td></tr>
+</tbody></table></div>
+<p>All paths share the same levels, stats, mana and HUD. Choosing Demon first opens a second menu where you pick one of six Blood Demon Arts (<code>/trigger sl_pathsel set 41..46</code>). That choice is also permanent.</p>
+<h2>Rules</h2>
+<ul>
+<li>Until you choose, skill and army commands show the path prompt instead.</li>
+<li>A skill from another path gives an error and does nothing.</li>
+<li>Extraction, Arise and boss shadows are Monarch-only. Only Monarchs get the extraction prompt.</li>
+<li>You are handed your weapon the moment you choose. See <a href="#weapon">Weapon and Casting</a>.</li>
+<li>To change path, an admin must reset you or use <code>sl:admin/set_path</code> (see <a href="#admin">Admin Tools</a>).</li>
+</ul>
 </article>
-
 <article data-page="stats" data-group="Playing" data-title="Stats and Levels">
-  <h1>Stats and Levels</h1>
-  <p class="lede">Kills give XP, levels give stat points, stat points shape your power.</p>
-  <h2>Earning XP</h2>
-  <ul>
-    <li>Every monster kill is worth <b>5 XP</b>.</li>
-    <li>Tougher monsters add bonus XP on top (see the <a href="#extraction">extraction tiers</a>): +5 to +20.</li>
-    <li>Bosses: <b>Warden +600</b>, <b>Wither +500</b>, <b>Ender Dragon +1000</b>.</li>
-  </ul>
-  <h2>Levelling</h2>
-  <div class="formula">XP needed for next level = level × 10 + 20
+<h1>Stats and Levels</h1>
+<p class="lede">Kills give XP, levels give stat points, stat points shape your power.</p>
+<h2>Earning XP</h2>
+<ul>
+<li>Every monster kill is worth <b>5 XP</b>.</li>
+<li>Tougher monsters add bonus XP on top (see the <a href="#extraction">extraction tiers</a>): +5 to +20.</li>
+<li>Bosses: <b>Warden +600</b>, <b>Wither +500</b>, <b>Ender Dragon +1000</b>.</li>
+</ul>
+<h2>Levelling</h2>
+<div class="formula">XP needed for next level = level × 10 + 20
 Level 1 → 2: 30 XP    Level 10 → 11: 120 XP    Level 50 → 51: 520 XP
 Cap: level 100. Past it, XP no longer converts to levels.</div>
-  <p>Each level gives <b>3 stat points</b> (you also start with 3). A level up refills your mana, heals you and shows a title. When a level unlocks a skill, chat tells you.</p>
-  <h2>The five stats</h2>
-  <p>Spend points with the <b>[+]</b> buttons in <span class="cmd">/trigger sl_menu</span>, or <code>/trigger sl_stat set 1..5</code>. Each point costs one stat point.</p>
-  <div class="tw"><table>
-    <thead><tr><th>#</th><th>Stat</th><th>Per point</th><th>Also used for</th></tr></thead>
-    <tbody>
-      <tr><td class="n">1</td><td><b>STR</b></td><td>+0.4 attack damage</td><td>Dagger Rush damage. Half of it adds to your shadows' damage.</td></tr>
-      <tr><td class="n">2</td><td><b>AGI</b></td><td>+2% movement speed</td><td></td></tr>
-      <tr><td class="n">3</td><td><b>SENSE</b></td><td>+0.5 luck</td><td></td></tr>
-      <tr><td class="n">4</td><td><b>VIT</b></td><td>+2 max health (1 heart) and +0.5 armor</td><td></td></tr>
-      <tr><td class="n">5</td><td><b>INT</b></td><td>+10 max mana, faster mana regen</td><td>Spell damage, extraction chance, army size, boss odds.</td></tr>
-    </tbody></table></div>
-  <h2>Mana</h2>
-  <div class="formula">Max mana   = INT × 10 + level × 2 + 50
+<p>Each level gives <b>3 stat points</b> (you also start with 3). A level up refills your mana, heals you and shows a title. When a level unlocks a skill, chat names it. Demons also get a message when they reach a new Moon rank.</p>
+<h2>The five stats</h2>
+<p>Spend points with the <b>[+]</b> buttons in <span class="cmd">/trigger sl_menu</span>, or <code>/trigger sl_stat set 1..5</code>. Each point costs one stat point.</p>
+<div class="tw"><table>
+<thead><tr><th>#</th><th>Stat</th><th>Per point</th><th>Also used for</th></tr></thead><tbody>
+<tr><td class="n">1</td><td><b>STR</b></td><td>+0.4 attack damage</td><td>Damage of Slayer and Demon techniques, Dagger Rush, and half of it adds to shadow damage.</td></tr>
+<tr><td class="n">2</td><td><b>AGI</b></td><td>+2% movement speed</td><td></td></tr>
+<tr><td class="n">3</td><td><b>SENSE</b></td><td>+0.5 luck</td><td></td></tr>
+<tr><td class="n">4</td><td><b>VIT</b></td><td>+2 max health (1 heart) and +0.5 armor</td><td></td></tr>
+<tr><td class="n">5</td><td><b>INT</b></td><td>+10 max mana, faster mana regen</td><td>Spell damage, extraction chance, army size, boss odds.</td></tr>
+</tbody></table></div>
+<h2>Mana</h2>
+<div class="formula">Max mana   = INT × 10 + level × 2 + 50
 Regen      = INT ÷ 4 + 2  per second   (whole numbers, capped at max)</div>
-  <p>The actionbar HUD refreshes about four times a second: <b>Lv, XP/needed, MP and unspent points</b>.</p>
-  <div class="note"><b>Example</b>A level 30 player with INT 10 has 10 × 10 + 30 × 2 + 50 = <b>210 max mana</b> and regenerates 10 ÷ 4 + 2 = <b>4 per second</b>.</div>
-  <div class="pager"><a href="#paths">← Choosing a Path</a><a href="#combat">Combat Mode →</a></div>
+<p>Every path uses the same mana pool. Example: a level 30 player with INT 10 has 10 × 10 + 30 × 2 + 50 = <b>210 max mana</b> and regenerates 10 ÷ 4 + 2 = <b>4 per second</b>.</p>
 </article>
-
-<article data-page="combat" data-group="Playing" data-title="Combat Mode">
-  <h1>Combat Mode</h1>
-  <p class="lede">Turns your hotbar into your skills. Right-click an item to cast it.</p>
-  <h2>Turning it on and off</h2>
-  <ul>
-    <li><span class="cmd">/trigger sl_combat set 1</span> toggles it. The <b>[Combat Mode]</b> button in the status and skill menus does the same.</li>
-    <li>You must have chosen a path first.</li>
-  </ul>
-  <h2>What happens</h2>
-  <ol>
-    <li><b>On:</b> your 9 hotbar slots are saved, emptied, and slots 1 to 7 are filled with your path's skill items (glowing carrots on a stick).</li>
-    <li><b>Right-click</b> a skill item to use that skill. Level and mana checks still apply, so a locked skill just tells you its level.</li>
-    <li><b>Off:</b> skill items are removed and each saved item returns to its slot. If a slot was filled meanwhile, the saved item drops at your feet.</li>
-  </ol>
-  <div class="tw"><table>
-    <thead><tr><th>Slot</th><th>Shadow Monarch</th><th>Limitless</th></tr></thead>
-    <tbody>
-      <tr><td class="n">1</td><td>Dagger Rush</td><td>Limitless: Blue</td></tr>
-      <tr><td class="n">2</td><td>Stealth</td><td>Reversal: Red</td></tr>
-      <tr><td class="n">3</td><td>Ruler's Authority</td><td>Infinity (toggle)</td></tr>
-      <tr><td class="n">4</td><td>Bloodlust</td><td>Six Eyes</td></tr>
-      <tr><td class="n">5</td><td>Shadow Exchange</td><td>Reverse Cursed Technique</td></tr>
-      <tr><td class="n">6</td><td>Monarch's Domain</td><td>Hollow Purple</td></tr>
-      <tr><td class="n">7</td><td>Arise</td><td>Domain Expansion: Unlimited Void</td></tr>
-    </tbody></table></div>
-  <h2>Safety</h2>
-  <ul>
-    <li>Dying while in Combat Mode ends it and restores your hotbar when you respawn.</li>
-    <li>Dropped skill items are deleted, so they cannot be given to anyone.</li>
-    <li>Resetting the System while in Combat Mode restores your hotbar first.</li>
-  </ul>
-  <div class="pager"><a href="#stats">← Stats and Levels</a><a href="#commands">Commands →</a></div>
+<article data-page="weapon" data-group="Playing" data-title="Weapon and Casting">
+<h1>Weapon and Casting</h1>
+<p class="lede">Every path has one weapon. It replaces the old hotbar of skill items, so you keep your own hotbar.</p>
+<h2>Controls</h2>
+<div class="tw"><table>
+<thead><tr><th>Input</th><th>Does</th></tr></thead><tbody>
+<tr><td><b>Right-click</b></td><td>Cast the selected skill.</td></tr>
+<tr><td><b>F</b> (swap hands)</td><td>Next skill.</td></tr>
+<tr><td><b>Q</b> (drop)</td><td>Previous skill.</td></tr>
+</tbody></table></div>
+<ul>
+<li>The selected skill, its level and its mana cost show on the item's name and lore and in the actionbar.</li>
+<li>Locked skills are skipped when you cycle.</li>
+<li>You can still cast from chat with <code>/trigger sl_skill set &lt;id&gt;</code>. The list at <span class="cmd">/trigger sl_menu set 3</span> has clickable buttons.</li>
+</ul>
+<h2>The four weapons</h2>
+<div class="tw"><table>
+<thead><tr><th>Path</th><th>Weapon</th><th>Looks like</th><th>Attack damage</th><th>Attack speed</th></tr></thead><tbody>
+<tr><td>Shadow Monarch</td><td>Dagger</td><td>Netherite sword</td><td class="n">+5</td><td class="n">−1</td></tr>
+<tr><td>Limitless</td><td>Stick</td><td>Stick</td><td class="n">+1</td><td class="n">no change</td></tr>
+<tr><td>Demon Slayer</td><td>Nichirin blade</td><td>Iron sword</td><td class="n">+6</td><td class="n">−2.4 (sword speed)</td></tr>
+<tr><td>Demon</td><td>Blood claw</td><td>Blaze rod</td><td class="n">+3</td><td class="n">−1</td></tr>
+</tbody></table></div>
+<p>The name colour follows your skill (and, for slayers, your breathing style). Values are added to the base attack of 1.</p>
+<h2>Putting it away</h2>
+<ul>
+<li><span class="cmd">/trigger sl_combat set 1</span> or the <b>[Combat Mode]</b> button puts the weapon away. Use it again to draw it.</li>
+<li>The weapon comes back when you respawn. It does not drop on death.</li>
+</ul>
+<h2>Cooldowns</h2>
+<p>Each Slayer and Demon technique has its own short cooldown (see the tables), so you cannot spam one form. Monarch and Limitless skills only use mana and level checks.</p>
+<div class="note warn"><b>How it works under the hood</b>The weapon is a carrot on a stick re-skinned as a sword, dagger or stick, because a datapack cannot detect right-click on real swords. Q and F are detected indirectly: a dropped weapon is deleted and handed back, and a swapped weapon is put back in your hand. You may see a one-tick flicker, and you cannot drop or swap the weapon on purpose.</div>
 </article>
-
 <article data-page="commands" data-group="Playing" data-title="Commands">
-  <h1>Commands</h1>
-  <p class="lede">Everything players need is a <code>/trigger</code>, so it works without operator permission. Click a command to copy it.</p>
-  <div class="tw"><table>
-    <thead><tr><th>Command</th><th>Does</th></tr></thead>
-    <tbody>
-      <tr><td><span class="cmd">/trigger sl_menu</span></td><td>Status screen with clickable stat buttons.</td></tr>
-      <tr><td><span class="cmd">/trigger sl_menu set 2</span></td><td>Toggle the automatic "extract?" prompt (Monarch).</td></tr>
-      <tr><td><span class="cmd">/trigger sl_menu set 3</span></td><td>Skill list with [Use] buttons.</td></tr>
-      <tr><td><span class="cmd">/trigger sl_menu set 4</span></td><td>Toggle Combat Mode.</td></tr>
-      <tr><td><span class="cmd">/trigger sl_stat set 1</span></td><td>Spend a point: 1 STR, 2 AGI, 3 SENSE, 4 VIT, 5 INT.</td></tr>
-      <tr><td><span class="cmd">/trigger sl_skill set 1</span></td><td>Use a skill. 1 to 6 Monarch, 7 to 13 Limitless.</td></tr>
-      <tr><td><span class="cmd">/trigger sl_pathsel set 1</span></td><td>Choose a path: 1 Shadow Monarch, 2 Limitless.</td></tr>
-      <tr><td><span class="cmd">/trigger sl_combat set 1</span></td><td>Toggle Combat Mode.</td></tr>
-      <tr><td><span class="cmd">/trigger sl_extract set 1</span></td><td>Attempt Shadow Extraction (within 10 seconds of a kill). Value 2 dismisses the offer.</td></tr>
-      <tr><td><span class="cmd">/trigger sl_army set 1</span></td><td>Arise. 2 dismiss all, 3 roster.</td></tr>
-      <tr><td><span class="cmd">/trigger sl_army set 11</span></td><td>Summon boss shadow: 11 Warden, 12 Wither, 13 Ender Dragon.</td></tr>
-      <tr><td><span class="cmd">/trigger sl_trial</span></td><td>Show trial progress before you awaken.</td></tr>
-    </tbody></table></div>
-  <p>The clickable chat buttons run these same triggers, so anything you can click you can also type.</p>
-  <div class="pager"><a href="#combat">← Combat Mode</a><a href="#monarch">Shadow Monarch skills →</a></div>
+<h1>Commands</h1>
+<p class="lede">Everything players need is a <code>/trigger</code>, so it works without operator permission. Click a command to copy it.</p>
+<div class="tw"><table>
+<thead><tr><th>Command</th><th>Does</th></tr></thead><tbody>
+<tr><td><span class="cmd">/trigger sl_menu</span></td><td>Status screen with clickable stat buttons.</td></tr>
+<tr><td><span class="cmd">/trigger sl_menu set 2</span></td><td>Toggle the automatic "extract?" prompt (Monarch).</td></tr>
+<tr><td><span class="cmd">/trigger sl_menu set 3</span></td><td>Skill list with clickable buttons.</td></tr>
+<tr><td><span class="cmd">/trigger sl_menu set 4</span></td><td>Draw or put away your weapon.</td></tr>
+<tr><td><span class="cmd">/trigger sl_stat set 1</span></td><td>Spend a point: 1 STR, 2 AGI, 3 SENSE, 4 VIT, 5 INT.</td></tr>
+<tr><td><span class="cmd">/trigger sl_skill set 1</span></td><td>Cast a skill by ID. Monarch 1 to 6, Limitless 7 to 13, Slayer and Demon IDs are in the skill list and the tables on this wiki.</td></tr>
+<tr><td><span class="cmd">/trigger sl_pathsel set 1</span></td><td>Choose a path: 1 Monarch, 2 Limitless, 3 Demon Slayer, 4 Demon (then 41 to 46 for your Blood Demon Art).</td></tr>
+<tr><td><span class="cmd">/trigger sl_combat set 1</span></td><td>Draw or put away your weapon.</td></tr>
+<tr><td><span class="cmd">/trigger sl_clan set 1</span></td><td>Open the clan menu. See <a href="#clans">Clans</a>.</td></tr>
+<tr><td><span class="cmd">/trigger sl_extract set 1</span></td><td>Attempt Shadow Extraction (within 10 seconds of a kill). Value 2 dismisses the offer.</td></tr>
+<tr><td><span class="cmd">/trigger sl_army set 1</span></td><td>Arise. 2 dismiss all, 3 roster.</td></tr>
+<tr><td><span class="cmd">/trigger sl_army set 11</span></td><td>Summon boss shadow: 11 Warden, 12 Wither, 13 Ender Dragon.</td></tr>
+<tr><td><span class="cmd">/trigger sl_trial</span></td><td>Show trial progress before you awaken.</td></tr>
+<tr><td><span class="cmd">/teammsg &lt;text&gt;</span></td><td>Clan chat (also <code>/tm</code>). Vanilla command.</td></tr>
+</tbody></table></div>
+<p>The clickable chat buttons run these same triggers, so anything you can click you can also type.</p>
 </article>
-
 <article data-page="monarch" data-group="Shadow Monarch" data-title="Monarch Skills">
-  <h1>Shadow Monarch Skills</h1>
-  <p class="lede">Six skills plus Arise. They hit hostile monsters only, never passive animals, villagers, other players or your own shadows.</p>
-  <div class="tw"><table>
-    <thead><tr><th>#</th><th>Skill</th><th>Level</th><th>Mana</th><th>Effect</th></tr></thead>
-    <tbody>
-      <tr><td class="n">1</td><td><b>Dagger Rush</b></td><td class="n">1</td><td class="n">10</td><td>Dash about 7 blocks forward, damaging every enemy you pass. Damage = level ÷ 5 + STR + 4.</td></tr>
-      <tr><td class="n">2</td><td><b>Stealth</b></td><td class="n">5</td><td class="n">20</td><td>Invisible for 15 seconds.</td></tr>
-      <tr><td class="n">3</td><td><b>Ruler's Authority</b></td><td class="n">10</td><td class="n">25</td><td>Pulls every enemy within 14 blocks toward you, lifts them briefly and slows them (Slowness III, 3 s). Damage = level ÷ 4 + INT ÷ 2 + 6.</td></tr>
-      <tr><td class="n">4</td><td><b>Bloodlust</b></td><td class="n">15</td><td class="n">30</td><td>Enemies within 14 blocks get Slowness IV, Weakness III and Glowing for 8 seconds.</td></tr>
-      <tr><td class="n">5</td><td><b>Shadow Exchange</b></td><td class="n">20</td><td class="n">20</td><td>Swap places with your nearest shadow within 80 blocks. Refunds the mana if you have none in range.</td></tr>
-      <tr><td class="n">6</td><td><b>Monarch's Domain</b></td><td class="n">30</td><td class="n">50</td><td>Enemies within 18 blocks: Slowness III, Weakness II, Glowing for 10 s. Your shadows within 24 blocks get Strength III, Speed II and Regeneration III. You get Strength II. All for 10 seconds.</td></tr>
-      <tr><td class="n">Arise</td><td><b>Arise</b></td><td class="n">1</td><td class="n">30</td><td>Summon your shadow army. See <a href="#army">Shadow Army</a>.</td></tr>
-    </tbody></table></div>
-  <h2>Which monsters are hit</h2>
-  <p>Zombies (including villager, husk, drowned), skeletons (stray, wither skeleton, bogged), spiders, creepers, witches, illagers (pillager, vindicator, evoker, ravager), vex, phantoms, blazes, ghasts, slimes, magma cubes, silverfish, endermites, hoglins, zoglins, piglin brutes, shulkers, breezes and creakings.</p>
-  <div class="note warn"><b>Not hit</b>Endermen, the Warden, the Wither and the Ender Dragon are not on the target list. Skills and shadows leave them alone, so those fights are yours to win by hand.</div>
-  <p>Skills show a red message if you are under the level or short of mana. Nothing is spent when a cast is refused.</p>
-  <div class="pager"><a href="#commands">← Commands</a><a href="#extraction">Shadow Extraction →</a></div>
+<h1>Shadow Monarch Skills</h1>
+<p class="lede">Six skills plus Arise, cycled on your dagger in this order. They hit hostile monsters and players outside your clan, never passive animals, villagers, your clan or your own shadows.</p>
+<div class="tw"><table><thead><tr><th>#</th><th>Skill</th><th>Level</th><th>Mana</th><th>Effect</th></tr></thead><tbody><tr><td class="n">1</td><td><b>Dagger Rush</b></td><td class="n">1</td><td class="n">10</td><td>Dash about 7 blocks forward, damaging every enemy you pass. Damage = level ÷ 5 + STR + 4.</td></tr><tr><td class="n">2</td><td><b>Stealth</b></td><td class="n">5</td><td class="n">20</td><td>Invisible for 15 seconds.</td></tr><tr><td class="n">3</td><td><b>Ruler&#x27;s Authority</b></td><td class="n">10</td><td class="n">25</td><td>Pulls every enemy within 14 blocks toward you, lifts them briefly and slows them (Slowness III, 3 s). Damage = level ÷ 4 + INT ÷ 2 + 6.</td></tr><tr><td class="n">4</td><td><b>Bloodlust</b></td><td class="n">15</td><td class="n">30</td><td>Enemies within 14 blocks get Slowness IV, Weakness III and Glowing for 8 seconds.</td></tr><tr><td class="n">5</td><td><b>Shadow Exchange</b></td><td class="n">20</td><td class="n">20</td><td>Swap places with your nearest shadow within 80 blocks. Refunds the mana if you have none in range.</td></tr><tr><td class="n">6</td><td><b>Monarch&#x27;s Domain</b></td><td class="n">30</td><td class="n">50</td><td>Enemies within 18 blocks: Slowness III, Weakness II, Glowing for 10 s. Your shadows within 24 blocks get Strength III, Speed II and Regeneration III. You get Strength II. All for 10 seconds.</td></tr><tr><td class="n">Arise</td><td><b>Arise</b></td><td class="n">1</td><td class="n">30</td><td>Summon your shadow army. See <a href="#army">Shadow Army</a>.</td></tr></tbody></table></div>
+<h2>Who is hit</h2>
+<p>Zombies (including villager, husk, drowned), skeletons (stray, wither skeleton, bogged), spiders, creepers, witches, illagers (pillager, vindicator, evoker, ravager), vex, phantoms, blazes, ghasts, slimes, magma cubes, silverfish, endermites, hoglins, zoglins, piglin brutes, shulkers, breezes, creakings and <b>players who are not in your clan</b>.</p>
+<div class="note warn"><b>Not hit</b>Endermen, the Warden, the Wither and the Ender Dragon are not on the target list. Skills and shadows leave them alone, so those fights are yours to win by hand.</div>
+<p>Skills show a red message if you are under the level or short of mana. Nothing is spent when a cast is refused.</p>
 </article>
-
 <article data-page="extraction" data-group="Shadow Monarch" data-title="Shadow Extraction">
-  <h1>Shadow Extraction</h1>
-  <p class="lede">After killing certain monsters you get ten seconds to try to bind their shadow to your army.</p>
-  <h2>How it works</h2>
-  <ol class="steps">
-    <li><b>Kill a supported monster.</b> If the prompt is on, chat offers an <b>[Extract]</b> button.</li>
-    <li><b>Attempt within 10 seconds.</b> Click it, or use <span class="cmd">/trigger sl_extract set 1</span>. Only your latest kill can be extracted.</li>
-    <li><b>Pay 25 mana.</b> It is spent whether or not it succeeds.</li>
-    <li><b>Roll.</b> Success adds one shadow of that type to your roster. Failure: "the shadow crumbled to dust".</li>
-  </ol>
-  <p>Turn the automatic prompt off with <span class="cmd">/trigger sl_menu set 2</span>. You can still extract by command during the window.</p>
-  <h2>Chance</h2>
-  <div class="formula">chance % = INT × 2 + level ÷ 2 + 45 − (tier × 10)
+<h1>Shadow Extraction</h1>
+<p class="lede">After killing certain monsters you get ten seconds to try to bind their shadow to your army.</p>
+<h2>How it works</h2>
+<ol class="steps">
+<li><b>Kill a supported monster.</b> If the prompt is on, chat offers an <b>[Extract]</b> button.</li>
+<li><b>Attempt within 10 seconds.</b> Click it, or use <span class="cmd">/trigger sl_extract set 1</span>. Only your latest kill can be extracted.</li>
+<li><b>Pay 25 mana.</b> It is spent whether or not it succeeds.</li>
+<li><b>Roll.</b> Success adds one shadow of that type to your roster. Failure: "the shadow crumbled to dust".</li>
+</ol>
+<p>Turn the automatic prompt off with <span class="cmd">/trigger sl_menu set 2</span>. You can still extract by command during the window.</p>
+<h2>Chance</h2>
+<div class="formula">chance % = INT × 2 + level ÷ 2 + 45 − (tier × 10)
 clamped between 10% and 95%</div>
-  <p>Example: level 30, INT 10 gives 80% for a tier 0 monster, 50% for tier 3 and 40% for a Ravager.</p>
-  <h2>Supported monsters</h2>
-  <div class="tw"><table>
-    <thead><tr><th>Tier</th><th>Monsters</th><th>Chance</th><th>Bonus XP per kill</th></tr></thead>
-    <tbody>
-      <tr><td class="n">0</td><td>Zombie, Skeleton, Spider, Cave Spider, Silverfish</td><td class="n">base</td><td class="n">0</td></tr>
-      <tr><td class="n">1</td><td>Husk, Drowned, Stray, Bogged, Creeper, Phantom, Pillager</td><td class="n">−10</td><td class="n">+5</td></tr>
-      <tr><td class="n">2</td><td>Witch, Vindicator, Blaze, Hoglin</td><td class="n">−20</td><td class="n">+10</td></tr>
-      <tr><td class="n">3</td><td>Wither Skeleton, Evoker, Piglin Brute, Enderman, Iron Golem</td><td class="n">−30</td><td class="n">+15</td></tr>
-      <tr><td class="n">4</td><td>Ravager</td><td class="n">−40</td><td class="n">+20</td></tr>
-      <tr><td class="n">5 to 7</td><td>Warden, Wither, Ender Dragon (see <a href="#bosses">Boss Shadows</a>)</td><td class="n">special</td><td class="n">+600 / +500 / +1000</td></tr>
-    </tbody></table></div>
-  <p>Higher tiers cost you chance but give more XP, so a strong INT matters most. Each extraction adds one to your count for that type, and you can hold many of one type.</p>
-  <div class="pager"><a href="#monarch">← Monarch skills</a><a href="#army">Shadow Army →</a></div>
+<p>Example: level 30, INT 10 gives 80% for a tier 0 monster, 50% for tier 3 and 40% for a Ravager.</p>
+<h2>Supported monsters</h2>
+<div class="tw"><table>
+<thead><tr><th>Tier</th><th>Monsters</th><th>Chance</th><th>Bonus XP per kill</th></tr></thead><tbody>
+<tr><td class="n">0</td><td>Zombie, Skeleton, Spider, Cave Spider, Silverfish</td><td class="n">base</td><td class="n">0</td></tr>
+<tr><td class="n">1</td><td>Husk, Drowned, Stray, Bogged, Creeper, Phantom, Pillager</td><td class="n">−10</td><td class="n">+5</td></tr>
+<tr><td class="n">2</td><td>Witch, Vindicator, Blaze, Hoglin</td><td class="n">−20</td><td class="n">+10</td></tr>
+<tr><td class="n">3</td><td>Wither Skeleton, Evoker, Piglin Brute, Enderman, Iron Golem</td><td class="n">−30</td><td class="n">+15</td></tr>
+<tr><td class="n">4</td><td>Ravager</td><td class="n">−40</td><td class="n">+20</td></tr>
+<tr><td class="n">5 to 7</td><td>Warden, Wither, Ender Dragon (see <a href="#bosses">Boss Shadows</a>)</td><td class="n">special</td><td class="n">+600 / +500 / +1000</td></tr>
+</tbody></table></div>
+<p>Higher tiers cost you chance but give more XP, so a strong INT matters most. Each extraction adds one to your count for that type, and you can hold many of one type.</p>
 </article>
-
 <article data-page="army" data-group="Shadow Monarch" data-title="Shadow Army">
-  <h1>Shadow Army</h1>
-  <p class="lede">Your extracted shadows fight beside you until you dismiss them.</p>
-  <h2>Arise</h2>
-  <ul>
-    <li>Costs <b>30 mana</b>. Use the Arise item, <span class="cmd">/trigger sl_army set 1</span> or the menu button.</li>
-    <li>It first sends away your current shadows, then summons from your roster up to your army cap.</li>
-    <li>If your roster is empty, the mana is refunded and you are told to extract first.</li>
-  </ul>
-  <div class="formula">army cap    = level ÷ 4 + INT + 3
+<h1>Shadow Army</h1>
+<p class="lede">Your extracted shadows fight beside you until you dismiss them.</p>
+<h2>Arise</h2>
+<ul>
+<li>Costs <b>30 mana</b>. It is the last skill on your dagger, or use <span class="cmd">/trigger sl_army set 1</span> or the menu button.</li>
+<li>It first sends away your current shadows, then summons from your roster up to your army cap.</li>
+<li>If your roster is empty, the mana is refunded and you are told to extract first.</li>
+</ul>
+<div class="formula">army cap    = level ÷ 4 + INT + 3
 shadow damage per hit = level ÷ 4 + STR ÷ 2 + 4</div>
-  <div class="note warn"><b>Fill order</b>When the cap is lower than your roster, shadows are summoned in the roster's fixed order, starting with zombies, then husks, drowned, skeletons and so on. Higher-tier types come last and may not fit.</div>
-  <h2>Behaviour</h2>
-  <ul>
-    <li>Shadows follow you and teleport to you if they fall more than 32 blocks behind.</li>
-    <li>They attack hostile monsters within 14 blocks, striking about every 0.6 seconds, and ignore passive mobs.</li>
-    <li>Each has Resistance II, Fire Resistance and Regeneration with no time limit.</li>
-    <li>They glow purple and are named "Shadow Zombie" and so on. They drop nothing and do not despawn.</li>
-    <li>They are on your team, so they never hurt you or each other.</li>
-    <li>If you leave the game, your shadows are dismissed.</li>
-  </ul>
-  <h2>Managing the army</h2>
-  <ul>
-    <li><span class="cmd">/trigger sl_army set 3</span> prints your roster with counts and boss buttons.</li>
-    <li><span class="cmd">/trigger sl_army set 2</span> dismisses every shadow.</li>
-  </ul>
-  <div class="pager"><a href="#extraction">← Shadow Extraction</a><a href="#bosses">Boss Shadows →</a></div>
+<div class="note warn"><b>Fill order</b>When the cap is lower than your roster, shadows are summoned in the roster's fixed order, starting with zombies, then husks, drowned, skeletons and so on. Higher-tier types come last and may not fit.</div>
+<h2>Behaviour</h2>
+<ul>
+<li>Shadows follow you and teleport to you if they fall more than 32 blocks behind.</li>
+<li>They attack hostile monsters <b>and players outside your clan</b> within 14 blocks, striking about every 0.6 seconds, and ignore passive mobs.</li>
+<li>Each has Resistance II, Fire Resistance and Regeneration with no time limit.</li>
+<li>They glow purple and are named "Shadow Zombie" and so on. They drop nothing and do not despawn.</li>
+<li>They always sit on your team (your clan's team, or a personal one), so they never attack you or your clan.</li>
+<li>If you leave the game, your shadows are dismissed.</li>
+</ul>
+<h2>Managing the army</h2>
+<ul>
+<li><span class="cmd">/trigger sl_army set 3</span> prints your roster with counts and boss buttons.</li>
+<li><span class="cmd">/trigger sl_army set 2</span> dismisses every shadow.</li>
+</ul>
 </article>
-
 <article data-page="bosses" data-group="Shadow Monarch" data-title="Boss Shadows">
-  <h1>Boss Shadows</h1>
-  <p class="lede">The Warden, the Wither and the Ender Dragon can be extracted as one-of-a-kind shadows. It is difficult and risky.</p>
-  <div class="tw"><table>
-    <thead><tr><th>Boss</th><th>Requires</th><th>Extract cost</th><th>Summon cost</th><th>Odds</th></tr></thead>
-    <tbody>
-      <tr><td><b>Warden</b></td><td>Level 60, INT 15</td><td class="n">100</td><td class="n">100</td><td>INT ÷ 5 + level ÷ 10 + 3</td></tr>
-      <tr><td><b>Wither</b></td><td>Level 75, INT 20</td><td class="n">150</td><td class="n">150</td><td>same, minus 3</td></tr>
-      <tr><td><b>Ender Dragon</b></td><td>Level 90, INT 25</td><td class="n">200</td><td class="n">200</td><td>same, minus 6</td></tr>
-    </tbody></table></div>
-  <p>Odds are clamped between <b>2% and 20%</b>. For example level 60 with INT 15 gives 12% for the Warden.</p>
-  <h2>Extracting</h2>
-  <ul>
-    <li>If you are under the requirements when the boss dies, chat tells you what is missing and nothing is offered.</li>
-    <li>Otherwise you get a 10 second window with an <b>[Attempt]</b> button.</li>
-    <li>Each attempt, pass or fail, starts a <b>10 minute</b> boss cooldown.</li>
-    <li>You can hold each boss shadow only once.</li>
-  </ul>
-  <div class="note warn"><b>Backlash</b>On failure your mana drops to 0 and you get Weakness II for 30 s, Slowness II for 15 s and Nausea for 8 s. The shadow is lost.</div>
-  <h2>Summoning</h2>
-  <p>Use the roster buttons or <code>/trigger sl_army set 11</code> (Warden), <code>12</code> (Wither), <code>13</code> (Ender Dragon). Only one boss shadow can be out at a time, and summoning another replaces it.</p>
-  <ul>
-    <li><b>Warden:</b> melee strikes and a sonic boom at range.</li>
-    <li><b>Wither:</b> fires skulls that inflict Wither at up to three targets.</li>
-    <li><b>Ender Dragon:</b> flies after enemies and sweeps everything within 10 blocks.</li>
-  </ul>
-  <p>Boss shadows follow the same team and target rules as normal shadows and scale from your level and STR.</p>
-  <div class="pager"><a href="#army">← Shadow Army</a><a href="#limitless">Limitless skills →</a></div>
+<h1>Boss Shadows</h1>
+<p class="lede">The Warden, the Wither and the Ender Dragon can be extracted as one-of-a-kind shadows. It is difficult and risky.</p>
+<div class="tw"><table>
+<thead><tr><th>Boss</th><th>Requires</th><th>Extract cost</th><th>Summon cost</th><th>Odds</th></tr></thead><tbody>
+<tr><td><b>Warden</b></td><td>Level 60, INT 15</td><td class="n">100</td><td class="n">100</td><td>INT ÷ 5 + level ÷ 10 + 3</td></tr>
+<tr><td><b>Wither</b></td><td>Level 75, INT 20</td><td class="n">150</td><td class="n">150</td><td>same, minus 3</td></tr>
+<tr><td><b>Ender Dragon</b></td><td>Level 90, INT 25</td><td class="n">200</td><td class="n">200</td><td>same, minus 6</td></tr>
+</tbody></table></div>
+<p>Odds are clamped between <b>2% and 20%</b>. For example level 60 with INT 15 gives 12% for the Warden.</p>
+<h2>Extracting</h2>
+<ul>
+<li>If you are under the requirements when the boss dies, chat tells you what is missing and nothing is offered.</li>
+<li>Otherwise you get a 10 second window with an <b>[Attempt]</b> button.</li>
+<li>Each attempt, pass or fail, starts a <b>10 minute</b> boss cooldown.</li>
+<li>You can hold each boss shadow only once.</li>
+</ul>
+<div class="note warn"><b>Backlash</b>On failure your mana drops to 0 and you get Weakness II for 30 s, Slowness II for 15 s and Nausea for 8 s. The shadow is lost.</div>
+<h2>Summoning</h2>
+<p>Use the roster buttons or <code>/trigger sl_army set 11</code> (Warden), <code>12</code> (Wither), <code>13</code> (Ender Dragon). Only one boss shadow can be out at a time, and summoning another replaces it.</p>
+<ul>
+<li><b>Warden:</b> melee strikes and a sonic boom at range.</li>
+<li><b>Wither:</b> fires skulls that inflict Wither at up to three targets.</li>
+<li><b>Ender Dragon:</b> flies after enemies and sweeps everything within 10 blocks.</li>
+</ul>
+<p>Boss shadows follow the same team and target rules as normal shadows and scale from your level and STR.</p>
 </article>
-
 <article data-page="limitless" data-group="Limitless" data-title="Limitless Skills">
-  <h1>Limitless Skills</h1>
-  <p class="lede">Seven Gojo-inspired techniques. They use the same levels and mana as everything else and hit hostile monsters only. Beams never break blocks.</p>
-  <div class="tw"><table>
-    <thead><tr><th>#</th><th>Skill</th><th>Level</th><th>Mana</th><th>Effect</th></tr></thead>
-    <tbody>
-      <tr><td class="n">7</td><td><b>Limitless: Blue</b></td><td class="n">12</td><td class="n">20</td><td>Creates a point 6 blocks ahead and pulls enemies within 14 blocks of it toward it, slowing them (Slowness IV, 3 s). Damage = level ÷ 5 + INT ÷ 2 + 2.</td></tr>
-      <tr><td class="n">8</td><td><b>Reversal: Red</b></td><td class="n">18</td><td class="n">30</td><td>A piercing 12-block blast that launches enemies about 6 blocks away. Damage = level ÷ 3 + INT + 8.</td></tr>
-      <tr><td class="n">9</td><td><b>Infinity</b></td><td class="n">22</td><td class="n">0</td><td><b>Toggle.</b> While on: Resistance III, every mob and player within about 3.5 blocks is pushed away and projectiles within 4 blocks vanish. Use it again to turn off. Items and similar non-creatures are ignored.</td></tr>
-      <tr><td class="n">10</td><td><b>Six Eyes</b></td><td class="n">25</td><td class="n">25</td><td>2 minutes of Night Vision, Speed and Haste. Enemies within 32 blocks glow for 15 seconds.</td></tr>
-      <tr><td class="n">11</td><td><b>Reverse Cursed Technique</b></td><td class="n">28</td><td class="n">40</td><td>Instant Health V, Regeneration IV for 8 s, Absorption III for 20 s. Cures poison, wither, slowness, weakness, blindness, nausea, hunger and mining fatigue.</td></tr>
-      <tr><td class="n">12</td><td><b>Hollow Purple</b></td><td class="n">35</td><td class="n">80</td><td>A 40-block beam with a 3.5-block hit radius. Damage = level + INT × 2 + 20.</td></tr>
-      <tr><td class="n">13</td><td><b>Domain Expansion: Unlimited Void</b></td><td class="n">40</td><td class="n">100</td><td>Every enemy within 20 blocks for 12 s: Slowness VII, Weakness V, Mining Fatigue V, Darkness, Nausea, Glowing. You get Strength III, Speed II and Resistance II.</td></tr>
-    </tbody></table></div>
-  <div class="note"><b>Infinity</b>It pushes players as well as mobs, so it also keeps other players at arm's length.</div>
-  <p>Hostile target list: see <a href="#monarch">Shadow Monarch skills</a>. Endermen and the three bosses are not affected.</p>
-  <div class="pager"><a href="#bosses">← Boss Shadows</a><a href="#admin">Admin tools →</a></div>
+<h1>Limitless Skills</h1>
+<p class="lede">Seven Gojo-inspired techniques, cycled on your stick in this order. They hit hostile monsters and players outside your clan. Beams never break blocks.</p>
+<div class="tw"><table><thead><tr><th>#</th><th>Skill</th><th>Level</th><th>Mana</th><th>Effect</th></tr></thead><tbody><tr><td class="n">7</td><td><b>Limitless: Blue</b></td><td class="n">12</td><td class="n">20</td><td>Creates a point 6 blocks ahead and pulls enemies within 14 blocks of it toward it, slowing them (Slowness IV, 3 s). Damage = level ÷ 5 + INT ÷ 2 + 2.</td></tr><tr><td class="n">8</td><td><b>Reversal: Red</b></td><td class="n">18</td><td class="n">30</td><td>A piercing 12-block blast that launches enemies about 6 blocks away. Damage = level ÷ 3 + INT + 8.</td></tr><tr><td class="n">9</td><td><b>Infinity</b></td><td class="n">22</td><td class="n">0</td><td><b>Toggle.</b> While on: Resistance III, every mob and player outside your clan within about 3.5 blocks is pushed away and projectiles within 4 blocks vanish. Use it again to turn off. Items and similar non-creatures are ignored.</td></tr><tr><td class="n">10</td><td><b>Six Eyes</b></td><td class="n">25</td><td class="n">25</td><td>2 minutes of Night Vision, Speed and Haste. Enemies within 32 blocks glow for 15 seconds.</td></tr><tr><td class="n">11</td><td><b>Reverse Cursed Technique</b></td><td class="n">28</td><td class="n">40</td><td>Instant Health V, Regeneration IV for 8 s, Absorption III for 20 s. Cures poison, wither, slowness, weakness, blindness, nausea, hunger and mining fatigue.</td></tr><tr><td class="n">12</td><td><b>Hollow Purple</b></td><td class="n">35</td><td class="n">80</td><td>A 40-block beam with a 3.5-block hit radius. Damage = level + INT × 2 + 20.</td></tr><tr><td class="n">13</td><td><b>Domain Expansion: Unlimited Void</b></td><td class="n">40</td><td class="n">100</td><td>Every enemy within 20 blocks for 12 s: Slowness VII, Weakness V, Mining Fatigue V, Darkness, Nausea, Glowing. You get Strength III, Speed II and Resistance II.</td></tr></tbody></table></div>
+<div class="note"><b>Infinity</b>It pushes players as well as mobs, but never your clan, so you can stand next to friends with it on.</div>
+<p>Hostile target list: see <a href="#monarch">Shadow Monarch skills</a>. Endermen and the three bosses are not affected.</p>
 </article>
-
+<article data-page="slayer" data-group="Demon Slayer" data-title="Demon Slayer">
+<h1>Demon Slayer</h1>
+<p class="lede">You do not pick your breathing style. The System reads how you played before you chose, and gives you the one style that fits.</p>
+<h2>How your style is chosen</h2>
+<p>From the moment the datapack is installed, every <b>5 seconds</b> the System scores where you are and what you are doing for each of the 12 base styles. When you choose Demon Slayer, the highest score wins.</p>
+<ul>
+<li><b>Where you are:</b> oceans, rivers and swimming (Water), the Nether, deserts, badlands and fire (Flame), mountains and high air (Wind), caves and deep underground (Stone), taiga, snow and night (Mist), villages and other players (Love), swamps and jungle (Serpent), allays (Sound), forests without chest armour (Beast), flower fields (Flower), lush caves and bees (Insect).</li>
+<li><b>What you did:</b> vanilla statistics such as swimming, sprinting, climbing, sneaking, jumping, elytra flight, breeding, trading, note blocks, records, bells, fireworks, brewing, splash potions, bone meal, crops, stone mined, damage dealt and taken, and spiders killed.</li>
+<li><b>Sun Breathing</b> (Hinokami Kagura) goes to players who played evenly: at least 9 styles within half of their best score, and a best score of 200 or more.</li>
+<li><b>No data at all:</b> a style is rolled at random.</li>
+</ul>
+<p>You get <b>only that one style</b>. A chat message tells you what you were given and why. Admins can change it (see <a href="#admin">Admin Tools</a>).</p>
+<h2>The 13 styles</h2>
+<div class="tw"><table><thead><tr><th>#</th><th>Style</th><th>Forms</th><th>What the System looks for</th></tr></thead><tbody><tr><td class="n">1</td><td><span class="dot" style="background:#33AAFF"></span><b>Water Breathing</b></td><td class="n">11</td><td>The sea, the rivers and the rain called you</td></tr><tr><td class="n">2</td><td><span class="dot" style="background:#FFE620"></span><b>Thunder Breathing</b></td><td class="n">7</td><td>You moved fast, in the open and in the storm</td></tr><tr><td class="n">3</td><td><span class="dot" style="background:#FF5A14"></span><b>Flame Breathing</b></td><td class="n">6</td><td>You walked through fire: the Nether, deserts and badlands</td></tr><tr><td class="n">4</td><td><span class="dot" style="background:#7DFFB0"></span><b>Wind Breathing</b></td><td class="n">9</td><td>You lived on the peaks and in the high air</td></tr><tr><td class="n">5</td><td><span class="dot" style="background:#A0A0A0"></span><b>Stone Breathing</b></td><td class="n">5</td><td>You spent your life underground, breaking stone</td></tr><tr><td class="n">6</td><td><span class="dot" style="background:#DDE8FF"></span><b>Mist Breathing</b></td><td class="n">7</td><td>Cold forests and quiet fog shaped how you fight</td></tr><tr><td class="n">7</td><td><span class="dot" style="background:#FF66B2"></span><b>Love Breathing</b></td><td class="n">5</td><td>Villagers, friends and flowering groves were your company</td></tr><tr><td class="n">8</td><td><span class="dot" style="background:#33B34D"></span><b>Serpent Breathing</b></td><td class="n">5</td><td>Swamps, jungles and tight climbs made you cunning</td></tr><tr><td class="n">9</td><td><span class="dot" style="background:#FFCC33"></span><b>Sound Breathing</b></td><td class="n">3</td><td>Music, bells and fireworks rang through your play</td></tr><tr><td class="n">10</td><td><span class="dot" style="background:#3366E6"></span><b>Beast Breathing</b></td><td class="n">9</td><td>You fought bare-chested in the wild</td></tr><tr><td class="n">11</td><td><span class="dot" style="background:#FFB3CC"></span><b>Flower Breathing</b></td><td class="n">5</td><td>Gardens, meadows and blooming fields were your home</td></tr><tr><td class="n">12</td><td><span class="dot" style="background:#B34DE6"></span><b>Insect Breathing</b></td><td class="n">4</td><td>Hives, potions and poison: small and deadly</td></tr><tr><td class="n">13</td><td><span class="dot" style="background:#FFBF1A"></span><b>Sun Breathing</b></td><td class="n">13</td><td>No single path defined you: you walked them all</td></tr></tbody></table></div>
+<h2>Extra techniques (every slayer)</h2>
+<p>Every style ends with three extra techniques, available to all slayers.</p>
+<div class="tw"><table><thead><tr><th>ID</th><th>Technique</th><th>Level</th><th>Mana</th><th>Effect</th></tr></thead><tbody>
+<tr><td class="n">1501</td><td><b>Total Concentration: Constant</b></td><td class="n">10</td><td class="n">0</td><td><b>Toggle.</b> Speed, Strength and Resistance while on. Drains 2 mana per second and switches off when you run out.</td></tr>
+<tr><td class="n">1502</td><td><b>Demon Slayer Mark</b></td><td class="n">35</td><td class="n">40</td><td>90 seconds of Strength II, Speed II and Regeneration. It costs 1 health point every 10 seconds while you are above 2.5 hearts. When it fades you get Weakness II and Slowness I for 60 seconds, and a 10 minute cooldown.</td></tr>
+<tr><td class="n">1503</td><td><b>Transparent World</b></td><td class="n">45</td><td class="n">50</td><td>20 seconds of Resistance, Speed and glowing enemies within 24 blocks.</td></tr>
+</tbody></table></div>
+<h2>Damage</h2>
+<div class="formula">form damage = level ÷ 5 + STR + the form's base damage</div>
+<p>Forms unlock gradually by level, from form 1 at level 1 up to the last form around level 45 (Sun Breathing runs from level 5 to 53). Every form has a mana cost and a short cooldown. See <a href="#forms">Breathing Forms</a> for every form.</p>
+</article>
+<article data-page="forms" data-group="Demon Slayer" data-title="Breathing Forms">
+<h1>Breathing Forms</h1>
+<p class="lede">Every form of every style, with its level, mana, base damage and cooldown. Cast one by cycling to it, or with <code>/trigger sl_skill set &lt;ID&gt;</code>.</p>
+<div class="jump"><a href="#forms-water" data-jump="forms-water">Water</a><a href="#forms-thunder" data-jump="forms-thunder">Thunder</a><a href="#forms-flame" data-jump="forms-flame">Flame</a><a href="#forms-wind" data-jump="forms-wind">Wind</a><a href="#forms-stone" data-jump="forms-stone">Stone</a><a href="#forms-mist" data-jump="forms-mist">Mist</a><a href="#forms-love" data-jump="forms-love">Love</a><a href="#forms-serpent" data-jump="forms-serpent">Serpent</a><a href="#forms-sound" data-jump="forms-sound">Sound</a><a href="#forms-beast" data-jump="forms-beast">Beast</a><a href="#forms-flower" data-jump="forms-flower">Flower</a><a href="#forms-insect" data-jump="forms-insect">Insect</a><a href="#forms-sun" data-jump="forms-sun">Sun</a></div>
+<div class="note"><b>Reading the tables</b>Base damage is added to level ÷ 5 + STR. Cooldown is the pause after casting any technique. Extras (Total Concentration, Slayer Mark, Transparent World) are listed on the <a href="#slayer">Demon Slayer</a> page. IDs that skip numbers (for example Sound 901, 904, 905) mean that style has fewer forms.</div><h2 id="forms-water"><span class="dot" style="background:#33AAFF"></span>Water Breathing</h2><p>11 forms. The sea, the rivers and the rain called you.</p><div class="tw"><table><thead><tr><th>ID</th><th>Technique</th><th>Level</th><th>Mana</th><th>Base dmg</th><th>Cooldown</th></tr></thead><tbody><tr><td class="n">101</td><td><b>Water Surface Slash</b></td><td class="n">1</td><td class="n">11</td><td class="n">3</td><td class="n">0.75 s</td></tr><tr><td class="n">102</td><td><b>Water Wheel</b></td><td class="n">5</td><td class="n">16</td><td class="n">4</td><td class="n">1.5 s</td></tr><tr><td class="n">103</td><td><b>Flowing Dance</b></td><td class="n">10</td><td class="n">18</td><td class="n">5</td><td class="n">1.25 s</td></tr><tr><td class="n">104</td><td><b>Striking Tide</b></td><td class="n">14</td><td class="n">20</td><td class="n">6</td><td class="n">1 s</td></tr><tr><td class="n">105</td><td><b>Blessed Rain After the Drought</b></td><td class="n">19</td><td class="n">21</td><td class="n">7</td><td class="n">1 s</td></tr><tr><td class="n">106</td><td><b>Whirlpool</b></td><td class="n">23</td><td class="n">25</td><td class="n">6</td><td class="n">1 s</td></tr><tr><td class="n">107</td><td><b>Drop Ripple Thrust</b></td><td class="n">27</td><td class="n">30</td><td class="n">12</td><td class="n">0.75 s</td></tr><tr><td class="n">108</td><td><b>Waterfall Basin</b></td><td class="n">32</td><td class="n">36</td><td class="n">14</td><td class="n">1.5 s</td></tr><tr><td class="n">109</td><td><b>Splashing Water Flow, Turbulent</b></td><td class="n">36</td><td class="n">31</td><td class="n">12</td><td class="n">1.25 s</td></tr><tr><td class="n">110</td><td><b>Constant Flux</b></td><td class="n">41</td><td class="n">38</td><td class="n">17</td><td class="n">1 s</td></tr><tr><td class="n">111</td><td><b>Dead Calm</b></td><td class="n">45</td><td class="n">34</td><td class="n">14</td><td class="n">1 s</td></tr></tbody></table></div><h2 id="forms-thunder"><span class="dot" style="background:#FFE620"></span>Thunder Breathing</h2><p>7 forms. You moved fast, in the open and in the storm.</p><div class="tw"><table><thead><tr><th>ID</th><th>Technique</th><th>Level</th><th>Mana</th><th>Base dmg</th><th>Cooldown</th></tr></thead><tbody><tr><td class="n">201</td><td><b>Thunderclap and Flash</b></td><td class="n">1</td><td class="n">19</td><td class="n">4</td><td class="n">1.25 s</td></tr><tr><td class="n">202</td><td><b>Rice Spirit</b></td><td class="n">8</td><td class="n">18</td><td class="n">4</td><td class="n">1 s</td></tr><tr><td class="n">203</td><td><b>Thunder Swarm</b></td><td class="n">16</td><td class="n">22</td><td class="n">6</td><td class="n">1 s</td></tr><tr><td class="n">204</td><td><b>Distant Thunder</b></td><td class="n">23</td><td class="n">22</td><td class="n">8</td><td class="n">0.75 s</td></tr><tr><td class="n">205</td><td><b>Heat Lightning</b></td><td class="n">30</td><td class="n">29</td><td class="n">10</td><td class="n">1.5 s</td></tr><tr><td class="n">206</td><td><b>Rumble and Flash</b></td><td class="n">38</td><td class="n">38</td><td class="n">16</td><td class="n">1.25 s</td></tr><tr><td class="n">207</td><td><b>Honoikazuchi no Kami</b></td><td class="n">45</td><td class="n">53</td><td class="n">24</td><td class="n">2.25 s</td></tr></tbody></table></div><h2 id="forms-flame"><span class="dot" style="background:#FF5A14"></span>Flame Breathing</h2><p>6 forms. You walked through fire: the Nether, deserts and badlands.</p><div class="tw"><table><thead><tr><th>ID</th><th>Technique</th><th>Level</th><th>Mana</th><th>Base dmg</th><th>Cooldown</th></tr></thead><tbody><tr><td class="n">301</td><td><b>Unknowing Fire</b></td><td class="n">1</td><td class="n">13</td><td class="n">3</td><td class="n">1.25 s</td></tr><tr><td class="n">302</td><td><b>Rising Scorching Sun</b></td><td class="n">10</td><td class="n">19</td><td class="n">5</td><td class="n">1.5 s</td></tr><tr><td class="n">303</td><td><b>Blazing Universe</b></td><td class="n">19</td><td class="n">29</td><td class="n">9</td><td class="n">1.5 s</td></tr><tr><td class="n">304</td><td><b>Blooming Flame Undulation</b></td><td class="n">27</td><td class="n">27</td><td class="n">7</td><td class="n">1 s</td></tr><tr><td class="n">305</td><td><b>Flame Tiger</b></td><td class="n">36</td><td class="n">35</td><td class="n">16</td><td class="n">0.75 s</td></tr><tr><td class="n">309</td><td><b>Rengoku</b></td><td class="n">45</td><td class="n">53</td><td class="n">24</td><td class="n">2.25 s</td></tr></tbody></table></div><h2 id="forms-wind"><span class="dot" style="background:#7DFFB0"></span>Wind Breathing</h2><p>9 forms. You lived on the peaks and in the high air.</p><div class="tw"><table><thead><tr><th>ID</th><th>Technique</th><th>Level</th><th>Mana</th><th>Base dmg</th><th>Cooldown</th></tr></thead><tbody><tr><td class="n">401</td><td><b>Dust Whirlwind Cutter</b></td><td class="n">1</td><td class="n">14</td><td class="n">2</td><td class="n">1 s</td></tr><tr><td class="n">402</td><td><b>Claws-Purifying Wind</b></td><td class="n">7</td><td class="n">16</td><td class="n">4</td><td class="n">1 s</td></tr><tr><td class="n">403</td><td><b>Clean Storm Wind Tree</b></td><td class="n">12</td><td class="n">20</td><td class="n">5</td><td class="n">1 s</td></tr><tr><td class="n">404</td><td><b>Rising Dust Storm</b></td><td class="n">17</td><td class="n">22</td><td class="n">7</td><td class="n">1.5 s</td></tr><tr><td class="n">405</td><td><b>Cold Mountain Wind</b></td><td class="n">23</td><td class="n">24</td><td class="n">8</td><td class="n">1.25 s</td></tr><tr><td class="n">406</td><td><b>Black Wind Mountain Mist</b></td><td class="n">29</td><td class="n">28</td><td class="n">8</td><td class="n">1 s</td></tr><tr><td class="n">407</td><td><b>Gale, Sudden Gusts</b></td><td class="n">34</td><td class="n">28</td><td class="n">11</td><td class="n">0.75 s</td></tr><tr><td class="n">408</td><td><b>Primary Gale Slash</b></td><td class="n">39</td><td class="n">38</td><td class="n">16</td><td class="n">1 s</td></tr><tr><td class="n">409</td><td><b>Idaten Typhoon</b></td><td class="n">45</td><td class="n">53</td><td class="n">24</td><td class="n">2.25 s</td></tr></tbody></table></div><h2 id="forms-stone"><span class="dot" style="background:#A0A0A0"></span>Stone Breathing</h2><p>5 forms. You spent your life underground, breaking stone.</p><div class="tw"><table><thead><tr><th>ID</th><th>Technique</th><th>Level</th><th>Mana</th><th>Base dmg</th><th>Cooldown</th></tr></thead><tbody><tr><td class="n">501</td><td><b>Serpentinite Bipedal</b></td><td class="n">1</td><td class="n">19</td><td class="n">4</td><td class="n">1 s</td></tr><tr><td class="n">502</td><td><b>Upper Smash</b></td><td class="n">12</td><td class="n">26</td><td class="n">8</td><td class="n">1.5 s</td></tr><tr><td class="n">503</td><td><b>Stone Skin</b></td><td class="n">23</td><td class="n">23</td><td class="n">8</td><td class="n">1 s</td></tr><tr><td class="n">504</td><td><b>Volcanic Rock, Rapid Conquest</b></td><td class="n">34</td><td class="n">36</td><td class="n">14</td><td class="n">1.25 s</td></tr><tr><td class="n">505</td><td><b>Arc of Justice</b></td><td class="n">45</td><td class="n">52</td><td class="n">24</td><td class="n">2 s</td></tr></tbody></table></div><h2 id="forms-mist"><span class="dot" style="background:#DDE8FF"></span>Mist Breathing</h2><p>7 forms. Cold forests and quiet fog shaped how you fight.</p><div class="tw"><table><thead><tr><th>ID</th><th>Technique</th><th>Level</th><th>Mana</th><th>Base dmg</th><th>Cooldown</th></tr></thead><tbody><tr><td class="n">601</td><td><b>Low Clouds, Distant Haze</b></td><td class="n">1</td><td class="n">13</td><td class="n">3</td><td class="n">1.25 s</td></tr><tr><td class="n">602</td><td><b>Eight-Layered Mist</b></td><td class="n">8</td><td class="n">18</td><td class="n">4</td><td class="n">1 s</td></tr><tr><td class="n">603</td><td><b>Scattering Mist Splash</b></td><td class="n">16</td><td class="n">22</td><td class="n">6</td><td class="n">1 s</td></tr><tr><td class="n">604</td><td><b>Shifting Flow Slash</b></td><td class="n">23</td><td class="n">24</td><td class="n">8</td><td class="n">1.25 s</td></tr><tr><td class="n">605</td><td><b>Sea of Clouds and Haze</b></td><td class="n">30</td><td class="n">29</td><td class="n">8</td><td class="n">1 s</td></tr><tr><td class="n">606</td><td><b>Lunar Dispersing Mist</b></td><td class="n">38</td><td class="n">30</td><td class="n">12</td><td class="n">0.75 s</td></tr><tr><td class="n">607</td><td><b>Obscuring Clouds</b></td><td class="n">45</td><td class="n">52</td><td class="n">24</td><td class="n">2 s</td></tr></tbody></table></div><h2 id="forms-love"><span class="dot" style="background:#FF66B2"></span>Love Breathing</h2><p>5 forms. Villagers, friends and flowering groves were your company.</p><div class="tw"><table><thead><tr><th>ID</th><th>Technique</th><th>Level</th><th>Mana</th><th>Base dmg</th><th>Cooldown</th></tr></thead><tbody><tr><td class="n">701</td><td><b>Shivers of First Love</b></td><td class="n">1</td><td class="n">13</td><td class="n">3</td><td class="n">1.25 s</td></tr><tr><td class="n">702</td><td><b>Love Pangs</b></td><td class="n">12</td><td class="n">20</td><td class="n">5</td><td class="n">1 s</td></tr><tr><td class="n">703</td><td><b>Catlove Shower</b></td><td class="n">23</td><td class="n">26</td><td class="n">6</td><td class="n">1 s</td></tr><tr><td class="n">704</td><td><b>Swaying Love, Wildclaw</b></td><td class="n">34</td><td class="n">31</td><td class="n">11</td><td class="n">1.5 s</td></tr><tr><td class="n">705</td><td><b>Cat-Legged Winds of Love</b></td><td class="n">45</td><td class="n">40</td><td class="n">18</td><td class="n">1 s</td></tr></tbody></table></div><h2 id="forms-serpent"><span class="dot" style="background:#33B34D"></span>Serpent Breathing</h2><p>5 forms. Swamps, jungles and tight climbs made you cunning.</p><div class="tw"><table><thead><tr><th>ID</th><th>Technique</th><th>Level</th><th>Mana</th><th>Base dmg</th><th>Cooldown</th></tr></thead><tbody><tr><td class="n">801</td><td><b>Winding Serpent Slash</b></td><td class="n">1</td><td class="n">11</td><td class="n">3</td><td class="n">0.75 s</td></tr><tr><td class="n">802</td><td><b>Venom Fangs of the Narrow Head</b></td><td class="n">12</td><td class="n">25</td><td class="n">8</td><td class="n">1.25 s</td></tr><tr><td class="n">803</td><td><b>Coil Choke</b></td><td class="n">23</td><td class="n">25</td><td class="n">6</td><td class="n">1 s</td></tr><tr><td class="n">804</td><td><b>Twin-Headed Reptile</b></td><td class="n">34</td><td class="n">36</td><td class="n">14</td><td class="n">1 s</td></tr><tr><td class="n">805</td><td><b>Slithering Serpent</b></td><td class="n">45</td><td class="n">53</td><td class="n">24</td><td class="n">2.25 s</td></tr></tbody></table></div><h2 id="forms-sound"><span class="dot" style="background:#FFCC33"></span>Sound Breathing</h2><p>3 forms. Music, bells and fireworks rang through your play.</p><div class="tw"><table><thead><tr><th>ID</th><th>Technique</th><th>Level</th><th>Mana</th><th>Base dmg</th><th>Cooldown</th></tr></thead><tbody><tr><td class="n">901</td><td><b>Roar</b></td><td class="n">1</td><td class="n">18</td><td class="n">4</td><td class="n">1 s</td></tr><tr><td class="n">904</td><td><b>Constant Resounding Slashes</b></td><td class="n">23</td><td class="n">30</td><td class="n">10</td><td class="n">1 s</td></tr><tr><td class="n">905</td><td><b>String Performance</b></td><td class="n">45</td><td class="n">51</td><td class="n">24</td><td class="n">1.75 s</td></tr></tbody></table></div><h2 id="forms-beast"><span class="dot" style="background:#3366E6"></span>Beast Breathing</h2><p>9 forms. You fought bare-chested in the wild.</p><div class="tw"><table><thead><tr><th>ID</th><th>Technique</th><th>Level</th><th>Mana</th><th>Base dmg</th><th>Cooldown</th></tr></thead><tbody><tr><td class="n">1001</td><td><b>Pierce</b></td><td class="n">1</td><td class="n">13</td><td class="n">3</td><td class="n">1.25 s</td></tr><tr><td class="n">1002</td><td><b>Slice</b></td><td class="n">7</td><td class="n">16</td><td class="n">4</td><td class="n">1 s</td></tr><tr><td class="n">1003</td><td><b>Devour</b></td><td class="n">12</td><td class="n">18</td><td class="n">6</td><td class="n">1 s</td></tr><tr><td class="n">1004</td><td><b>Slice &#x27;n&#x27; Dice</b></td><td class="n">17</td><td class="n">22</td><td class="n">6</td><td class="n">1 s</td></tr><tr><td class="n">1005</td><td><b>Crazy Cutting</b></td><td class="n">23</td><td class="n">25</td><td class="n">6</td><td class="n">1 s</td></tr><tr><td class="n">1006</td><td><b>Palate Shredding</b></td><td class="n">29</td><td class="n">31</td><td class="n">13</td><td class="n">0.75 s</td></tr><tr><td class="n">1007</td><td><b>Spatial Awareness</b></td><td class="n">34</td><td class="n">31</td><td class="n">9</td><td class="n">1 s</td></tr><tr><td class="n">1008</td><td><b>Explosive Rush</b></td><td class="n">39</td><td class="n">38</td><td class="n">16</td><td class="n">1.25 s</td></tr><tr><td class="n">1009</td><td><b>Stampede</b></td><td class="n">45</td><td class="n">53</td><td class="n">24</td><td class="n">2.25 s</td></tr></tbody></table></div><h2 id="forms-flower"><span class="dot" style="background:#FFB3CC"></span>Flower Breathing</h2><p>5 forms. Gardens, meadows and blooming fields were your home.</p><div class="tw"><table><thead><tr><th>ID</th><th>Technique</th><th>Level</th><th>Mana</th><th>Base dmg</th><th>Cooldown</th></tr></thead><tbody><tr><td class="n">1102</td><td><b>Honorable Shadow Plum</b></td><td class="n">1</td><td class="n">13</td><td class="n">3</td><td class="n">1.25 s</td></tr><tr><td class="n">1104</td><td><b>Crimson Hail of Peach Blossoms</b></td><td class="n">12</td><td class="n">20</td><td class="n">5</td><td class="n">1 s</td></tr><tr><td class="n">1105</td><td><b>Peonies of Futility</b></td><td class="n">23</td><td class="n">25</td><td class="n">6</td><td class="n">1 s</td></tr><tr><td class="n">1106</td><td><b>Whirling Peach</b></td><td class="n">34</td><td class="n">31</td><td class="n">11</td><td class="n">1.5 s</td></tr><tr><td class="n">1107</td><td><b>Equinoctial Vermilion Eye</b></td><td class="n">45</td><td class="n">39</td><td class="n">18</td><td class="n">0.75 s</td></tr></tbody></table></div><h2 id="forms-insect"><span class="dot" style="background:#B34DE6"></span>Insect Breathing</h2><p>4 forms. Hives, potions and poison: small and deadly.</p><div class="tw"><table><thead><tr><th>ID</th><th>Technique</th><th>Level</th><th>Mana</th><th>Base dmg</th><th>Cooldown</th></tr></thead><tbody><tr><td class="n">1201</td><td><b>Butterfly Dance: Caprice</b></td><td class="n">1</td><td class="n">13</td><td class="n">3</td><td class="n">1.25 s</td></tr><tr><td class="n">1202</td><td><b>Dance of the Bee Sting: True Flutter</b></td><td class="n">16</td><td class="n">25</td><td class="n">9</td><td class="n">0.75 s</td></tr><tr><td class="n">1203</td><td><b>Dragonfly Dance: Compound Eye Hexagon</b></td><td class="n">30</td><td class="n">32</td><td class="n">13</td><td class="n">0.75 s</td></tr><tr><td class="n">1204</td><td><b>Dance of the Centipede: Hundred-Legged Zigzag</b></td><td class="n">45</td><td class="n">41</td><td class="n">18</td><td class="n">1.25 s</td></tr></tbody></table></div><h2 id="forms-sun"><span class="dot" style="background:#FFBF1A"></span>Sun Breathing</h2><p>13 forms. No single path defined you: you walked them all.</p><div class="tw"><table><thead><tr><th>ID</th><th>Technique</th><th>Level</th><th>Mana</th><th>Base dmg</th><th>Cooldown</th></tr></thead><tbody><tr><td class="n">1301</td><td><b>Dance</b></td><td class="n">5</td><td class="n">13</td><td class="n">4</td><td class="n">0.75 s</td></tr><tr><td class="n">1302</td><td><b>Clear Blue Sky</b></td><td class="n">9</td><td class="n">18</td><td class="n">5</td><td class="n">1.5 s</td></tr><tr><td class="n">1303</td><td><b>Raging Sun</b></td><td class="n">13</td><td class="n">20</td><td class="n">5</td><td class="n">1 s</td></tr><tr><td class="n">1304</td><td><b>Fake Rainbow</b></td><td class="n">17</td><td class="n">21</td><td class="n">7</td><td class="n">1.25 s</td></tr><tr><td class="n">1305</td><td><b>Setting Sun Transformation</b></td><td class="n">21</td><td class="n">24</td><td class="n">8</td><td class="n">1.5 s</td></tr><tr><td class="n">1306</td><td><b>Solar Heat Haze</b></td><td class="n">25</td><td class="n">26</td><td class="n">7</td><td class="n">1 s</td></tr><tr><td class="n">1307</td><td><b>Beneficent Radiance</b></td><td class="n">29</td><td class="n">33</td><td class="n">13</td><td class="n">1 s</td></tr><tr><td class="n">1308</td><td><b>Burning Bones, Summer Sun</b></td><td class="n">33</td><td class="n">34</td><td class="n">14</td><td class="n">1 s</td></tr><tr><td class="n">1309</td><td><b>Sunflower Thrust</b></td><td class="n">37</td><td class="n">35</td><td class="n">16</td><td class="n">0.75 s</td></tr><tr><td class="n">1310</td><td><b>Dragon Sun Halo Head Dance</b></td><td class="n">41</td><td class="n">38</td><td class="n">17</td><td class="n">1 s</td></tr><tr><td class="n">1311</td><td><b>Fire Wheel</b></td><td class="n">45</td><td class="n">42</td><td class="n">18</td><td class="n">1.5 s</td></tr><tr><td class="n">1312</td><td><b>Flame Dance</b></td><td class="n">49</td><td class="n">43</td><td class="n">20</td><td class="n">1.25 s</td></tr><tr><td class="n">1313</td><td><b>Thirteenth Form</b></td><td class="n">53</td><td class="n">56</td><td class="n">27</td><td class="n">2 s</td></tr></tbody></table></div>
+</article>
+<article data-page="demon" data-group="Demon" data-title="Demon">
+<h1>Demon</h1>
+<p class="lede">Become a demon: regenerate fast, hit hard, and rise through the Twelve Kizuki ranks as you level. The sun is your enemy until the top rank.</p>
+<h2>Ranks</h2>
+<p>Your rank follows your level. You get a chat message each time you rise.</p>
+<div class="tw"><table><thead><tr><th>Rank</th><th>Level</th><th>Also</th></tr></thead><tbody><tr><td><b>Newborn Demon</b></td><td class="n">1 to 4</td><td></td></tr><tr><td><b>Lower Moon Six</b></td><td class="n">5</td><td></td></tr><tr><td><b>Lower Moon Five</b></td><td class="n">10</td><td></td></tr><tr><td><b>Lower Moon Four</b></td><td class="n">15</td><td></td></tr><tr><td><b>Lower Moon Three</b></td><td class="n">20</td><td>Regeneration II</td></tr><tr><td><b>Lower Moon Two</b></td><td class="n">25</td><td></td></tr><tr><td><b>Lower Moon One</b></td><td class="n">30</td><td></td></tr><tr><td><b>Upper Moon Six</b></td><td class="n">35</td><td></td></tr><tr><td><b>Upper Moon Five</b></td><td class="n">40</td><td></td></tr><tr><td><b>Upper Moon Four</b></td><td class="n">45</td><td>Regeneration III</td></tr><tr><td><b>Upper Moon Three</b></td><td class="n">50</td><td></td></tr><tr><td><b>Upper Moon Two</b></td><td class="n">55</td><td></td></tr><tr><td><b>Upper Moon One</b></td><td class="n">60</td><td>Immune to sunlight</td></tr></tbody></table></div>
+<h2>Passives</h2>
+<ul>
+<li><b>Regeneration:</b> I below level 20, II from level 20, III from level 45.</li>
+<li><b>Always:</b> Strength I and Speed I.</li>
+<li><b>At night:</b> Strength II, Speed II and Night Vision.</li>
+</ul>
+<h2>Sunlight</h2>
+<p>In the open Overworld during the day you burn: 1 damage a second plus Weakness II, until you reach level 60 (Upper Moon One). Roofs, trees, caves, water, night and the other dimensions protect you. Weather does not.</p>
+<div class="note"><b>Server owners</b>Turn the sunlight off with <code>/function sl:admin/sunburn {on:0}</code>.</div>
+<h2>Blood Demon Arts</h2>
+<p>You pick one family when you turn. It is permanent. Each has 5 skills, unlocking at levels 5, 15, 25, 35 and 45. After them, your weapon cycles into Moon Breathing.</p><h3>Blood</h3><p>Crimson blood-fire that burns and bursts. Choose it with <code>/trigger sl_pathsel set 41</code>.</p><div class="tw"><table><thead><tr><th>ID</th><th>Technique</th><th>Level</th><th>Mana</th><th>Base dmg</th><th>Cooldown</th></tr></thead><tbody><tr><td class="n">2011</td><td><b>Blood Burst</b></td><td class="n">5</td><td class="n">16</td><td class="n">3</td><td class="n">1 s</td></tr><tr><td class="n">2012</td><td><b>Exploding Blood</b></td><td class="n">15</td><td class="n">27</td><td class="n">8</td><td class="n">1.5 s</td></tr><tr><td class="n">2013</td><td><b>Claw Slash</b></td><td class="n">25</td><td class="n">23</td><td class="n">9</td><td class="n">0.75 s</td></tr><tr><td class="n">2014</td><td><b>Blaze Surge</b></td><td class="n">35</td><td class="n">36</td><td class="n">14</td><td class="n">1.25 s</td></tr><tr><td class="n">2015</td><td><b>Crimson Inferno</b></td><td class="n">45</td><td class="n">52</td><td class="n">24</td><td class="n">2 s</td></tr></tbody></table></div><h3>Destructive Death</h3><p>Compass-needle martial arts: raw, fast, punishing. Choose it with <code>/trigger sl_pathsel set 42</code>.</p><div class="tw"><table><thead><tr><th>ID</th><th>Technique</th><th>Level</th><th>Mana</th><th>Base dmg</th><th>Cooldown</th></tr></thead><tbody><tr><td class="n">2021</td><td><b>Compass Needle</b></td><td class="n">5</td><td class="n">14</td><td class="n">4</td><td class="n">1 s</td></tr><tr><td class="n">2022</td><td><b>Destructive Death: Air Type</b></td><td class="n">15</td><td class="n">18</td><td class="n">6</td><td class="n">0.75 s</td></tr><tr><td class="n">2023</td><td><b>Destructive Death: Annihilation Type</b></td><td class="n">25</td><td class="n">31</td><td class="n">12</td><td class="n">1.25 s</td></tr><tr><td class="n">2024</td><td><b>Destructive Death: Flying Type</b></td><td class="n">35</td><td class="n">37</td><td class="n">14</td><td class="n">1.5 s</td></tr><tr><td class="n">2025</td><td><b>Destructive Death: Barrage</b></td><td class="n">45</td><td class="n">52</td><td class="n">24</td><td class="n">2 s</td></tr></tbody></table></div><h3>Threads</h3><p>Silk threads that bind, cage and slice. Choose it with <code>/trigger sl_pathsel set 43</code>.</p><div class="tw"><table><thead><tr><th>ID</th><th>Technique</th><th>Level</th><th>Mana</th><th>Base dmg</th><th>Cooldown</th></tr></thead><tbody><tr><td class="n">2031</td><td><b>Cutting Threads</b></td><td class="n">5</td><td class="n">13</td><td class="n">4</td><td class="n">0.75 s</td></tr><tr><td class="n">2032</td><td><b>Restraining Web</b></td><td class="n">15</td><td class="n">21</td><td class="n">5</td><td class="n">1 s</td></tr><tr><td class="n">2033</td><td><b>Thread Cage</b></td><td class="n">25</td><td class="n">26</td><td class="n">7</td><td class="n">1 s</td></tr><tr><td class="n">2034</td><td><b>Slicing Thread Net</b></td><td class="n">35</td><td class="n">36</td><td class="n">14</td><td class="n">1 s</td></tr><tr><td class="n">2035</td><td><b>Silk Storm</b></td><td class="n">45</td><td class="n">52</td><td class="n">24</td><td class="n">2 s</td></tr></tbody></table></div><h3>Obi</h3><p>Living sashes: strike, pull and spin. Choose it with <code>/trigger sl_pathsel set 44</code>.</p><div class="tw"><table><thead><tr><th>ID</th><th>Technique</th><th>Level</th><th>Mana</th><th>Base dmg</th><th>Cooldown</th></tr></thead><tbody><tr><td class="n">2041</td><td><b>Obi Strike</b></td><td class="n">5</td><td class="n">13</td><td class="n">4</td><td class="n">0.75 s</td></tr><tr><td class="n">2042</td><td><b>Obi Cage</b></td><td class="n">15</td><td class="n">21</td><td class="n">5</td><td class="n">1 s</td></tr><tr><td class="n">2043</td><td><b>Obi Spin</b></td><td class="n">25</td><td class="n">26</td><td class="n">7</td><td class="n">1 s</td></tr><tr><td class="n">2044</td><td><b>Obi Pull</b></td><td class="n">35</td><td class="n">31</td><td class="n">9</td><td class="n">1 s</td></tr><tr><td class="n">2045</td><td><b>Obi Shredder</b></td><td class="n">45</td><td class="n">53</td><td class="n">24</td><td class="n">2 s</td></tr></tbody></table></div><h3>Sickles</h3><p>Poisoned blood sickles and toxic mist. Choose it with <code>/trigger sl_pathsel set 45</code>.</p><div class="tw"><table><thead><tr><th>ID</th><th>Technique</th><th>Level</th><th>Mana</th><th>Base dmg</th><th>Cooldown</th></tr></thead><tbody><tr><td class="n">2051</td><td><b>Poison Blood Sickles</b></td><td class="n">5</td><td class="n">13</td><td class="n">4</td><td class="n">0.75 s</td></tr><tr><td class="n">2052</td><td><b>Flying Blood Sickles</b></td><td class="n">15</td><td class="n">24</td><td class="n">8</td><td class="n">0.75 s</td></tr><tr><td class="n">2053</td><td><b>Cleaving Whirl</b></td><td class="n">25</td><td class="n">26</td><td class="n">7</td><td class="n">1 s</td></tr><tr><td class="n">2054</td><td><b>Blood Sickle Cross</b></td><td class="n">35</td><td class="n">36</td><td class="n">14</td><td class="n">1 s</td></tr><tr><td class="n">2055</td><td><b>Toxic Mist</b></td><td class="n">45</td><td class="n">52</td><td class="n">24</td><td class="n">2 s</td></tr></tbody></table></div><h3>Dreams</h3><p>Sleep, nightmares and mind-fog. Choose it with <code>/trigger sl_pathsel set 46</code>.</p><div class="tw"><table><thead><tr><th>ID</th><th>Technique</th><th>Level</th><th>Mana</th><th>Base dmg</th><th>Cooldown</th></tr></thead><tbody><tr><td class="n">2061</td><td><b>Sleep Spore</b></td><td class="n">5</td><td class="n">16</td><td class="n">3</td><td class="n">1 s</td></tr><tr><td class="n">2062</td><td><b>Nightmare Pulse</b></td><td class="n">15</td><td class="n">21</td><td class="n">5</td><td class="n">1 s</td></tr><tr><td class="n">2063</td><td><b>Dream Eater</b></td><td class="n">25</td><td class="n">23</td><td class="n">9</td><td class="n">0.75 s</td></tr><tr><td class="n">2064</td><td><b>Mind Veil</b></td><td class="n">35</td><td class="n">31</td><td class="n">9</td><td class="n">1 s</td></tr><tr><td class="n">2065</td><td><b>Eternal Lullaby</b></td><td class="n">45</td><td class="n">52</td><td class="n">24</td><td class="n">2 s</td></tr></tbody></table></div>
+<h2>Damage</h2>
+<div class="formula">technique damage = level ÷ 5 + STR + the technique's base damage</div>
+</article>
+<article data-page="moon" data-group="Demon" data-title="Moon Breathing">
+<h1>Moon Breathing</h1>
+<p class="lede">Sixteen forms, for demons only. They unlock between level 20 and 65 and follow your Blood Demon Art in the weapon's skill list.</p><div class="tw"><table><thead><tr><th>ID</th><th>Technique</th><th>Level</th><th>Mana</th><th>Base dmg</th><th>Cooldown</th></tr></thead><tbody><tr><td class="n">1401</td><td><b>Dark Moon, Evening Palace</b></td><td class="n">20</td><td class="n">21</td><td class="n">8</td><td class="n">0.75 s</td></tr><tr><td class="n">1402</td><td><b>Moon Breathing, Second Form</b></td><td class="n">23</td><td class="n">25</td><td class="n">6</td><td class="n">1 s</td></tr><tr><td class="n">1403</td><td><b>Loathsome Moon, Chains</b></td><td class="n">26</td><td class="n">26</td><td class="n">9</td><td class="n">1 s</td></tr><tr><td class="n">1404</td><td><b>Moon Breathing, Fourth Form</b></td><td class="n">29</td><td class="n">28</td><td class="n">10</td><td class="n">1.5 s</td></tr><tr><td class="n">1405</td><td><b>Moon Spirit Calamitous Eddy</b></td><td class="n">32</td><td class="n">30</td><td class="n">9</td><td class="n">1 s</td></tr><tr><td class="n">1406</td><td><b>Perpetual Night, Lonely Moon - Incessant</b></td><td class="n">35</td><td class="n">30</td><td class="n">11</td><td class="n">1.25 s</td></tr><tr><td class="n">1407</td><td><b>Moon Breathing, Seventh Form</b></td><td class="n">38</td><td class="n">32</td><td class="n">12</td><td class="n">1 s</td></tr><tr><td class="n">1408</td><td><b>Moon-Dragon Ringtail</b></td><td class="n">41</td><td class="n">37</td><td class="n">17</td><td class="n">0.75 s</td></tr><tr><td class="n">1409</td><td><b>Waning Moonswath</b></td><td class="n">44</td><td class="n">36</td><td class="n">11</td><td class="n">1 s</td></tr><tr><td class="n">1410</td><td><b>Moon Breathing, Tenth Form</b></td><td class="n">47</td><td class="n">42</td><td class="n">18</td><td class="n">1.25 s</td></tr><tr><td class="n">1411</td><td><b>Moon Breathing, Eleventh Form</b></td><td class="n">50</td><td class="n">45</td><td class="n">20</td><td class="n">1.5 s</td></tr><tr><td class="n">1412</td><td><b>Moon Breathing, Twelfth Form</b></td><td class="n">53</td><td class="n">40</td><td class="n">13</td><td class="n">1 s</td></tr><tr><td class="n">1413</td><td><b>Moon Breathing, Thirteenth Form</b></td><td class="n">56</td><td class="n">45</td><td class="n">22</td><td class="n">0.75 s</td></tr><tr><td class="n">1414</td><td><b>Catastrophe, Tenfold Mad Cyclone</b></td><td class="n">59</td><td class="n">59</td><td class="n">29</td><td class="n">2 s</td></tr><tr><td class="n">1415</td><td><b>Moon Breathing, Fifteenth Form</b></td><td class="n">62</td><td class="n">62</td><td class="n">31</td><td class="n">2.25 s</td></tr><tr><td class="n">1416</td><td><b>Moonbow, Half-Moon</b></td><td class="n">65</td><td class="n">62</td><td class="n">32</td><td class="n">2 s</td></tr></tbody></table></div>
+<div class="note"><b>Names</b>The pack's author was not sure of the canon names for some forms, so Moon Breathing 2, 4, 7, 10, 11, 12, 13 and 15 are shown as plain numbers.</div>
+<p>Demons cannot use Sun Breathing, and slayers cannot use Moon Breathing.</p>
+</article>
+<article data-page="clans" data-group="Clans" data-title="Clans">
+<h1>Clans</h1>
+<p class="lede">Clans are open to everybody, awakened or not. Your clan can never be hurt by you in any way.</p>
+<h2>Founding a clan</h2>
+<ol class="steps">
+<li><b>Rename a Name Tag.</b> Use an anvil. The new name is your clan name, 3 to 16 characters.</li>
+<li><b>Hold it and open the menu.</b> Run <span class="cmd">/trigger sl_clan set 1</span> and click <b>[Create Clan]</b>. The tag is used up.</li>
+<li><b>Pick a colour.</b> Click <b>[Colours]</b> and choose one of 16.</li>
+</ol>
+<h2>Members</h2>
+<ul>
+<li><b>Invite:</b> the leader opens the menu and picks an online player without a clan. They get <b>[Accept]</b> and <b>[Decline]</b> buttons for 60 seconds.</li>
+<li><b>Size:</b> up to 20 members by default. Admins can change it.</li>
+<li><b>Leave, Kick or Disband:</b> the leader can kick and disband (disbanding asks you to confirm). Anyone can leave.</li>
+<li><b>Succession:</b> if the leader leaves, the longest-standing member takes over. When the last member leaves, the clan disbands.</li>
+<li><b>Clan chat:</b> vanilla, <code>/teammsg &lt;text&gt;</code> or <code>/tm</code>. Your clan name appears as a prefix.</li>
+</ul>
+<h2>Clan menu triggers</h2>
+<div class="tw"><table><thead><tr><th><code>sl_clan</code> value</th><th>Does</th></tr></thead><tbody>
+<tr><td class="n">1</td><td>Open the clan menu</td></tr><tr><td class="n">2</td><td>Create a clan from the held Name Tag</td></tr>
+<tr><td class="n">3</td><td>List online players you can invite</td></tr><tr><td class="n">4</td><td>Leave your clan</td></tr>
+<tr><td class="n">5 / 6</td><td>Ask to disband / confirm disband</td></tr><tr><td class="n">7</td><td>List members you can kick</td></tr>
+<tr><td class="n">8 / 9</td><td>Accept / decline an invitation</td></tr><tr><td class="n">10</td><td>Show clan members</td></tr>
+<tr><td class="n">11</td><td>Colour menu</td></tr><tr><td class="n">100 to 115</td><td>Set a colour</td></tr>
+</tbody></table></div>
+<h2>Friendly fire and PvP</h2>
+<ul>
+<li>Vanilla team friendly fire is off for clans, so melee and arrows between members do nothing.</li>
+<li>Every skill, push, pull, debuff and shadow skips your clan. People <b>outside</b> your clan are fair game for your skills and your shadow army.</li>
+<li>Without a clan, awakened players are enemies of each other.</li>
+<li>Admin kill-switch: <code>/function sl:admin/pvp {on:0}</code> makes the pack's skills and shadows treat everyone as friendly. Vanilla melee still follows <code>server.properties</code>.</li>
+</ul>
+<div class="note warn"><b>Limit</b>Damage you cause yourself with vanilla means (lava, TNT, fire you place) cannot be blocked by a datapack.</div>
+</article>
 <article data-page="admin" data-group="Reference" data-title="Admin Tools">
-  <h1>Admin Tools</h1>
-  <p class="lede">These are <code>/function</code> commands and need operator permission. Run them as the player they affect.</p>
-  <div class="tw"><table>
-    <thead><tr><th>Command</th><th>Does</th></tr></thead>
-    <tbody>
-      <tr><td><span class="cmd">/function sl:system/force_awaken</span></td><td>Awakens the player immediately and skips the trial.</td></tr>
-      <tr><td><span class="cmd">/function sl:debug/xp</span></td><td>Gives 100 XP to test levelling.</td></tr>
-      <tr><td><span class="cmd">/function sl:system/reset</span></td><td>Resets one player's System: level, stats, path, shadows, kill counts and trial. Ends Combat Mode first and removes their attribute bonuses. They awaken and choose again.</td></tr>
-      <tr><td><span class="cmd">/function sl:system/purge_shadows</span></td><td>Kills every shadow in the world.</td></tr>
-      <tr><td><span class="cmd">/function sl:system/uninstall</span></td><td>Full clean-up before deleting the pack. See <a href="#install">Installation</a>.</td></tr>
-    </tbody></table></div>
-  <div class="note"><b>Example</b>To test a Limitless build quickly: <code>/function sl:system/force_awaken</code>, choose Limitless, then run <code>/function sl:debug/xp</code> repeatedly until the skills unlock.</div>
-  <div class="pager"><a href="#limitless">← Limitless skills</a><a href="#faq">FAQ →</a></div>
+<h1>Admin Tools</h1>
+<p class="lede">These need operator permission. Type <span class="cmd">/function sl:admin/help</span> in game for a list.</p>
+<h2>Per player</h2>
+<p>Run as the player: <code>/execute as &lt;player&gt; run function sl:admin/&lt;name&gt; {args}</code></p>
+<div class="tw"><table><thead><tr><th>Name</th><th>Does</th></tr></thead><tbody>
+<tr><td><code>awaken</code></td><td>Force-awaken the player, skipping the trial.</td></tr>
+<tr><td><code>reset</code></td><td>Reset the player's System. Their clan is kept.</td></tr>
+<tr><td><code>set_path {path:1-4,opt:0}</code></td><td>1 Monarch, 2 Limitless, 3 Slayer (opt = style 1 to 13, 0 = from playstyle), 4 Demon (opt = Blood Demon Art 1 to 6).</td></tr>
+<tr><td><code>set_style {style:1-13}</code></td><td>Change a Slayer's breathing style.</td></tr>
+<tr><td><code>reroll_style</code></td><td>Read the player's playstyle again and assign a style.</td></tr>
+<tr><td><code>set_bda {family:1-6}</code></td><td>Change a Demon's Blood Demon Art.</td></tr>
+<tr><td><code>set_level {level:N}</code></td><td>Set level. Stats are kept.</td></tr>
+<tr><td><code>give_xp {xp:N}</code>, <code>give_points {points:N}</code></td><td>Give XP or stat points.</td></tr>
+<tr><td><code>refill</code></td><td>Full mana, clear cooldowns.</td></tr>
+<tr><td><code>give_item</code></td><td>Hand the player a fresh weapon.</td></tr>
+<tr><td><code>status</code></td><td>Dump the player's System values.</td></tr>
+<tr><td><code>affinity</code></td><td>Show the player's 12 breathing-style scores.</td></tr>
+<tr><td><code>clan_add {id:N}</code>, <code>clan_remove</code></td><td>Put the player into or take them out of a clan.</td></tr>
+</tbody></table></div>
+<h2>Global</h2>
+<div class="tw"><table><thead><tr><th>Command</th><th>Does</th></tr></thead><tbody>
+<tr><td><span class="cmd">/function sl:admin/clan_list</span></td><td>List all clans.</td></tr>
+<tr><td><code>/function sl:admin/clan_disband {id:N}</code></td><td>Disband a clan.</td></tr>
+<tr><td><code>/function sl:admin/clan_rename {id:N,name:"Name"}</code></td><td>Rename a clan.</td></tr>
+<tr><td><code>/function sl:admin/clan_maxsize {size:N}</code></td><td>Change the member limit (default 20).</td></tr>
+<tr><td><code>/function sl:admin/pvp {on:0|1}</code></td><td>Turn the pack's player-versus-player skills and shadows off or on.</td></tr>
+<tr><td><code>/function sl:admin/sunburn {on:0|1}</code></td><td>Turn demon sunlight off or on.</td></tr>
+<tr><td><span class="cmd">/function sl:debug/xp</span></td><td>Gives the player 100 XP.</td></tr>
+<tr><td><span class="cmd">/function sl:system/purge_shadows</span></td><td>Kills every shadow in the world.</td></tr>
+<tr><td><span class="cmd">/function sl:system/uninstall</span></td><td>Full clean-up before deleting the pack.</td></tr>
+</tbody></table></div>
+<h2>Tuning</h2>
+<p>The playstyle scoring weights are plain scoreboard lines in <code>data/sl/function/ds/calc.mcfunction</code> and <code>ds/track.mcfunction</code>. Skill tables (levels, mana, names) are in <code>init/lists.mcfunction</code> and <code>init/forms.mcfunction</code>.</p>
 </article>
-
 <article data-page="faq" data-group="Reference" data-title="FAQ">
-  <h1>FAQ</h1>
-  <h3>Nothing happens when I use a skill.</h3>
-  <p>You have not chosen a path yet, or you chose the other one. Run <span class="cmd">/trigger sl_menu</span> and check "Path". If it is blank, click a path button.</p>
-  <h3>"Skill locked. Requires level N."</h3>
-  <p>Your level is too low. The skill list at <code>/trigger sl_menu set 3</code> shows each level.</p>
-  <h3>My skills do not hit the Warden, Wither, Dragon or Enderman.</h3>
-  <p>They are not on the target list. This applies to your shadows too.</p>
-  <h3>Can I hurt other players?</h3>
-  <p>No. Skills and shadows only target monsters. Awakened players share a no-friendly-fire team, so normal melee between them is also blocked. Infinity does push players away.</p>
-  <h3>Do all players share levels or armies?</h3>
-  <p>No. Everything is per player.</p>
-  <h3>Can I change my path?</h3>
-  <p>Only if an admin resets you with <span class="cmd">/function sl:system/reset</span>. You then re-awaken and choose again.</p>
-  <h3>My hotbar vanished.</h3>
-  <p>You are in Combat Mode. Run <span class="cmd">/trigger sl_combat set 1</span> to get it back.</p>
-  <h3>The pack does not load.</h3>
-  <p>It is built for Minecraft 26.3 (format 121). Check the version and that <code>pack.mcmeta</code> sits at the top level of the zip or folder.</p>
-  <h3>My shadows disappeared.</h3>
-  <p>They are dismissed when you leave the game. Use Arise again after you rejoin.</p>
-  <div class="pager"><a href="#admin">← Admin Tools</a><a href="#history">Version History →</a></div>
+<h1>FAQ</h1>
+<h3>Nothing happens when I use a skill.</h3>
+<p>You have not chosen a path yet. Run <span class="cmd">/trigger sl_menu</span>, check "Path", and click a path button. Also check that you are holding your weapon.</p>
+<h3>I cannot see my weapon.</h3>
+<p>You put it away. Run <span class="cmd">/trigger sl_combat set 1</span> to draw it. An admin can also run <code>sl:admin/give_item</code>.</p>
+<h3>"Skill locked. Requires level N."</h3>
+<p>Your level is too low. Locked skills are skipped when you cycle with F and Q.</p>
+<h3>Can I choose my breathing style?</h3>
+<p>No. The System picks it from how you played before you chose. Only an admin can change it with <code>sl:admin/set_style</code> or <code>reroll_style</code>.</p>
+<h3>I am a demon and I keep burning.</h3>
+<p>Stay under a roof, in a cave or in water, or play at night. You are immune from level 60. Admins can disable sunlight with <code>sl:admin/sunburn {on:0}</code>.</p>
+<h3>My skills do not hit the Warden, Wither, Dragon or Enderman.</h3>
+<p>They are not on the target list. This applies to your shadows too.</p>
+<h3>Can I hurt other players?</h3>
+<p>Yes, anyone outside your clan. Clan members are always safe from you. Without a clan, awakened players are enemies of each other. Admins can switch this off with <code>sl:admin/pvp {on:0}</code>.</p>
+<h3>How do I make a clan?</h3>
+<p>Rename a Name Tag at an anvil, hold it, and open <span class="cmd">/trigger sl_clan set 1</span>. Details on the <a href="#clans">Clans</a> page.</p>
+<h3>Q or F feels odd on the weapon.</h3>
+<p>They are detected indirectly, so you may see a one-tick flicker. You cannot drop or swap the weapon while you hold it. A shield in your off hand is returned to you.</p>
+<h3>Do all players share levels or armies?</h3>
+<p>No. Everything is per player.</p>
+<h3>The pack does not load.</h3>
+<p>It is built for Minecraft 26.3 (format 121). Check the version and that <code>pack.mcmeta</code> sits at the top level of the zip or folder.</p>
 </article>
-
 <article data-page="history" data-group="Reference" data-title="Version History">
-  <h1>Version History</h1>
-  <p class="lede">Version numbers are informal, ordered by the time stamps in each build.</p>
-  <div class="ver"><h3>v5 <span class="tag">current</span></h3><small>8 Nov, 20:24</small>
-    <ul><li>Infinity became a no-mana toggle that also pushes players and deletes projectiles.</li><li>New <code>inert</code> entity tag stops it shoving items and non-creatures.</li><li>Skill menu and Limitless item text updated.</li></ul></div>
-  <div class="ver"><h3>v4: Aura Awakening</h3><small>8 Nov, 20:19</small>
-    <ul><li>Renamed from Solo Leveling to Aura Awakening.</li><li>Permanent path choice at awakening: Shadow Monarch or Limitless.</li><li>Combat Mode with saved hotbar and right-click skill items.</li><li>Path-gated skills, army and extraction.</li></ul></div>
-  <div class="ver"><h3>v3: Gojo merged</h3><small>8 Nov, 20:02</small>
-    <ul><li>Skills 7 to 13 added to the main pack, using the same levels and mana.</li><li>Every player had all 13 skills at this stage.</li></ul></div>
-  <div class="ver"><h3>Gojo Powers prototype</h3><small>8 Nov, 19:46</small>
-    <ul><li>Separate small pack with passive Infinity, Red and Domain. No levels or mana. Not part of the main line.</li></ul></div>
-  <div class="ver"><h3>v2: Trial and bosses</h3><small>8 Nov, 18:02</small>
-    <ul><li>Awakening locked behind the 300 kills, Warden, Wither and near-death trial.</li><li>Boss shadows for Warden, Wither and Ender Dragon with their own attacks, odds and cooldown.</li><li>Army cap calculation and roster with boss buttons.</li></ul></div>
-  <div class="ver"><h3>v1: Shadow Monarch</h3><small>8 Nov, 17:38</small>
-    <ul><li>XP, levels to 100, five stats, mana and HUD.</li><li>Six skills, Shadow Extraction for 22 mob types, and Arise.</li></ul></div>
-  <h2>Planned</h2>
-  <div class="note plan"><b>Not built yet</b>Demon Slayer and Demon paths, clans with friendly-fire protection, and a single cast item cycled with Q and F. None of these exist in v5.</div>
-  <div class="pager"><a href="#faq">← FAQ</a><span></span></div>
+<h1>Version History</h1>
+<p class="lede">Version numbers are informal, ordered by the time stamps in each build.</p>
+<div class="ver"><h3>v6: Demon Slayer, Demon and Clans <span class="tag">current</span></h3><small>10 Nov</small>
+<h3 style="font-size:15px">Added</h3>
+<ul>
+<li><b>Two new paths:</b> Demon Slayer (3) and Demon (4), chosen at awakening alongside Monarch and Limitless.</li>
+<li><b>One weapon per path</b> (dagger, stick, Nichirin blade, blood claw). Right-click casts, F is next skill, Q is previous, locked skills are skipped, and the selection shows in the name and actionbar.</li>
+<li><b>Demon Slayer:</b> the System picks one of 13 breathing styles from how you played; 89 forms, level-gated; Total Concentration, Demon Slayer Mark and Transparent World.</li>
+<li><b>Demon:</b> twelve Moon ranks by level, six Blood Demon Arts with 5 skills each, 16 Moon Breathing forms, regeneration, night bonuses and sunlight damage.</li>
+<li><b>Clans</b> for everybody: Name Tag founding, invites, kick, leave, disband, succession, 16 colours, clan chat, up to 20 members.</li>
+<li><b>Admin toolkit</b> of about 30 functions: set path, style, level and XP, clan tools, PvP and sunlight switches, status and help.</li>
+<li><b>Status screens</b> for slayers and demons, a clickable skill list, and unlock and rank-up messages.</li>
+<li>Style tracking stats, global per-form cooldowns, and a config and tables system loaded at reload.</li>
+</ul>
+<h3 style="font-size:15px">Changed</h3>
+<ul>
+<li>Combat Mode no longer swaps your hotbar. It draws or puts away your weapon, and the weapon returns on respawn. Old stored hotbars are restored automatically on update.</li>
+<li>Monarch and Limitless skills are now cast from the weapon. The Knight Killer sword is replaced by the dagger.</li>
+<li>All skills and shadows can now hit players outside your clan. Infinity, Bloodlust, Blue and the others skip your clan.</li>
+<li>Awakened players no longer share a no-friendly-fire team. Shadows sit on their owner's clan team or a personal team.</li>
+<li>New <code>sl:admin/awaken</code> shortcut to force-awaken a player.</li>
+</ul>
+<h3 style="font-size:15px">Removed</h3>
+<ul><li>The hotbar-swapping Combat Mode (<code>combat/on</code>). Its saved-hotbar code stays only to migrate old players.</li></ul></div>
+<div class="ver"><h3>v5</h3><small>8 Nov, 20:24</small>
+<ul><li>Infinity became a no-mana toggle that also pushes players and deletes projectiles.</li><li>New <code>inert</code> entity tag stops it shoving items and non-creatures.</li><li>Skill menu and Limitless item text updated.</li></ul></div>
+<div class="ver"><h3>v4: Aura Awakening</h3><small>8 Nov, 20:19</small>
+<ul><li>Renamed from Solo Leveling to Aura Awakening.</li><li>Permanent path choice at awakening: Shadow Monarch or Limitless.</li><li>Combat Mode with saved hotbar and right-click skill items.</li><li>Path-gated skills, army and extraction.</li></ul></div>
+<div class="ver"><h3>v3: Gojo merged</h3><small>8 Nov, 20:02</small>
+<ul><li>Skills 7 to 13 added to the main pack, using the same levels and mana.</li><li>Every player had all 13 skills at this stage.</li></ul></div>
+<div class="ver"><h3>Gojo Powers prototype</h3><small>8 Nov, 19:46</small>
+<ul><li>Separate small pack with passive Infinity, Red and Domain. No levels or mana. Not part of the main line.</li></ul></div>
+<div class="ver"><h3>v2: Trial and bosses</h3><small>8 Nov, 18:02</small>
+<ul><li>Awakening locked behind the 300 kills, Warden, Wither and near-death trial.</li><li>Boss shadows for Warden, Wither and Ender Dragon with their own attacks, odds and cooldown.</li><li>Army cap calculation and roster with boss buttons.</li></ul></div>
+<div class="ver"><h3>v1: Shadow Monarch</h3><small>8 Nov, 17:38</small>
+<ul><li>XP, levels to 100, five stats, mana and HUD.</li><li>Six skills, Shadow Extraction for 22 mob types, and Arise.</li></ul></div>
 </article>
 
 </main>
 </div>
-
 <script>
 (function(){
   var arts=[].slice.call(document.querySelectorAll('article[data-page]'));
@@ -511,7 +595,13 @@ shadow damage per hit = level ÷ 4 + STR ÷ 2 + 4</div>
     navwrap.classList.remove('open');mb.setAttribute('aria-expanded','false');
     q.value='';res.style.display='none';
   }
+  arts.forEach(function(a,i){var p=document.createElement('div');p.className='pager';
+    var l=document.createElement(i>0?'a':'span'),r=document.createElement(i<arts.length-1?'a':'span');
+    if(i>0){l.href='#'+arts[i-1].getAttribute('data-page');l.textContent='\u2190 '+arts[i-1].getAttribute('data-title');}
+    if(i<arts.length-1){r.href='#'+arts[i+1].getAttribute('data-page');r.textContent=arts[i+1].getAttribute('data-title')+' \u2192';}
+    p.appendChild(l);p.appendChild(r);a.appendChild(p);});
   window.addEventListener('hashchange',show);show();
+  document.addEventListener('click',function(e){var a=e.target.closest&&e.target.closest('a[data-jump]');if(!a)return;e.preventDefault();var t=document.getElementById(a.getAttribute('data-jump'));if(t)t.scrollIntoView({behavior:'smooth',block:'start'});});
   mb.addEventListener('click',function(){var o=navwrap.classList.toggle('open');mb.setAttribute('aria-expanded',o?'true':'false');});
   var idx=arts.map(function(a){return {id:a.getAttribute('data-page'),t:a.getAttribute('data-title'),x:a.textContent.replace(/\s+/g,' ')};});
   q.addEventListener('input',function(){
