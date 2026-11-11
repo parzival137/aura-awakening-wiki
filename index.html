@@ -140,7 +140,7 @@ td.n{font-variant-numeric:tabular-nums;white-space:nowrap}
 <li><b>Multiplayer:</b> every player has their own level, stats, mana, skills and army.</li>
 <li><b>Level cap:</b> 100.</li>
 </ul>
-<div class="note plan"><b>New in v7</b>Two new paths, <a href="#saiyan">Saiyan</a> and <a href="#timestop">Time Stop</a>, and <a href="#awakenings">Multiple Awakenings</a>: hold up to six powers, one of each path. See the <a href="#history">version history</a>.</div>
+<div class="note plan"><b>New in v8</b>Bulk stat spending with an <b>[All]</b> button, selective <a href="#army">Shadow Army</a> summoning (<b>[+1] / [+5] / [All]</b> per shadow type), a fix so switching awakenings keeps your clan and friendly shadows, and <a href="#timestop">Time Stop</a> now stores damage dealt during the stop and releases it when time resumes. See the <a href="#history">version history</a>.</div>
 </article>
 <article data-page="install" data-group="Start" data-title="Installation">
 <h1>Installation</h1>
@@ -222,7 +222,13 @@ Level 1 → 2: 30 XP    Level 10 → 11: 120 XP    Level 50 → 51: 520 XP
 Cap: level 100. Past it, XP no longer converts to levels.</div>
 <p>Each level gives <b>3 stat points</b> (you also start with 3). A level up refills your mana, heals you and shows a title. When a level unlocks a skill, chat names it. Demons also get a message when they reach a new Moon rank.</p>
 <h2>The five stats</h2>
-<p>Spend points with the <b>[+]</b> buttons in <span class="cmd">/trigger sl_menu</span>, or <code>/trigger sl_stat set 1..5</code>. Each point costs one stat point.</p>
+<p>Spend points in <span class="cmd">/trigger sl_menu</span> with <b>[+]</b>, <b>[+10]</b> or <b>[All]</b>. By command:</p>
+<ul>
+<li><code>/trigger sl_stat set 1..5</code> adds one point to STR, AGI, SENSE, VIT or INT.</li>
+<li><code>/trigger sl_stat set &lt;amount × 10 + stat&gt;</code> spends a chosen amount. Example: <code>101</code> = +10 STR, <code>3001</code> = +300 STR (capped at the points you have).</li>
+<li><code>/trigger sl_stat set 2001..2005</code> spends <b>all</b> unspent points into that stat (2001 STR, 2002 AGI, 2003 SENSE, 2004 VIT, 2005 INT).</li>
+</ul>
+<p>Point spending is capped to your unspent total, and the status screen confirms how many were spent.</p>
 <div class="tw"><table>
 <thead><tr><th>#</th><th>Stat</th><th>Per point</th><th>Also used for</th></tr></thead><tbody>
 <tr><td class="n">1</td><td><b>STR</b></td><td>+0.4 attack damage</td><td>Damage of Slayer and Demon techniques, Dagger Rush, and half of it adds to shadow damage.</td></tr>
@@ -280,14 +286,15 @@ Regen      = INT ÷ 4 + 2  per second   (whole numbers, capped at max)</div>
 <tr><td><span class="cmd">/trigger sl_menu set 2</span></td><td>Toggle the automatic "extract?" prompt (Monarch).</td></tr>
 <tr><td><span class="cmd">/trigger sl_menu set 3</span></td><td>Skill list with clickable buttons.</td></tr>
 <tr><td><span class="cmd">/trigger sl_menu set 4</span></td><td>Draw or put away your weapon.</td></tr>
-<tr><td><span class="cmd">/trigger sl_stat set 1</span></td><td>Spend a point: 1 STR, 2 AGI, 3 SENSE, 4 VIT, 5 INT.</td></tr>
+<tr><td><span class="cmd">/trigger sl_stat set 1</span></td><td>Spend one point: 1 STR, 2 AGI, 3 SENSE, 4 VIT, 5 INT. Bulk: <code>amount × 10 + stat</code> (e.g. <code>101</code> = +10 STR, <code>3005</code> = +300 INT). All: <code>2001..2005</code>.</td></tr>
 <tr><td><span class="cmd">/trigger sl_skill set 1</span></td><td>Cast a skill by ID. Monarch 1 to 6, Limitless 7 to 13, Saiyan 3000 to 3208, Time Stop 4001 to 4006. Slayer and Demon IDs are in the skill list and the tables on this wiki.</td></tr>
 <tr><td><span class="cmd">/trigger sl_pathsel set 1</span></td><td>Choose a path: 1 Monarch, 2 Limitless, 3 Demon Slayer, 4 Demon (then 41 to 46 for your Blood Demon Art), 5 Saiyan, 6 Time Stop.</td></tr>
 <tr><td><span class="cmd">/trigger sl_combat set 1</span></td><td>Draw or put away your weapon.</td></tr>
 <tr><td><span class="cmd">/trigger sl_aw set 1</span></td><td>Open your awakenings: switch to one you hold, or awaken a new power once a slot is open. See <a href="#awakenings">Multiple Awakenings</a>.</td></tr>
 <tr><td><span class="cmd">/trigger sl_clan set 1</span></td><td>Open the clan menu. See <a href="#clans">Clans</a>.</td></tr>
 <tr><td><span class="cmd">/trigger sl_extract set 1</span></td><td>Attempt Shadow Extraction (within 10 seconds of a kill). Value 2 dismisses the offer.</td></tr>
-<tr><td><span class="cmd">/trigger sl_army set 1</span></td><td>Arise. 2 dismiss all, 3 roster.</td></tr>
+<tr><td><span class="cmd">/trigger sl_army set 1</span></td><td>Arise all. 2 dismiss all, 3 open the roster.</td></tr>
+<tr><td><span class="cmd">/trigger sl_army set 100+i</span></td><td>Summon <b>one</b> shadow of type <code>i</code>. <code>200+i</code> summons five; <code>300+i</code> summons all of that type that still fit. Types 1-22 follow the roster order (1 zombie, 2 husk, 3 drowned ... 22 silverfish).</td></tr>
 <tr><td><span class="cmd">/trigger sl_army set 11</span></td><td>Summon boss shadow: 11 Warden, 12 Wither, 13 Ender Dragon.</td></tr>
 <tr><td><span class="cmd">/trigger sl_trial</span></td><td>Show trial progress before you awaken.</td></tr>
 <tr><td><span class="cmd">/teammsg &lt;text&gt;</span></td><td>Clan chat (also <code>/tm</code>). Vanilla command.</td></tr>
@@ -308,9 +315,11 @@ Regen      = INT ÷ 4 + 2  per second   (whole numbers, capped at max)</div>
 <h2>What is kept</h2>
 <p>Each awakening keeps its <b>own</b> level, XP, stat points, stats, style, form and timers.</p>
 <p>Shared between all of them: your clan, the Monarch's extracted shadow roster, and kill counters.</p>
+<p><b>Clan membership is not tied to an awakening.</b> Switching away and back keeps your clan, clan team and rank; you do not need to rejoin. As Shadow Monarch, summoned shadows are re-synced onto your clan (or personal) team when an awakening loads, so they stay friendly.</p>
 <h2>Switching</h2>
 <ul>
-<li>Shadows are dismissed and transformations drop.</li>
+<li>Shadows are dismissed and transformations drop. Summon them again after switching back to Shadow Monarch.</li>
+<li>Your clan is preserved, and shadows rejoin your clan/personal team automatically.</li>
 <li>Your weapon changes to the new path's weapon.</li>
 <li>Mana refills.</li>
 <li>There is a <b>30 second cooldown</b> (configurable by admins).</li>
@@ -375,10 +384,20 @@ shadow damage per hit = level ÷ 4 + STR ÷ 2 + 4</div>
 <li>They always sit on your team (your clan's team, or a personal one), so they never attack you or your clan.</li>
 <li>If you leave the game, your shadows are dismissed.</li>
 </ul>
+<h2>Selective summoning</h2>
+<p><span class="cmd">/trigger sl_army set 3</span> opens the roster. Every owned shadow type has <b>[+1]</b>, <b>[+5]</b> and <b>[All]</b> buttons. Unlike Arise All, selective summoning <b>adds</b> shadows without dismissing the ones already out.</p>
+<ul>
+<li>The roster shows <b>Summoned: X / Y cap</b> at the top.</li>
+<li>Each type is limited by how many you extracted <b>and</b> by the remaining global army cap. You cannot exceed either.</li>
+<li>When a type is fully deployed, chat says "All of that shadow type are already summoned."</li>
+<li><b>[All]</b> only fills the remaining room; it does not ignore the cap.</li>
+</ul>
+<p>By command: <code>/trigger sl_army set 100+i</code> = one, <code>200+i</code> = five, <code>300+i</code> = all of type <code>i</code> (1-22 in roster order).</p>
 <h2>Managing the army</h2>
 <ul>
-<li><span class="cmd">/trigger sl_army set 3</span> prints your roster with counts and boss buttons.</li>
+<li><span class="cmd">/trigger sl_army set 3</span> prints your roster with counts, per-type summon buttons and boss buttons.</li>
 <li><span class="cmd">/trigger sl_army set 2</span> dismisses every shadow.</li>
+<li>If you already summoned extras in an older build, dismiss all first, then summon selectively.</li>
 </ul>
 </article>
 <article data-page="bosses" data-group="Shadow Monarch" data-title="Boss Shadows">
@@ -532,6 +551,8 @@ shadow damage per hit = level ÷ 4 + STR ÷ 2 + 4</div>
 <li>+6 melee damage and much faster attacks.</li>
 <li>All your skills deal <b>double damage</b>.</li>
 </ul>
+<h2>Stored damage on resume</h2>
+<p>New in v8: damage you deal while time is stopped is <b>stored</b>. When time resumes, the stored damage is released in one burst against frozen, non-allied mobs within range, with crit particles and a "Stored time-stop damage released" message. It is an approximate replay (stored total, scaled and applied on resume), not a hit-for-hit rewind, and allies/players are not caught by the release.</p>
 <p>Time resumes with a title and a bell. A server failsafe unfreezes everything within a second if the caster logs out or dies.</p>
 <div class="note warn"><b>Limit</b>Your clan mates' shadows can be frozen too.</div>
 <h2>Skills</h2>
@@ -654,7 +675,23 @@ shadow damage per hit = level ÷ 4 + STR ÷ 2 + 4</div>
 <article data-page="history" data-group="Reference" data-title="Version History">
 <h1>Version History</h1>
 <p class="lede">Version numbers are informal, ordered by the time stamps in each build.</p>
-<div class="ver"><h3>v7: Saiyan, Time Stop and Multiple Awakenings <span class="tag">current</span></h3><small>11 Nov</small>
+<div class="ver"><h3>v8: Foundations, bulk stats and army control <span class="tag">current</span></h3><small>11 Nov</small>
+<h3 style="font-size:15px">Added</h3>
+<ul>
+<li><b>Bulk stat spending:</b> <b>[+10]</b> and <b>[All]</b> buttons in the status screen, plus <code>/trigger sl_stat set &lt;amount × 10 + stat&gt;</code> (e.g. <code>3001</code> = +300 STR) and <code>2001..2005</code> to spend all points into one stat.</li>
+<li><b>Selective Shadow Army:</b> the roster now lists <b>[+1] / [+5] / [All]</b> for each extracted shadow type. Summoning respects the extracted count for that type and the remaining global army cap.</li>
+<li><b>Time Stop stored damage:</b> damage dealt during a stop is stored and released when time resumes against frozen non-allied mobs, with a burst and message. Approximate replay, not per-hit.</li>
+<li><b>Compatibility build:</b> the zip now ships forward-slash paths, both singular and plural function tag folders, and broader pack metadata so it loads across 1.21.x-26.3.</li>
+</ul>
+<h3 style="font-size:15px">Fixed</h3>
+<ul>
+<li>Switching awakenings no longer forgets your clan: clan membership is verified and the clan team/state is restored on load.</li>
+<li>Monarch shadows are re-synced to your clan or personal team after an awakening change, so they no longer attack their owner.</li>
+<li>Roster and selective-summon functions no longer fail to load from stray byte-order marks in the build.</li>
+</ul>
+<h3 style="font-size:15px">In progress</h3>
+<ul><li>Remaining v8 foundations: Hunter ranks E-S with trials and content gating, skill mastery, titles/achievements, per-player HUD/particle/message settings, and all-mob targeting with tamed/named/leashed protection.</li></ul></div>
+<div class="ver"><h3>v7: Saiyan, Time Stop and Multiple Awakenings</h3><small>11 Nov</small>
 <h3 style="font-size:15px">Added</h3>
 <ul>
 <li><b>Saiyan (path 5):</b> Ki, seven Ki techniques and eight transformations from Super Saiyan to Mastered Ultra Instinct, Kaioken, dodging, and a Ki Focus weapon.</li>
