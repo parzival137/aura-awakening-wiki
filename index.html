@@ -120,13 +120,16 @@ td.n{font-variant-numeric:tabular-nums;white-space:nowrap}
 <main id="main">
 <article data-page="home" data-group="Start" data-title="Home">
 <h1>Aura Awakening</h1>
-<p class="lede">A datapack that gives players a levelling "System". Survive a trial to awaken, pick one permanent path, then grow through levels, stats, mana and skills. Four paths, one weapon, and clans.</p>
+<p class="lede">A datapack that gives players a levelling "System". Survive a trial to awaken, pick one permanent path, then grow through levels, stats, mana and skills. Six paths, one weapon, multiple awakenings, and clans.</p>
 <div class="cards">
 <a class="card" href="#trial"><b>The Awakening Trial</b><span>300 kills, the Warden, the Wither, and a brush with death.</span></a>
-<a class="card" href="#paths"><b>Choosing a Path</b><span>Shadow Monarch, Limitless, Demon Slayer or Demon. Permanent.</span></a>
+<a class="card" href="#paths"><b>Choosing a Path</b><span>Shadow Monarch, Limitless, Demon Slayer, Demon, Saiyan or Time Stop. Permanent.</span></a>
 <a class="card" href="#weapon"><b>Weapon and Casting</b><span>Right-click to cast. F and Q cycle your skills.</span></a>
 <a class="card" href="#slayer"><b>Demon Slayer</b><span>The System picks your breathing style from how you played.</span></a>
 <a class="card" href="#demon"><b>Demon</b><span>Blood Demon Arts, Moon ranks, Moon Breathing and sunlight.</span></a>
+<a class="card" href="#saiyan"><b>Saiyan</b><span>Ki, eight transformations up to Mastered Ultra Instinct, and the strongest late game.</span></a>
+<a class="card" href="#timestop"><b>Time Stop</b><span>Freeze everything within 48 blocks and move through the stop at superspeed.</span></a>
+<a class="card" href="#awakenings"><b>Multiple Awakenings</b><span>Reach level 100 to unlock a second slot, then hold up to six powers.</span></a>
 <a class="card" href="#clans"><b>Clans</b><span>Found a clan so your skills and shadows never hurt your friends.</span></a>
 </div>
 <h2>At a glance</h2>
@@ -137,7 +140,7 @@ td.n{font-variant-numeric:tabular-nums;white-space:nowrap}
 <li><b>Multiplayer:</b> every player has their own level, stats, mana, skills and army.</li>
 <li><b>Level cap:</b> 100.</li>
 </ul>
-<div class="note plan"><b>New in v6</b>Demon Slayer and Demon paths, clans, and a single weapon that replaces the old hotbar Combat Mode. See the <a href="#history">version history</a>.</div>
+<div class="note plan"><b>New in v7</b>Two new paths, <a href="#saiyan">Saiyan</a> and <a href="#timestop">Time Stop</a>, and <a href="#awakenings">Multiple Awakenings</a>: hold up to six powers, one of each path. See the <a href="#history">version history</a>.</div>
 </article>
 <article data-page="install" data-group="Start" data-title="Installation">
 <h1>Installation</h1>
@@ -183,13 +186,15 @@ td.n{font-variant-numeric:tabular-nums;white-space:nowrap}
 </article>
 <article data-page="paths" data-group="Playing" data-title="Choosing a Path">
 <h1>Choosing a Path</h1>
-<p class="lede">Right after awakening you pick one path. It is permanent unless an admin resets or changes it.</p>
+<p class="lede">Right after awakening you pick your first path. Each awakening is permanent unless an admin resets or changes it. After level 100 you can <a href="#awakenings">awaken further powers</a>.</p>
 <div class="tw"><table>
 <thead><tr><th>Path</th><th>Button</th><th>Trigger</th><th>Weapon</th><th>You get</th></tr></thead><tbody>
 <tr><td><b>1 Shadow Monarch</b></td><td>[ARISE]</td><td><code>/trigger sl_pathsel set 1</code></td><td>Dagger</td><td>Skills 1 to 6 and Arise, Shadow Extraction, the shadow army and boss shadows.</td></tr>
 <tr><td><b>2 Limitless</b></td><td>[LIMITLESS]</td><td><code>/trigger sl_pathsel set 2</code></td><td>Stick</td><td>Skills 7 to 13: Blue to Domain Expansion.</td></tr>
 <tr><td><b>3 Demon Slayer</b></td><td>[DEMON SLAYER]</td><td><code>/trigger sl_pathsel set 3</code></td><td>Nichirin blade</td><td>One breathing style picked by the System from how you played, its forms, plus three extra techniques.</td></tr>
 <tr><td><b>4 Demon</b></td><td>[DEMON]</td><td><code>/trigger sl_pathsel set 4</code>, then <code>41</code> to <code>46</code></td><td>Blood claw</td><td>A Blood Demon Art you choose, Moon Breathing, strong regeneration, and a weakness to sunlight.</td></tr>
+<tr><td><b>5 Saiyan</b></td><td>[SAIYAN]</td><td><code>/trigger sl_pathsel set 5</code></td><td>Ki Focus</td><td>Ki techniques, eight transformations from Super Saiyan to Mastered Ultra Instinct, and the strongest late game. See <a href="#saiyan">Saiyan</a>.</td></tr>
+<tr><td><b>6 Time Stop</b></td><td>[TIME STOP]</td><td><code>/trigger sl_pathsel set 6</code></td><td>Pocket watch</td><td>Freeze the world, then act at superspeed. Knife Barrage, Blink Strike, Accelerate, Flurry and Time's End. See <a href="#timestop">Time Stop</a>.</td></tr>
 </tbody></table></div>
 <p>All paths share the same levels, stats, mana and HUD. Choosing Demon first opens a second menu where you pick one of six Blood Demon Arts (<code>/trigger sl_pathsel set 41..46</code>). That choice is also permanent.</p>
 <h2>Rules</h2>
@@ -197,8 +202,9 @@ td.n{font-variant-numeric:tabular-nums;white-space:nowrap}
 <li>Until you choose, skill and army commands show the path prompt instead.</li>
 <li>A skill from another path gives an error and does nothing.</li>
 <li>Extraction, Arise and boss shadows are Monarch-only. Only Monarchs get the extraction prompt.</li>
+
 <li>You are handed your weapon the moment you choose. See <a href="#weapon">Weapon and Casting</a>.</li>
-<li>To change path, an admin must reset you or use <code>sl:admin/set_path</code> (see <a href="#admin">Admin Tools</a>).</li>
+<li>To hold more than one power, see <a href="#awakenings">Multiple Awakenings</a>. Otherwise an admin must reset you or use <code>sl:admin/set_path</code> (see <a href="#admin">Admin Tools</a>).</li>
 </ul>
 </article>
 <article data-page="stats" data-group="Playing" data-title="Stats and Levels">
@@ -228,7 +234,7 @@ Cap: level 100. Past it, XP no longer converts to levels.</div>
 <h2>Mana</h2>
 <div class="formula">Max mana   = INT × 10 + level × 2 + 50
 Regen      = INT ÷ 4 + 2  per second   (whole numbers, capped at max)</div>
-<p>Every path uses the same mana pool. Example: a level 30 player with INT 10 has 10 × 10 + 30 × 2 + 50 = <b>210 max mana</b> and regenerates 10 ÷ 4 + 2 = <b>4 per second</b>.</p>
+<p>Every path uses the same mana pool (Saiyans call it Ki, shown as MP, and get extra regeneration: see <a href="#saiyan">Saiyan</a>). Example: a level 30 player with INT 10 has 10 × 10 + 30 × 2 + 50 = <b>210 max mana</b> and regenerates 10 ÷ 4 + 2 = <b>4 per second</b>.</p>
 </article>
 <article data-page="weapon" data-group="Playing" data-title="Weapon and Casting">
 <h1>Weapon and Casting</h1>
@@ -245,13 +251,15 @@ Regen      = INT ÷ 4 + 2  per second   (whole numbers, capped at max)</div>
 <li>Locked skills are skipped when you cycle.</li>
 <li>You can still cast from chat with <code>/trigger sl_skill set &lt;id&gt;</code>. The list at <span class="cmd">/trigger sl_menu set 3</span> has clickable buttons.</li>
 </ul>
-<h2>The four weapons</h2>
+<h2>The six weapons</h2>
 <div class="tw"><table>
 <thead><tr><th>Path</th><th>Weapon</th><th>Looks like</th><th>Attack damage</th><th>Attack speed</th></tr></thead><tbody>
 <tr><td>Shadow Monarch</td><td>Dagger</td><td>Netherite sword</td><td class="n">+5</td><td class="n">−1</td></tr>
 <tr><td>Limitless</td><td>Stick</td><td>Stick</td><td class="n">+1</td><td class="n">no change</td></tr>
 <tr><td>Demon Slayer</td><td>Nichirin blade</td><td>Iron sword</td><td class="n">+6</td><td class="n">−2.4 (sword speed)</td></tr>
 <tr><td>Demon</td><td>Blood claw</td><td>Blaze rod</td><td class="n">+3</td><td class="n">−1</td></tr>
+<tr><td>Saiyan</td><td>Ki Focus</td><td>Glowing nether star</td><td class="n">+0</td><td class="n">no change</td></tr>
+<tr><td>Time Stop</td><td>Pocket watch</td><td>Clock</td><td class="n">+1</td><td class="n">no change</td></tr>
 </tbody></table></div>
 <p>The name colour follows your skill (and, for slayers, your breathing style). Values are added to the base attack of 1.</p>
 <h2>Putting it away</h2>
@@ -260,7 +268,7 @@ Regen      = INT ÷ 4 + 2  per second   (whole numbers, capped at max)</div>
 <li>The weapon comes back when you respawn. It does not drop on death.</li>
 </ul>
 <h2>Cooldowns</h2>
-<p>Each Slayer and Demon technique has its own short cooldown (see the tables), so you cannot spam one form. Monarch and Limitless skills only use mana and level checks.</p>
+<p>Each Slayer and Demon technique has its own short cooldown (see the tables), so you cannot spam one form. Monarch, Limitless and Saiyan skills use mana and level checks, with a few exceptions: Spirit Bomb has a 6 second cooldown and Time Stop has its own 30 second cooldown.</p>
 <div class="note warn"><b>How it works under the hood</b>The weapon is a carrot on a stick re-skinned as a sword, dagger or stick, because a datapack cannot detect right-click on real swords. Q and F are detected indirectly: a dropped weapon is deleted and handed back, and a swapped weapon is put back in your hand. You may see a one-tick flicker, and you cannot drop or swap the weapon on purpose.</div>
 </article>
 <article data-page="commands" data-group="Playing" data-title="Commands">
@@ -273,9 +281,10 @@ Regen      = INT ÷ 4 + 2  per second   (whole numbers, capped at max)</div>
 <tr><td><span class="cmd">/trigger sl_menu set 3</span></td><td>Skill list with clickable buttons.</td></tr>
 <tr><td><span class="cmd">/trigger sl_menu set 4</span></td><td>Draw or put away your weapon.</td></tr>
 <tr><td><span class="cmd">/trigger sl_stat set 1</span></td><td>Spend a point: 1 STR, 2 AGI, 3 SENSE, 4 VIT, 5 INT.</td></tr>
-<tr><td><span class="cmd">/trigger sl_skill set 1</span></td><td>Cast a skill by ID. Monarch 1 to 6, Limitless 7 to 13, Slayer and Demon IDs are in the skill list and the tables on this wiki.</td></tr>
-<tr><td><span class="cmd">/trigger sl_pathsel set 1</span></td><td>Choose a path: 1 Monarch, 2 Limitless, 3 Demon Slayer, 4 Demon (then 41 to 46 for your Blood Demon Art).</td></tr>
+<tr><td><span class="cmd">/trigger sl_skill set 1</span></td><td>Cast a skill by ID. Monarch 1 to 6, Limitless 7 to 13, Saiyan 3000 to 3208, Time Stop 4001 to 4006. Slayer and Demon IDs are in the skill list and the tables on this wiki.</td></tr>
+<tr><td><span class="cmd">/trigger sl_pathsel set 1</span></td><td>Choose a path: 1 Monarch, 2 Limitless, 3 Demon Slayer, 4 Demon (then 41 to 46 for your Blood Demon Art), 5 Saiyan, 6 Time Stop.</td></tr>
 <tr><td><span class="cmd">/trigger sl_combat set 1</span></td><td>Draw or put away your weapon.</td></tr>
+<tr><td><span class="cmd">/trigger sl_aw set 1</span></td><td>Open your awakenings: switch to one you hold, or awaken a new power once a slot is open. See <a href="#awakenings">Multiple Awakenings</a>.</td></tr>
 <tr><td><span class="cmd">/trigger sl_clan set 1</span></td><td>Open the clan menu. See <a href="#clans">Clans</a>.</td></tr>
 <tr><td><span class="cmd">/trigger sl_extract set 1</span></td><td>Attempt Shadow Extraction (within 10 seconds of a kill). Value 2 dismisses the offer.</td></tr>
 <tr><td><span class="cmd">/trigger sl_army set 1</span></td><td>Arise. 2 dismiss all, 3 roster.</td></tr>
@@ -284,6 +293,30 @@ Regen      = INT ÷ 4 + 2  per second   (whole numbers, capped at max)</div>
 <tr><td><span class="cmd">/teammsg &lt;text&gt;</span></td><td>Clan chat (also <code>/tm</code>). Vanilla command.</td></tr>
 </tbody></table></div>
 <p>The clickable chat buttons run these same triggers, so anything you can click you can also type.</p>
+</article>
+<article data-page="awakenings" data-group="Playing" data-title="Multiple Awakenings">
+<h1>Multiple Awakenings</h1>
+<p class="lede">Reach level 100 and the System lets you hold a second power. Collect up to six, one of each path.</p>
+<h2>Slots</h2>
+<p>After your first awakening reaches <b>level 100</b> you unlock a second slot. Every awakening that reaches level 100 unlocks one more, up to a maximum of six (one of each path). Existing players are registered automatically, and an awakening already at level 100 unlocks a slot within a second.</p>
+<h2>The hub</h2>
+<p>Open it with <span class="cmd">/trigger sl_aw set 1</span> (also a button in <span class="cmd">/trigger sl_menu</span>).</p>
+<div class="tw"><table><thead><tr><th>Button</th><th>Does</th></tr></thead><tbody>
+<tr><td><b>[Awaken a new power]</b></td><td>Saves your current awakening, then you pick a path you do not hold yet. You start at level 1 with 3 stat points. No trial is needed. <b>[Cancel and return]</b> brings your old awakening back if you change your mind.</td></tr>
+<tr><td><b>[Switch]</b></td><td>Swaps to any awakening you hold.</td></tr>
+</tbody></table></div>
+<h2>What is kept</h2>
+<p>Each awakening keeps its <b>own</b> level, XP, stat points, stats, style, form and timers.</p>
+<p>Shared between all of them: your clan, the Monarch's extracted shadow roster, and kill counters.</p>
+<h2>Switching</h2>
+<ul>
+<li>Shadows are dismissed and transformations drop.</li>
+<li>Your weapon changes to the new path's weapon.</li>
+<li>Mana refills.</li>
+<li>There is a <b>30 second cooldown</b> (configurable by admins).</li>
+<li>You cannot switch while time is stopped.</li>
+</ul>
+<p>Admin tools: <code>sl:admin/aw_slot</code>, <code>sl:admin/aw_switch {path:1-6}</code> and <code>/function sl:admin/aw_cooldown {seconds:30}</code>. See <a href="#admin">Admin Tools</a>.</p>
 </article>
 <article data-page="monarch" data-group="Shadow Monarch" data-title="Monarch Skills">
 <h1>Shadow Monarch Skills</h1>
@@ -439,6 +472,79 @@ shadow damage per hit = level ÷ 4 + STR ÷ 2 + 4</div>
 <div class="note"><b>Names</b>The pack's author was not sure of the canon names for some forms, so Moon Breathing 2, 4, 7, 10, 11, 12, 13 and 15 are shown as plain numbers.</div>
 <p>Demons cannot use Sun Breathing, and slayers cannot use Moon Breathing.</p>
 </article>
+<article data-page="saiyan" data-group="Saiyan" data-title="Saiyan">
+<h1>Saiyan</h1>
+<p class="lede">A slow start and the strongest path in the long run. Your mana is Ki, and you unlock eight transformations as you level.</p>
+<h2>Ki and damage</h2>
+<ul>
+<li><b>Ki is mana</b> and shows as MP. Saiyans get an extra <b>INT ÷ 8 + 2</b> Ki per second on top of normal regeneration.</li>
+<li>Your weapon is the <b>Ki Focus</b>, a glowing item that looks like a nether star. Right-click casts, F and Q cycle as usual.</li>
+<li>Ki techniques use <b>(level ÷ 4 + STR + INT ÷ 2 + base) × form multiplier</b>.</li>
+</ul>
+<h2>Ki techniques</h2>
+<div class="tw"><table><thead><tr><th>ID</th><th>Technique</th><th>Level</th><th>Ki</th><th>Effect</th></tr></thead><tbody>
+<tr><td class="n">3101</td><td><b>Ki Blast</b></td><td class="n">1</td><td class="n">6</td><td>A basic energy shot.</td></tr>
+<tr><td class="n">3102</td><td><b>Kamehameha</b></td><td class="n">5</td><td class="n">25</td><td>A concentrated beam.</td></tr>
+<tr><td class="n">3103</td><td><b>Solar Flare</b></td><td class="n">8</td><td class="n">20</td><td>Blinds enemies. No damage.</td></tr>
+<tr><td class="n">3104</td><td><b>Instant Transmission</b></td><td class="n">15</td><td class="n">15</td><td>Blink about 30 blocks.</td></tr>
+<tr><td class="n">3105</td><td><b>Galick Gun</b></td><td class="n">30</td><td class="n">45</td><td>A heavy beam.</td></tr>
+<tr><td class="n">3106</td><td><b>Final Flash</b></td><td class="n">45</td><td class="n">70</td><td>A massive beam.</td></tr>
+<tr><td class="n">3107</td><td><b>Spirit Bomb</b></td><td class="n">70</td><td class="n">120</td><td>Hits a huge area 14 blocks ahead. 6 second cooldown.</td></tr>
+</tbody></table></div>
+<h2>Transformations</h2>
+<p>Transformations are skills in your list. Right-click one to transform, then right-click the same form (or <b>Power Down</b>, ID 3000) to drop it. You need <b>20 Ki</b> to transform. Upkeep is paid every second. At 0 Ki you collapse to base form with Weakness and Slowness for 20 seconds.</p>
+<div class="tw"><table><thead><tr><th>ID</th><th>Form</th><th>Level</th><th>Ki/s</th><th>Techniques</th><th>Melee dmg</th><th>Speed</th><th>Hearts</th><th>Extra</th></tr></thead><tbody>
+<tr><td class="n">3201</td><td><b>Super Saiyan</b></td><td class="n">10</td><td class="n">1</td><td class="n">×1.5</td><td class="n">+4</td><td class="n">+15%</td><td class="n">+2</td><td></td></tr>
+<tr><td class="n">3202</td><td><b>Super Saiyan 2</b></td><td class="n">25</td><td class="n">2</td><td class="n">×2.2</td><td class="n">+8</td><td class="n">+25%</td><td class="n">+3</td><td>Resistance I</td></tr>
+<tr><td class="n">3208</td><td><b>Kaioken</b></td><td class="n">35</td><td class="n">+3</td><td class="n">×1.5</td><td class="n">+6</td><td class="n">+20%</td><td class="n"></td><td>Stacks with Super Saiyan through Blue, not Ultra Instinct. Burns 0.5 HP per second and shuts off below about 3 hearts.</td></tr>
+<tr><td class="n">3203</td><td><b>Super Saiyan 3</b></td><td class="n">40</td><td class="n">4</td><td class="n">×3.2</td><td class="n">+14</td><td class="n">+25%</td><td class="n">+4</td><td>Resistance I</td></tr>
+<tr><td class="n">3204</td><td><b>Super Saiyan God</b></td><td class="n">50</td><td class="n">3</td><td class="n">×3.0</td><td class="n">+10</td><td class="n">+30%</td><td class="n">+5</td><td>Resistance II, cheap upkeep</td></tr>
+<tr><td class="n">3205</td><td><b>Super Saiyan Blue</b></td><td class="n">60</td><td class="n">5</td><td class="n">×4.5</td><td class="n">+18</td><td class="n">+40%</td><td class="n">+6</td><td>Resistance II</td></tr>
+<tr><td class="n">3206</td><td><b>Ultra Instinct Sign</b></td><td class="n">80</td><td class="n">6</td><td class="n">×4.2</td><td class="n">+12</td><td class="n">+50%</td><td class="n">+7</td><td>Resistance III, 20% chance to dodge a hit</td></tr>
+<tr><td class="n">3207</td><td><b>Mastered Ultra Instinct</b></td><td class="n">90</td><td class="n">8</td><td class="n">×6.0</td><td class="n">+25</td><td class="n">+60%</td><td class="n">+10</td><td>Resistance III, 50% chance to dodge a hit</td></tr>
+</tbody></table></div>
+<h2>Dodging</h2>
+<p>In Ultra Instinct forms, when a hit lands the System rolls. On success you blink aside, get about 8 HP back and have 1 second of near-immunity.</p>
+<h2>Balance</h2>
+<div class="note warn"><b>Not playtested</b>These figures come from the pack author's own model of the formulas (single target, same stat points for every path). Treat them as estimates.</div>
+<div class="tw"><table><thead><tr><th>Level</th><th>Saiyan compared with the best other path</th></tr></thead><tbody>
+<tr><td class="n">20</td><td>About 0.4× damage</td></tr>
+<tr><td class="n">40</td><td>About 1.2× damage</td></tr>
+<tr><td class="n">60</td><td>About 1.7× damage</td></tr>
+<tr><td class="n">80</td><td>About 1.5× damage and 1.6× effective HP</td></tr>
+<tr><td class="n">100</td><td>About 1.9× damage, 1.5× effective HP. Biggest single hit about 2.5× Hollow Purple.</td></tr>
+</tbody></table></div>
+<p>The Shadow Monarch's army still out-damages everyone against crowds. Admins can dial Saiyan damage with <code>/function sl:admin/saiyan_power {pct:100}</code> (100 is as designed, 70 is weaker).</p>
+</article>
+<article data-page="timestop" data-group="Time Stop" data-title="Time Stop">
+<h1>Time Stop</h1>
+<p class="lede">Stop the world, then move through it at superspeed. Your weapon is a pocket watch.</p>
+<h2>Time Stop</h2>
+<p><b>Time Stop</b> (ID 4001, level 1, 40 mana) has a 30 second cooldown plus the length of the stop itself. It freezes everything within <b>48 blocks</b> that is not you or your clan for <b>3 + level ÷ 10 seconds</b>, up to 13.</p>
+<div class="tw"><table><thead><tr><th>Affected</th><th>What happens</th></tr></thead><tbody>
+<tr><td>Mobs</td><td>They lose their AI.</td></tr>
+<tr><td>Other players</td><td>They cannot walk, jump, mine or hit properly.</td></tr>
+<tr><td>Projectiles</td><td>They hang in the air.</td></tr>
+</tbody></table></div>
+<h2>While time is stopped</h2>
+<ul>
+<li>Super speed (about ×3.5 base plus a Speed effect), Haste, Strength III and Jump Boost.</li>
+<li>+6 melee damage and much faster attacks.</li>
+<li>All your skills deal <b>double damage</b>.</li>
+</ul>
+<p>Time resumes with a title and a bell. A server failsafe unfreezes everything within a second if the caster logs out or dies.</p>
+<div class="note warn"><b>Limit</b>Your clan mates' shadows can be frozen too.</div>
+<h2>Skills</h2>
+<div class="tw"><table><thead><tr><th>ID</th><th>Skill</th><th>Level</th><th>Mana</th><th>Effect</th></tr></thead><tbody>
+<tr><td class="n">4001</td><td><b>Time Stop</b></td><td class="n">1</td><td class="n">40</td><td>Freeze the world, as above.</td></tr>
+<tr><td class="n">4002</td><td><b>Knife Barrage</b></td><td class="n">1</td><td class="n">8</td><td>A three-way fan of knives.</td></tr>
+<tr><td class="n">4003</td><td><b>Blink Strike</b></td><td class="n">8</td><td class="n">15</td><td>Teleport behind the nearest enemy and stab.</td></tr>
+<tr><td class="n">4004</td><td><b>Accelerate</b></td><td class="n">15</td><td class="n">30</td><td>8 seconds of super speed <i>without</i> stopping time.</td></tr>
+<tr><td class="n">4005</td><td><b>Flurry</b></td><td class="n">25</td><td class="n">25</td><td>A close-range barrage that knocks back.</td></tr>
+<tr><td class="n">4006</td><td><b>Time's End</b></td><td class="n">50</td><td class="n">80</td><td>A huge area blast. Double damage during a stop.</td></tr>
+</tbody></table></div>
+<p>Admins can end a stop immediately with <code>/execute as &lt;player&gt; run function sl:admin/timestop_end</code>.</p>
+</article>
 <article data-page="clans" data-group="Clans" data-title="Clans">
 <h1>Clans</h1>
 <p class="lede">Clans are open to everybody, awakened or not. Your clan can never be hurt by you in any way.</p>
@@ -481,12 +587,16 @@ shadow damage per hit = level ÷ 4 + STR ÷ 2 + 4</div>
 <div class="tw"><table><thead><tr><th>Name</th><th>Does</th></tr></thead><tbody>
 <tr><td><code>awaken</code></td><td>Force-awaken the player, skipping the trial.</td></tr>
 <tr><td><code>reset</code></td><td>Reset the player's System. Their clan is kept.</td></tr>
-<tr><td><code>set_path {path:1-4,opt:0}</code></td><td>1 Monarch, 2 Limitless, 3 Slayer (opt = style 1 to 13, 0 = from playstyle), 4 Demon (opt = Blood Demon Art 1 to 6).</td></tr>
+<tr><td><code>set_path {path:1-6,opt:0}</code></td><td>1 Monarch, 2 Limitless, 3 Slayer (opt = style 1 to 13, 0 = from playstyle), 4 Demon (opt = Blood Demon Art 1 to 6), 5 Saiyan, 6 Time Stop.</td></tr>
 <tr><td><code>set_style {style:1-13}</code></td><td>Change a Slayer's breathing style.</td></tr>
 <tr><td><code>reroll_style</code></td><td>Read the player's playstyle again and assign a style.</td></tr>
 <tr><td><code>set_bda {family:1-6}</code></td><td>Change a Demon's Blood Demon Art.</td></tr>
 <tr><td><code>set_level {level:N}</code></td><td>Set level. Stats are kept.</td></tr>
 <tr><td><code>give_xp {xp:N}</code>, <code>give_points {points:N}</code></td><td>Give XP or stat points.</td></tr>
+<tr><td><code>set_form {form:0-8}</code></td><td>Set a Saiyan's transformation (0 is base form).</td></tr>
+<tr><td><code>timestop_end</code></td><td>End a Time Stop right now and unfreeze everyone.</td></tr>
+<tr><td><code>aw_slot</code></td><td>Give the player an extra awakening slot.</td></tr>
+<tr><td><code>aw_switch {path:1-6}</code></td><td>Switch the player to one of their awakenings.</td></tr>
 <tr><td><code>refill</code></td><td>Full mana, clear cooldowns.</td></tr>
 <tr><td><code>give_item</code></td><td>Hand the player a fresh weapon.</td></tr>
 <tr><td><code>status</code></td><td>Dump the player's System values.</td></tr>
@@ -501,6 +611,8 @@ shadow damage per hit = level ÷ 4 + STR ÷ 2 + 4</div>
 <tr><td><code>/function sl:admin/clan_maxsize {size:N}</code></td><td>Change the member limit (default 20).</td></tr>
 <tr><td><code>/function sl:admin/pvp {on:0|1}</code></td><td>Turn the pack's player-versus-player skills and shadows off or on.</td></tr>
 <tr><td><code>/function sl:admin/sunburn {on:0|1}</code></td><td>Turn demon sunlight off or on.</td></tr>
+<tr><td><code>/function sl:admin/saiyan_power {pct:100}</code></td><td>Scale Saiyan damage. 100 is as designed, 70 is weaker.</td></tr>
+<tr><td><code>/function sl:admin/aw_cooldown {seconds:30}</code></td><td>Change the awakening switch cooldown (default 30).</td></tr>
 <tr><td><span class="cmd">/function sl:debug/xp</span></td><td>Gives the player 100 XP.</td></tr>
 <tr><td><span class="cmd">/function sl:system/purge_shadows</span></td><td>Kills every shadow in the world.</td></tr>
 <tr><td><span class="cmd">/function sl:system/uninstall</span></td><td>Full clean-up before deleting the pack.</td></tr>
@@ -529,14 +641,30 @@ shadow damage per hit = level ÷ 4 + STR ÷ 2 + 4</div>
 <h3>Q or F feels odd on the weapon.</h3>
 <p>They are detected indirectly, so you may see a one-tick flicker. You cannot drop or swap the weapon while you hold it. A shield in your off hand is returned to you.</p>
 <h3>Do all players share levels or armies?</h3>
-<p>No. Everything is per player.</p>
+<p>No. Everything is per player. Each of your own awakenings also keeps its own level (see <a href="#awakenings">Multiple Awakenings</a>); only your clan, shadow roster and kill counters are shared.</p>
+<h3>Can I have more than one power?</h3>
+<p>Yes. Once an awakening reaches level 100 you unlock another slot. Open <span class="cmd">/trigger sl_aw set 1</span>.</p>
+<h3>I am a Saiyan and collapsed to base form.</h3>
+<p>You ran out of Ki. Transformation upkeep is paid every second, and at 0 Ki you drop to base with Weakness and Slowness for 20 seconds. Raise INT for more Ki and regeneration.</p>
+<h3>I cannot switch awakenings.</h3>
+<p>Either the 30 second switch cooldown is still running or time is stopped.</p>
 <h3>The pack does not load.</h3>
 <p>It is built for Minecraft 26.3 (format 121). Check the version and that <code>pack.mcmeta</code> sits at the top level of the zip or folder.</p>
 </article>
 <article data-page="history" data-group="Reference" data-title="Version History">
 <h1>Version History</h1>
 <p class="lede">Version numbers are informal, ordered by the time stamps in each build.</p>
-<div class="ver"><h3>v6: Demon Slayer, Demon and Clans <span class="tag">current</span></h3><small>10 Nov</small>
+<div class="ver"><h3>v7: Saiyan, Time Stop and Multiple Awakenings <span class="tag">current</span></h3><small>11 Nov</small>
+<h3 style="font-size:15px">Added</h3>
+<ul>
+<li><b>Saiyan (path 5):</b> Ki, seven Ki techniques and eight transformations from Super Saiyan to Mastered Ultra Instinct, Kaioken, dodging, and a Ki Focus weapon.</li>
+<li><b>Time Stop (path 6):</b> freeze everything within 48 blocks, superspeed and double damage during the stop, plus Knife Barrage, Blink Strike, Accelerate, Flurry and Time's End. Pocket watch weapon.</li>
+<li><b>Multiple Awakenings:</b> a second slot at level 100 and one more for each awakening that reaches it, up to six. Each awakening keeps its own level, stats and timers. New <code>/trigger sl_aw</code> hub.</li>
+<li>Admin tools: <code>set_form</code>, <code>timestop_end</code>, <code>aw_slot</code>, <code>aw_switch</code>, <code>aw_cooldown</code> and <code>saiyan_power</code>.</li>
+</ul>
+<h3 style="font-size:15px">Changed</h3>
+<ul><li>Paths now run 1 to 6 in <code>sl_pathsel</code> and <code>sl:admin/set_path</code>.</li></ul></div>
+<div class="ver"><h3>v6: Demon Slayer, Demon and Clans</h3><small>10 Nov</small>
 <h3 style="font-size:15px">Added</h3>
 <ul>
 <li><b>Two new paths:</b> Demon Slayer (3) and Demon (4), chosen at awakening alongside Monarch and Limitless.</li>
