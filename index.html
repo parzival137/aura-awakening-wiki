@@ -120,7 +120,7 @@ td.n{font-variant-numeric:tabular-nums;white-space:nowrap}
 <main id="main">
 <article data-page="home" data-group="Start" data-title="Home">
 <h1>Aura Awakening</h1>
-<p class="lede">A datapack that gives players a levelling "System". Survive a trial to awaken, pick one permanent path, then grow through levels, stats, mana and skills. Six paths, one weapon, multiple awakenings, and clans.</p>
+<p class="lede">A datapack that gives players a levelling "System". Survive a trial to awaken, pick one permanent path, then grow through levels, stats, mana and skills. Eight paths, one weapon, multiple awakenings, clans, ranks, dungeons and Infinity Stones.</p>
 <div class="cards">
 <a class="card" href="#trial"><b>The Awakening Trial</b><span>300 kills, the Warden, the Wither, and a brush with death.</span></a>
 <a class="card" href="#paths"><b>Choosing a Path</b><span>Shadow Monarch, Limitless, Demon Slayer, Demon, Saiyan or Time Stop. Permanent.</span></a>
@@ -131,6 +131,9 @@ td.n{font-variant-numeric:tabular-nums;white-space:nowrap}
 <a class="card" href="#timestop"><b>Time Stop</b><span>Freeze everything within 48 blocks and move through the stop at superspeed.</span></a>
 <a class="card" href="#awakenings"><b>Multiple Awakenings</b><span>Reach level 100 to unlock a second slot, then hold up to six powers.</span></a>
 <a class="card" href="#clans"><b>Clans</b><span>Found a clan so your skills and shadows never hurt your friends.</span></a>
+<a class="card" href="#ranks"><b>Hunter Ranks</b><span>E to S, account-wide, with trials and mastery.</span></a>
+<a class="card" href="#dungeons"><b>Dungeons and Quests</b><span>Daily quests, gate keys and three wave dungeons.</span></a>
+<a class="card" href="#stones"><b>Infinity Stones</b><span>Six stones, one Gauntlet.</span></a>
 </div>
 <h2>At a glance</h2>
 <ul>
@@ -140,7 +143,7 @@ td.n{font-variant-numeric:tabular-nums;white-space:nowrap}
 <li><b>Multiplayer:</b> every player has their own level, stats, mana, skills and army.</li>
 <li><b>Level cap:</b> 100.</li>
 </ul>
-<div class="note plan"><b>New in v8</b>Bulk stat spending with an <b>[All]</b> button, selective <a href="#army">Shadow Army</a> summoning (<b>[+1] / [+5] / [All]</b> per shadow type), a fix so switching awakenings keeps your clan and friendly shadows, and <a href="#timestop">Time Stop</a> now stores damage dealt during the stop and releases it when time resumes. See the <a href="#history">version history</a>.</div>
+<div class="note plan"><b>New in v9 to v13</b>Hunter ranks and mastery, daily quests, three wave dungeons, clan levels and wars, the <a href="#tenrings">Ten Rings</a> path, six <a href="#stones">Infinity Stones</a> with the Gauntlet, and the <a href="#custom">Custom Path</a>. These are built and loaded but still need in-game testing; each page is marked. The v8 additions (bulk stats, selective army) are tested and working.</div>
 </article>
 <article data-page="install" data-group="Start" data-title="Installation">
 <h1>Installation</h1>
@@ -672,10 +675,98 @@ shadow damage per hit = level ÷ 4 + STR ÷ 2 + 4</div>
 <h3>The pack does not load.</h3>
 <p>It is built for Minecraft 26.3 (format 121). Check the version and that <code>pack.mcmeta</code> sits at the top level of the zip or folder.</p>
 </article>
+<article data-page="ranks" data-group="Systems" data-title="Hunter Ranks and Mastery">
+<h1>Hunter Ranks and Mastery</h1>
+<p class="lede">Rank is account-wide and gates content. Mastery makes the skills you cast most cheaper and faster. <span class="tag">built · needs in-game test</span></p>
+<h2>Ranks E to S</h2>
+<p>Everyone starts at E. Rank XP comes from hostile kills (+1), daily quests (+50), dungeon clears (+100 / +175 / +300), clan war wins (+150) and your first Infinity Stone (+100). Open <span class="cmd">/trigger sl_rankt set 1</span> for the rank menu.</p>
+<table><tr><th>Rank</th><th>Rank XP</th><th>Unlocks</th></tr>
+<tr><td>D</td><td>100</td><td>The Crypt</td></tr><tr><td>C</td><td>300</td><td>Nether Forge, Custom Path</td></tr>
+<tr><td>B</td><td>700</td><td>Void Citadel</td></tr><tr><td>A</td><td>1200</td><td>Power, Time and Soul stones, the Infinity Gauntlet</td></tr>
+<tr><td>S</td><td>2000</td><td>Top rank</td></tr></table>
+<p>Each promotion has a trial: a champion and minions spawn in a trial arena and you win by clearing them.</p>
+<h2>Skill mastery</h2>
+<p>Every cast gives 1 mastery XP. 100 XP is a level, to a maximum of level 10. Each level refunds up to 10 mana after a cast and shortens the global cooldown by up to 10 ticks. Open <span class="cmd">/trigger sl_masteryt set 1</span>.</p>
+</article>
+<article data-page="titles" data-group="Systems" data-title="Titles and Settings">
+<h1>Titles, Achievements and Settings</h1>
+<p class="lede">Twenty achievements unlock cosmetic titles, and each player has their own display settings. <span class="tag">built · needs in-game test</span></p>
+<ul><li><b>Titles:</b> <span class="cmd">/trigger sl_titles set 1</span> lists achievements and lets you select a title.</li>
+<li><b>Settings:</b> <span class="cmd">/trigger sl_settings set 1</span> toggles the HUD, particle effects, HUD detail (minimal, normal, full) and the auto-extract prompt.</li>
+<li><b>Mob protection:</b> tamed, leashed and named mobs are tagged protected and skipped by every skill that targets all mobs. This toggle is global, because target selectors cannot read a single caster's setting.</li></ul>
+</article>
+<article data-page="quests" data-group="Systems" data-title="Daily Quests">
+<h1>Daily Quests</h1>
+<p class="lede">Three quests reset every in-game day and pay into the ServerEconomy money score. <span class="tag">built · needs in-game test</span></p>
+<ol><li>Kill 40 hostile mobs.</li><li>Cast 20 skills.</li><li>A rotating third quest: clear a dungeon, win a clan war, or extract 10 shadows.</li></ol>
+<p>Claim with <span class="cmd">/trigger sl_quest set 1</span> for <b>500 money, 100 XP, 50 rank XP, 25 clan XP and 1 gate key</b>.</p>
+</article>
+<article data-page="dungeons" data-group="Systems" data-title="Dungeons">
+<h1>Wave Dungeons</h1>
+<p class="lede">Three themed dungeons, each with three waves and a boss. Every entry costs one gate key. <span class="tag">built · needs in-game test</span></p>
+<table><tr><th>Dungeon</th><th>Rank</th><th>Clear reward</th></tr>
+<tr><td>The Crypt</td><td>D</td><td>1000 money, 150 XP, 100 rank XP, 100 clan XP</td></tr>
+<tr><td>Nether Forge</td><td>C</td><td>1500 money, 250 XP, 175 rank XP</td></tr><tr><td>Void Citadel</td><td>B</td><td>2500 money, 400 XP, 300 rank XP</td></tr></table>
+<ul><li>Open the menu with <span class="cmd">/trigger sl_dungeon set 1</span>. Players within 16 blocks at entry join the party.</li>
+<li>Arenas are fixed forceloaded platforms at x 10000 / 10100 / 10200, z 10000, y 200.</li>
+<li>You start with 3 keys and gain 2 each day, capped at 5. You return to where you entered after a clear, death, logout or timeout.</li>
+<li>Each clear also rolls an unowned <a href="#stones">Infinity Stone</a> and adds clan XP.</li></ul>
+</article>
+<article data-page="wars" data-group="Systems" data-title="Clan Wars">
+<h1>Clan Levels, Bank and Wars</h1>
+<p class="lede">Clans now earn XP, level up, hold a shared bank and can fight opt-in wars. <span class="tag">built · needs in-game test</span> Wars need two players to verify.</p>
+<ul><li><b>Clan XP and level:</b> from quests, dungeons and wars. A level every 1000 XP, up to level 10.</li>
+<li><b>Bank:</b> deposit and withdraw money from the clan menu.</li>
+<li><b>Wars:</b> a clan leader declares on another clan, and that leader accepts. The war lasts 10 minutes. Members opt in by entering the domain arena (x 12000, z 12000) and hold the centre capture point. First to 60 score wins, or the highest at timeout.</li>
+<li><b>Winner:</b> +500 clan XP, +1000 to the clan bank and +1000 money for each member who took part. The losing clan gets 100 clan XP.</li></ul>
+</article>
+<article data-page="tenrings" data-group="Systems" data-title="Ten Rings (Path 7)">
+<h1>Ten Rings (Path 7)</h1>
+<p class="lede">A seventh path built from your Shang Chi pack. <span class="tag">built · needs in-game test</span></p>
+<table><tr><th>Skill</th><th>Level</th><th>Mana</th></tr>
+<tr><td>Ring Blast</td><td>1</td><td>10</td></tr><tr><td>Ring Barrage</td><td>8</td><td>25</td></tr><tr><td>Ring Shield</td><td>15</td><td>30</td></tr>
+<tr><td>Ring Grasp</td><td>22</td><td>30</td></tr><tr><td>Ring Cyclone</td><td>30</td><td>50</td></tr><tr><td>Ten Rings Unleashed</td><td>40</td><td>90</td></tr></table>
+<p>The ring models and sounds come from your Shang Chi resource pack, updated for 26.3 and shipped as a separate companion zip. Without it, path 7 works but its weapon uses a missing-model placeholder and the ring sounds are silent. The original dragon summon and rope physics are not ported.</p>
+</article>
+<article data-page="stones" data-group="Systems" data-title="Infinity Stones and Gauntlet">
+<h1>Infinity Stones and the Gauntlet</h1>
+<p class="lede">Six stones drop from dungeon bosses, and only one of each exists in the world. Collect all six to forge the Gauntlet. <span class="tag">built · needs in-game test</span></p>
+<table><tr><th>Stone</th><th>Power</th></tr><tr><td>Space</td><td>Blink forward</td></tr><tr><td>Mind</td><td>Mind fog</td></tr><tr><td>Reality</td><td>Reality shift</td></tr>
+<tr><td>Power (A rank)</td><td>Shockwave, costs you 12 health</td></tr><tr><td>Time (A rank)</td><td>Time rewind</td></tr><tr><td>Soul (A rank)</td><td>Drain life nearby</td></tr></table>
+<p>Open <span class="cmd">/trigger sl_stone set 1</span>. Powers share a 30 second cooldown. A stone already held by someone, or a duplicate, converts to 1000 money.</p>
+<h2>The Infinity Gauntlet</h2>
+<p>The player who owns all six stones is handed the Gauntlet, announced to the whole server. It needs A rank and has its own cooldown.</p>
+<ul><li><b>Snap (180 s):</b> half of the hostile mobs within 24 blocks take lethal damage. Players, protected mobs, the Wither, the Ender Dragon and the Warden are spared.</li>
+<li><b>Surge (90 s):</b> Strength III, Speed III, Resistance II, Regeneration III and absorption for 20 seconds, plus a 14 block shockwave.</li>
+<li><b>Rift (45 s):</b> blink 30 blocks, 6 seconds of resistance and invisibility, and your stone cooldown resets.</li></ul>
+<p>Admins can free every stone with <code>sl:admin/stones_release</code>.</p>
+</article>
+<article data-page="custom" data-group="Systems" data-title="Custom Path (Path 8)">
+<h1>Custom Path (Path 8)</h1>
+<p class="lede">Build your own path from existing skills. Needs C rank. <span class="tag">built · needs in-game test</span></p>
+<ul><li>Choose one primary stat and exactly three skills from the Monarch and Limitless pool (skills 1 to 13).</li>
+<li>Skills keep their native level and mana rules. Your weapon is an amethyst focus.</li>
+<li>You gain +1 extra point in your primary stat every level.</li></ul>
+<p>Open the builder with <span class="cmd">/trigger sl_custom set 1</span>. Mixing skills from the other paths is not available yet.</p>
+</article>
 <article data-page="history" data-group="Reference" data-title="Version History">
 <h1>Version History</h1>
 <p class="lede">Version numbers are informal, ordered by the time stamps in each build.</p>
-<div class="ver"><h3>v8: Foundations, bulk stats and army control <span class="tag">current</span></h3><small>11 Nov</small>
+<div class="ver"><h3>v9 to v13: Ranks, dungeons, wars, Ten Rings, stones, Custom Path <span class="tag">current · needs in-game test</span></h3><small>11 Nov</small>
+<h3 style="font-size:15px">Added</h3>
+<ul>
+<li><b>v8 finished:</b> Hunter ranks E to S with trials, skill mastery, 20 achievements and titles, per-player settings, and mob protection for tamed, leashed and named mobs.</li>
+<li><b>v9:</b> daily quests, gate keys and three wave dungeons (Crypt, Nether Forge, Void Citadel).</li>
+<li><b>v10:</b> clan XP, levels and bank, opt-in clan wars and a capture-point arena.</li>
+<li><b>v11:</b> Ten Rings (path 7) with a companion resource pack ported from your Shang Chi pack.</li>
+<li><b>v12:</b> six world-unique Infinity Stones, and the Infinity Gauntlet for whoever owns all six.</li>
+<li><b>v13:</b> Custom Path (path 8): a primary stat plus three skills.</li>
+</ul>
+<h3 style="font-size:15px">Fixed</h3>
+<ul><li>Stones are now actually world-unique; the global claim flag was never set before.</li><li>"First Infinity Stone" now unlocks with any stone, not only Space.</li><li>Uninstall now removes every new scoreboard objective.</li></ul>
+<h3 style="font-size:15px">Not yet done</h3>
+<ul><li>Two-player clan war test. Path 7 dragon summon and rope physics. Mixing other paths' skills in the Custom Path.</li></ul></div>
+<div class="ver"><h3>v8: Foundations, bulk stats and army control </h3><small>11 Nov</small>
 <h3 style="font-size:15px">Added</h3>
 <ul>
 <li><b>Bulk stat spending:</b> <b>[+10]</b> and <b>[All]</b> buttons in the status screen, plus <code>/trigger sl_stat set &lt;amount × 10 + stat&gt;</code> (e.g. <code>3001</code> = +300 STR) and <code>2001..2005</code> to spend all points into one stat.</li>
