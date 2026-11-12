@@ -722,11 +722,23 @@ shadow damage per hit = level ÷ 4 + STR ÷ 2 + 4</div>
 </article>
 <article data-page="tenrings" data-group="Systems" data-title="Ten Rings (Path 7)">
 <h1>Ten Rings (Path 7)</h1>
-<p class="lede">A seventh path built from your Shang Chi pack. <span class="tag">built · needs in-game test</span></p>
-<table><tr><th>Skill</th><th>Level</th><th>Mana</th></tr>
-<tr><td>Ring Blast</td><td>1</td><td>10</td></tr><tr><td>Ring Barrage</td><td>8</td><td>25</td></tr><tr><td>Ring Shield</td><td>15</td><td>30</td></tr>
-<tr><td>Ring Grasp</td><td>22</td><td>30</td></tr><tr><td>Ring Cyclone</td><td>30</td><td>50</td></tr><tr><td>Ten Rings Unleashed</td><td>40</td><td>90</td></tr></table>
-<p>The ring models and sounds come from your Shang Chi resource pack, updated for 26.3 and shipped as a separate companion zip. Without it, path 7 works but its weapon uses a missing-model placeholder and the ring sounds are silent. The original dragon summon and rope physics are not ported.</p>
+<p class="lede">The Shang Chi system, kept as it was: no mana, no level gates. You earn rings by killing ten bosses, and your ring count unlocks the abilities. <span class="tag">built · needs in-game test</span></p>
+<h2>Getting the rings</h2>
+<p>Each of these kills gives one ring (ten in total). They count from the moment the pack is loaded, even before you choose the path, and are shared by all your awakenings: Wither, Ender Dragon, Ravager, Evoker, Vex, Phantom, Piglin Brute, Shulker, Elder Guardian, Wandering Trader.</p>
+<h2>Abilities</h2>
+<table><tr><th>Ability</th><th>Rings</th><th>Cooldown</th><th>What it does</th></tr>
+<tr><td>Speed Dash</td><td>1</td><td>1.5 s</td><td>Dash up to 10 blocks and gain speed</td></tr>
+<tr><td>Block Break</td><td>1</td><td>1.5 s</td><td>Shatters a 3x3 tunnel (no drops); disabled in dungeons and wars</td></tr>
+<tr><td>Ring Slam</td><td>1</td><td>2.5 s</td><td>Slam damage in 6 blocks, slows enemies</td></tr>
+<tr><td>Power Jump</td><td>2</td><td>3 s</td><td>Leap high and glide down safely</td></tr>
+<tr><td>Chain</td><td>5</td><td>4 s</td><td>Seize the nearest enemy within 20 blocks and haul it in</td></tr>
+<tr><td>Nova</td><td>8</td><td>6 s</td><td>10 block burst that damages and lifts enemies</td></tr>
+<tr><td>Energy Shield</td><td>8</td><td>15 s</td><td>Resistance and absorption for 12 seconds</td></tr>
+<tr><td>Ten Rings Unleashed</td><td>10</td><td>30 s</td><td>Strength, Speed, Resistance, Regeneration and a 12 block burst</td></tr></table>
+<p>Damage still scales with your level and Strength. Abilities are cast with the same weapon as every other path: right-click to cast and F / Q to cycle. Locked abilities show how many rings they need.</p>
+<h2>Resource pack</h2>
+<p>The ring models and sounds come from your Shang Chi resource pack, updated for 26.3 as a separate companion zip. Without it the weapon shows a missing-model placeholder and the ring sounds are silent. The original dragon summon and rope physics are not ported.</p>
+<p>Admin: <code>sl:admin/rings_give</code> grants all ten, and <code>sl:admin/rings_reset</code> clears them.</p>
 </article>
 <article data-page="stones" data-group="Systems" data-title="Infinity Stones and Gauntlet">
 <h1>Infinity Stones and the Gauntlet</h1>
@@ -758,7 +770,7 @@ shadow damage per hit = level ÷ 4 + STR ÷ 2 + 4</div>
 <li><b>v8 finished:</b> Hunter ranks E to S with trials, skill mastery, 20 achievements and titles, per-player settings, and mob protection for tamed, leashed and named mobs.</li>
 <li><b>v9:</b> daily quests, gate keys and three wave dungeons (Crypt, Nether Forge, Void Citadel).</li>
 <li><b>v10:</b> clan XP, levels and bank, opt-in clan wars and a capture-point arena.</li>
-<li><b>v11:</b> Ten Rings (path 7) with a companion resource pack ported from your Shang Chi pack.</li>
+<li><b>v11:</b> Ten Rings (path 7) on the original Shang Chi system: ten boss kills give ten rings, abilities unlock by ring count with no mana, plus a companion resource pack ported from your Shang Chi pack.</li>
 <li><b>v12:</b> six world-unique Infinity Stones, and the Infinity Gauntlet for whoever owns all six.</li>
 <li><b>v13:</b> Custom Path (path 8): a primary stat plus three skills.</li>
 </ul>
