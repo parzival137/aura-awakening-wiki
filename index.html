@@ -143,7 +143,7 @@ td.n{font-variant-numeric:tabular-nums;white-space:nowrap}
 <li><b>Multiplayer:</b> every player has their own level, stats, mana, skills and army.</li>
 <li><b>Level cap:</b> 100.</li>
 </ul>
-<div class="note plan"><b>New in v9 to v16</b>Hunter ranks and mastery, daily quests, three wave dungeons, clan levels and wars, the <a href="#tenrings">Ten Rings</a> path, six <a href="#stones">Infinity Stones</a> with the Gauntlet, and the <a href="#custom">Custom Path</a> (v16: six abilities and two passives). These are built and loaded but still need in-game testing; each page is marked. The v8 additions (bulk stats, selective army) are tested and working.</div>
+<div class="note plan"><b>New in v9 to v17</b>Hunter ranks and mastery, daily quests, three wave dungeons, clan levels and wars, the <a href="#tenrings">Ten Rings</a> path, six <a href="#stones">Infinity Stones</a> with the Gauntlet, the <a href="#custom">Custom Path</a> (v16: six abilities and two passives) and the <a href="#kit">Arrest Kit</a> (v17). These are built and loaded but still need in-game testing; each page is marked. The v8 additions (bulk stats, selective army) are tested and working.</div>
 </article>
 <article data-page="install" data-group="Start" data-title="Installation">
 <h1>Installation</h1>
@@ -775,16 +775,53 @@ shadow damage per hit = level ÷ 4 + STR ÷ 2 + 4</div>
 <tr><td>Ten Rings</td><td>Ring Bearer, Makluan Might</td></tr></table>
 <div class="note"><b>Known gaps</b>Mastery and quest progress are only credited for Monarch and Limitless abilities. Not yet run in-game.</div>
 </article>
+<article data-page="menus" data-group="Systems" data-title="Chest and Pop-up Menus">
+<h1>Chest and Pop-up Menus</h1>
+<p class="lede">Click-through menus in the style of server shop GUIs. <span class="tag">built · needs in-game test</span></p>
+<h2>Chest menu</h2>
+<ul><li>Run <span class="cmd">/trigger sl_menu set 5</span> (or click <b>[Chest Menu]</b> in the status screen). A glowing barrel named Aura Menu appears two blocks in front of you.</li>
+<li>Right-click it to open a chest grid. Click an icon to open that screen: Status, Stats, Rank, Quests, Dungeons, Clan, Awakenings, Custom Path, Stones, Mastery, Titles, Settings, Skills, Combat mode.</li>
+<li>The status icon and the Stats page show your live numbers. On the Stats page the left column adds +1 point and the row below adds +10.</li>
+<li>Icons cannot be taken out: they refill and any copies are deleted. Do not store your own items in it. You get one menu at a time and it removes itself when you walk 24 blocks away.</li></ul>
+<h2>Pop-up menu</h2>
+<p><span class="cmd">/trigger sl_menu set 6</span> opens a native button window with the same screens.</p>
+<div class="note"><b>Limits</b>A datapack cannot open a chest screen by command, so the menu is a barrel you right-click. Screens that print in chat (rank, clan, and so on) appear in chat after you close the chest. The pop-up window is untested and may need its format adjusting for 26.3.</div>
+</article>
+<article data-page="kit" data-group="Systems" data-title="Arrest Kit">
+<h1>Arrest Kit</h1>
+<p class="lede">Four items that let any player dampen, cuff, capture and release other players, awakened or not. <span class="tag">v17 · built · needs in-game test</span></p>
+<h2>Getting it</h2>
+<ul><li>An admin tags the player: <span class="cmd">/tag &lt;name&gt; add sl_police</span>. That player then runs <span class="cmd">/trigger sl_kit set 1</span> for the kit, or <span class="cmd">set 2</span> for help.</li>
+<li>Admins can also run <span class="cmd">/execute as &lt;name&gt; run function sl:kit/give</span>. There are no crafting recipes yet.</li></ul>
+<h2>The items</h2>
+<table><tr><th>Item</th><th>Range</th><th>Effect</th></tr>
+<tr><td>Dampener Rod</td><td>8 blocks</td><td>Blocks all skills and Stone powers, zeroes mana, ends Infinity, Time Stop and Saiyan forms. Lasts 33 s minus 3 s per rank (30 s at E, 15 s at S). Weakness I while active.</td></tr>
+<tr><td>Restraint Cuffs</td><td>4 blocks</td><td>Target must be dampened or under 4 hearts. 40 s of heavy slowness, no jumping, almost no damage dealt. Implies dampening.</td></tr>
+<tr><td>Capture Seal</td><td>4 blocks</td><td>Target must be cuffed. Holds them at the spot for 60 s.</td></tr>
+<tr><td>Release Key</td><td>4 blocks</td><td>Frees a cuffed or captured player at once.</td></tr></table>
+<h2>Balance and counterplay</h2>
+<ul><li>10 s cooldown between uses of any kit item.</li>
+<li>Drinking milk cures a plain dampen (not while cuffed).</li>
+<li>Anyone holding a Release Key can free a prisoner. A freed or timed-out prisoner is immune to cuffs for 3 minutes.</li>
+<li>Higher ranks are dampened for less time. Dying clears everything.</li>
+<li>Admin: <span class="cmd">function sl:kit/free_all</span> run as a player clears all restraints.</li></ul>
+<div class="note"><b>Untested</b>Players only (not mobs). Item use is detected through the warped fungus on a stick; the aiming ray and the hold-in-place cell have not been run in-game yet.</div>
+</article>
 <article data-page="history" data-group="Reference" data-title="Version History">
 <h1>Version History</h1>
 <p class="lede">Version numbers are informal, ordered by the time stamps in each build.</p>
-<div class="ver"><h3>v16: Custom Path rework <span class="tag">current · needs in-game test</span></h3><small>13 Nov</small>
+<div class="ver"><h3>v17: Arrest Kit <span class="tag">current · needs in-game test</span></h3><small>13 Nov</small>
+<h3 style="font-size:15px">Added</h3>
+<ul><li>Dampener Rod, Restraint Cuffs, Capture Seal and Release Key, usable on any player. See <a href="#kit">Arrest Kit</a>.</li></ul>
+<h3 style="font-size:15px">Planned, not built yet</h3>
+<ul><li><b>v15:</b> the four main Ninjago elements (Kai, Jay, Cole, Zane) as new paths with Spinjitzu.</li></ul></div>
+<div class="ver"><h3>v16: Custom Path rework <span class="tag">needs in-game test</span></h3><small>13 Nov</small>
 <h3 style="font-size:15px">Added</h3>
 <ul><li>Custom Path now takes six abilities and two passives from any awakening you own, and can be edited at any time.</li>
 <li>Ten Rings and Custom Path appear in the awakening menu, so you can switch to them by clicking.</li>
 <li>Custom abilities can be cast from every path, including Saiyan, Time Stop and Ten Rings.</li></ul>
 <h3 style="font-size:15px">Planned, not built yet</h3>
-<ul><li><b>v14:</b> a clickable menu hub and a dampen/arrest/capture kit for dealing with awakened players.</li>
+<ul><li><b>v14:</b> the chest and pop-up menus (built in v16) and the arrest kit (built in v17).</li>
 <li><b>v15:</b> the four main Ninjago elements (Kai, Jay, Cole, Zane) as new paths with Spinjitzu.</li></ul></div>
 <div class="ver"><h3>v9 to v13: Ranks, dungeons, wars, Ten Rings, stones, Custom Path <span class="tag">needs in-game test</span></h3><small>11 Nov</small>
 <h3 style="font-size:15px">Added</h3>
