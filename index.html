@@ -143,7 +143,7 @@ td.n{font-variant-numeric:tabular-nums;white-space:nowrap}
 <li><b>Multiplayer:</b> every player has their own level, stats, mana, skills and army.</li>
 <li><b>Level cap:</b> 100.</li>
 </ul>
-<div class="note plan"><b>New in v9 to v18</b>Hunter ranks and mastery, daily quests, three wave dungeons, clan levels and wars, the <a href="#tenrings">Ten Rings</a> path, six <a href="#stones">Infinity Stones</a> with the Gauntlet, the <a href="#custom">Custom Path</a> (v16: six abilities and two passives) the <a href="#kit">Arrest Kit</a> (v17) and the four <a href="#ninjago">Ninjago</a> paths (v18). These are built and loaded but still need in-game testing; each page is marked. The v8 additions (bulk stats, selective army) are tested and working.</div>
+<div class="note plan"><b>New in v9 to v19</b>Hunter ranks and mastery, daily quests, three wave dungeons, clan levels and wars, the <a href="#tenrings">Ten Rings</a> path, six <a href="#stones">Infinity Stones</a> with the Gauntlet, the <a href="#custom">Custom Path</a> (v16: six abilities and two passives) the <a href="#kit">Arrest Kit</a> (v17) and the four <a href="#ninjago">Ninjago</a> paths (v18). These are built and loaded but still need in-game testing; each page is marked. The v8 additions (bulk stats, selective army) are tested and working.</div>
 </article>
 <article data-page="install" data-group="Start" data-title="Installation">
 <h1>Installation</h1>
@@ -815,7 +815,7 @@ shadow damage per hit = level ÷ 4 + STR ÷ 2 + 4</div>
 <li>Paths: 9 Kai, 10 Jay, 11 Cole, 12 Zane. Right-click casts, F and Q cycle skills, as with every path.</li></ul>
 <h2>Skills</h2>
 <table><tr><th>Lv</th><th>Skill</th><th>MP</th><th>What it does</th></tr>
-<tr><td>1</td><td>Spinjitzu</td><td>15</td><td>Spin: knocks back enemies within 4 blocks, speed III and resistance II for 4 s.</td></tr>
+<tr><td>1</td><td>Spinjitzu</td><td>15</td><td>Toggle. Right-click to start spinning, right-click again to stop. Costs 6 mana per second and ends at 0 mana. While spinning you get speed and resistance, push enemies away from you, deal a little damage each second, and cannot cast other skills.</td></tr>
 <tr><td>6</td><td>Element strike</td><td>20</td><td>A bolt that travels up to 24 blocks and hits the first enemy, with the element's effect.</td></tr>
 <tr><td>12</td><td>Element guard</td><td>30</td><td>12 s defensive buff, different for each element.</td></tr>
 <tr><td>20</td><td>Element surge</td><td>45</td><td>Burst around you (7 blocks): damage, knockback and the element's effect.</td></tr>
@@ -834,7 +834,15 @@ shadow damage per hit = level ÷ 4 + STR ÷ 2 + 4</div>
 <article data-page="history" data-group="Reference" data-title="Version History">
 <h1>Version History</h1>
 <p class="lede">Version numbers are informal, ordered by the time stamps in each build.</p>
-<div class="ver"><h3>v18: Ninjago paths <span class="tag">current · needs in-game test</span></h3><small>13 Nov</small>
+<div class="ver"><h3>v19: Ninjago fix, Spinjitzu toggle, Saiyan size <span class="tag">current · needs in-game test</span></h3><small>13 Nov</small>
+<h3 style="font-size:15px">Fixed</h3>
+<ul><li>Switching to Jay, Cole or Zane from the awakening menu did nothing. The button built its number by joining text, so Cole sent 111 instead of 21.</li></ul>
+<h3 style="font-size:15px">Changed</h3>
+<ul><li>Spinjitzu is now a toggle that drains mana (see <a href="#ninjago">Ninjago</a>).</li>
+<li>Saiyans grow while transformed: Super Saiyan 12% larger, Super Saiyan 2 18%, Super Saiyan 3 30%, and God, Blue, Ultra Instinct forms 15%. Size returns to normal when the form ends.</li></ul>
+<h3 style="font-size:15px">Planned, not built yet</h3>
+<ul><li>Daylight Ring book, Vampires and Originals, Werewolves.</li></ul></div>
+<div class="ver"><h3>v18: Ninjago paths <span class="tag">needs in-game test</span></h3><small>13 Nov</small>
 <h3 style="font-size:15px">Added</h3>
 <ul><li>Four new awakenings: Kai, Jay, Cole and Zane, each with Spinjitzu, five element skills and a passive. See <a href="#ninjago">Ninjago</a>.</li>
 <li>Their skills and passives are in the Custom Path builder, and they appear in the awakening menu and path screen. The awakening limit now allows all twelve.</li></ul></div>
