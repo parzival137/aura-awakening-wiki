@@ -143,7 +143,7 @@ td.n{font-variant-numeric:tabular-nums;white-space:nowrap}
 <li><b>Multiplayer:</b> every player has their own level, stats, mana, skills and army.</li>
 <li><b>Level cap:</b> 100.</li>
 </ul>
-<div class="note plan"><b>New in v9 to v13</b>Hunter ranks and mastery, daily quests, three wave dungeons, clan levels and wars, the <a href="#tenrings">Ten Rings</a> path, six <a href="#stones">Infinity Stones</a> with the Gauntlet, and the <a href="#custom">Custom Path</a>. These are built and loaded but still need in-game testing; each page is marked. The v8 additions (bulk stats, selective army) are tested and working.</div>
+<div class="note plan"><b>New in v9 to v16</b>Hunter ranks and mastery, daily quests, three wave dungeons, clan levels and wars, the <a href="#tenrings">Ten Rings</a> path, six <a href="#stones">Infinity Stones</a> with the Gauntlet, and the <a href="#custom">Custom Path</a> (v16: six abilities and two passives). These are built and loaded but still need in-game testing; each page is marked. The v8 additions (bulk stats, selective army) are tested and working.</div>
 </article>
 <article data-page="install" data-group="Start" data-title="Installation">
 <h1>Installation</h1>
@@ -755,16 +755,38 @@ shadow damage per hit = level ÷ 4 + STR ÷ 2 + 4</div>
 </article>
 <article data-page="custom" data-group="Systems" data-title="Custom Path (Path 8)">
 <h1>Custom Path (Path 8)</h1>
-<p class="lede">Build your own path from existing skills. Needs C rank. <span class="tag">built · needs in-game test</span></p>
-<ul><li>Choose one primary stat and exactly three skills from the Monarch and Limitless pool (skills 1 to 13).</li>
-<li>Skills keep their native level and mana rules. Your weapon is an amethyst focus.</li>
+<p class="lede">Build your own loadout from awakenings you own. Needs C rank and at least one other awakening. <span class="tag">v16 · built · needs in-game test</span></p>
+<h2>The build</h2>
+<ul><li>One primary stat, <b>six abilities</b> and <b>two passives</b>.</li>
+<li>Abilities and passives come from any awakening you currently own: Shadow Monarch, Limitless, Demon Slayer, Demon, Saiyan, Time Stop and Ten Rings.</li>
+<li>Skills keep their native level and mana rules (Ten Rings skills need no mana). Demon Slayer and Demon skills must match your saved breathing style or demon art.</li>
 <li>You gain +1 extra point in your primary stat every level.</li></ul>
-<p>Open the builder with <span class="cmd">/trigger sl_custom set 1</span>. Mixing skills from the other paths is not available yet.</p>
+<h2>Editing later</h2>
+<p>Open the builder any time with <span class="cmd">/trigger sl_custom set 1</span>. Browse an awakening, click an ability to add it, click again to remove it, or use the <b>[Remove]</b> button on a slot. Slots shift down when you remove one.</p>
+<h2>Passives</h2>
+<p>Two passive slots, applied once per second while you are on the Custom Path:</p>
+<table><tr><th>From</th><th>Passives</th></tr>
+<tr><td>Shadow Monarch</td><td>Shadow Vision, Monarch's Vigor, Shadow Step</td></tr>
+<tr><td>Limitless</td><td>Infinity Aura, Six Eyes Insight, Cursed Flow</td></tr>
+<tr><td>Demon Slayer</td><td>Total Concentration, Breath Recovery, Hashira Body</td></tr>
+<tr><td>Demon</td><td>Demon Regeneration, Demonic Might, Sunless Hide</td></tr>
+<tr><td>Saiyan</td><td>Zenkai, Saiyan Stamina, Ki Sense</td></tr>
+<tr><td>Time Stop</td><td>Temporal Awareness, Time Dilation, Chrono Shield</td></tr>
+<tr><td>Ten Rings</td><td>Ring Bearer, Makluan Might</td></tr></table>
+<div class="note"><b>Known gaps</b>Mastery and quest progress are only credited for Monarch and Limitless abilities. Not yet run in-game.</div>
 </article>
 <article data-page="history" data-group="Reference" data-title="Version History">
 <h1>Version History</h1>
 <p class="lede">Version numbers are informal, ordered by the time stamps in each build.</p>
-<div class="ver"><h3>v9 to v13: Ranks, dungeons, wars, Ten Rings, stones, Custom Path <span class="tag">current · needs in-game test</span></h3><small>11 Nov</small>
+<div class="ver"><h3>v16: Custom Path rework <span class="tag">current · needs in-game test</span></h3><small>13 Nov</small>
+<h3 style="font-size:15px">Added</h3>
+<ul><li>Custom Path now takes six abilities and two passives from any awakening you own, and can be edited at any time.</li>
+<li>Ten Rings and Custom Path appear in the awakening menu, so you can switch to them by clicking.</li>
+<li>Custom abilities can be cast from every path, including Saiyan, Time Stop and Ten Rings.</li></ul>
+<h3 style="font-size:15px">Planned, not built yet</h3>
+<ul><li><b>v14:</b> a clickable menu hub and a dampen/arrest/capture kit for dealing with awakened players.</li>
+<li><b>v15:</b> the four main Ninjago elements (Kai, Jay, Cole, Zane) as new paths with Spinjitzu.</li></ul></div>
+<div class="ver"><h3>v9 to v13: Ranks, dungeons, wars, Ten Rings, stones, Custom Path <span class="tag">needs in-game test</span></h3><small>11 Nov</small>
 <h3 style="font-size:15px">Added</h3>
 <ul>
 <li><b>v8 finished:</b> Hunter ranks E to S with trials, skill mastery, 20 achievements and titles, per-player settings, and mob protection for tamed, leashed and named mobs.</li>
@@ -777,7 +799,7 @@ shadow damage per hit = level ÷ 4 + STR ÷ 2 + 4</div>
 <h3 style="font-size:15px">Fixed</h3>
 <ul><li>Stones are now actually world-unique; the global claim flag was never set before.</li><li>"First Infinity Stone" now unlocks with any stone, not only Space.</li><li>Uninstall now removes every new scoreboard objective.</li></ul>
 <h3 style="font-size:15px">Not yet done</h3>
-<ul><li>Two-player clan war test. Path 7 dragon summon and rope physics. Mixing other paths' skills in the Custom Path.</li></ul></div>
+<ul><li>Two-player clan war test. Path 7 dragon summon and rope physics. </li></ul></div>
 <div class="ver"><h3>v8: Foundations, bulk stats and army control </h3><small>11 Nov</small>
 <h3 style="font-size:15px">Added</h3>
 <ul>
