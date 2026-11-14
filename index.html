@@ -143,7 +143,7 @@ td.n{font-variant-numeric:tabular-nums;white-space:nowrap}
 <li><b>Multiplayer:</b> every player has their own level, stats, mana, skills and army.</li>
 <li><b>Level cap:</b> 100.</li>
 </ul>
-<div class="note plan"><b>New in v9 to v24</b>Hunter ranks and mastery, daily quests, three wave dungeons, clan levels and wars, the <a href="#tenrings">Ten Rings</a> path, six <a href="#stones">Infinity Stones</a> with the Gauntlet, the <a href="#custom">Custom Path</a> (v16: six abilities and two passives) the <a href="#kit">Arrest Kit</a> (v17) and the four <a href="#ninjago">Ninjago</a> paths (v18). These are built and loaded but still need in-game testing; each page is marked. The v8 additions (bulk stats, selective army) are tested and working.</div>
+<div class="note plan"><b>New in v9 to v25</b>Hunter ranks and mastery, daily quests, three wave dungeons, clan levels and wars, the <a href="#tenrings">Ten Rings</a> path, six <a href="#stones">Infinity Stones</a> with the Gauntlet, the <a href="#custom">Custom Path</a> (v16: six abilities and two passives) the <a href="#kit">Arrest Kit</a> (v17) and the four <a href="#ninjago">Ninjago</a> paths (v18). These are built and loaded but still need in-game testing; each page is marked. The v8 additions (bulk stats, selective army) are tested and working.</div>
 </article>
 <article data-page="install" data-group="Start" data-title="Installation">
 <h1>Installation</h1>
@@ -916,10 +916,39 @@ shadow damage per hit = level ÷ 4 + STR ÷ 2 + 4</div>
 <li><b>alpha_give, alpha_remove, truealpha_give, truealpha_remove, curse_give</b></li>
 <li><b>sres_fill, doom_clear, species_info, ash_clear, relics_reset</b>, and <b>vamp_items</b> (gives every item)</li></ul>
 </article>
+<article data-page="species-next" data-group="Species" data-title="Species powers and the Beast Moon">
+<h1>Species powers, menus and the Beast Moon</h1>
+<p class="lede"><span class="tag">v25 · built · needs in-game test</span></p>
+<h2>Powers on your hotbar</h2>
+<ul><li>Use <span class="cmd">/trigger sl_spc set 2</span>, the menu, or select a power to get the <b>Species Focus</b> item. It works like the awakening focus: right-click casts the selected power, F and Q cycle through your powers. Its name and icon change with the selected power.</li>
+<li>It needs no awakening, and sits alongside an awakening focus if you have one. Dampening blocks it like any other power. A bar above the hotbar shows the selected power and your Blood or Fury.</li></ul>
+<h2>Species menu</h2>
+<ul><li><b>Chat menu:</b> <span class="cmd">/trigger sl_spc set 1</span> (or click [Species powers] on the status screen). It has buttons for the focus item, the chest menu, the pop-up and your toggles, and every power is a click-to-cast line.</li>
+<li><b>Chest menu:</b> open it with <span class="cmd">/trigger sl_spc set 4</span> (or <span class="cmd">/trigger sl_menu set 5</span> if you are awakened). A <b>Species</b> icon on the hub opens a vampire page and a werewolf page. Every power has its own icon; click one to select it (this also gives you the focus item). Pages also have Humanity, shift and equip buttons.</li>
+<li><b>Pop-up menu:</b> <span class="cmd">/trigger sl_spc set 3</span>, a dialog with a button for every power.</li></ul>
+<h2>Textures</h2>
+<ul><li>All 18 species powers (10 vampire, 8 werewolf) have their own drawn icon, plus icons for the focus item, Humanity on and off, both shifts and the menu entries. They are in <b>aura_awakening_items_resourcepack.zip</b>.</li>
+<li>Powers on the other paths do not have custom icons yet.</li></ul>
+<h2>Full Moon Beast</h2>
+<ul><li>On a full-moon night, a werewolf with Control below 70 turns into a wolf with no say in it, until dawn. Control is species level plus 10, plus 30 if you carry an Anchor.</li>
+<li>You are hidden behind a real wolf model. Your armor and held items are stashed in a hidden marker and handed back when you change back, die and respawn, or an admin runs <span class="cmd">function sl:admin/stash_restore</span>.</li>
+<li>You lunge at the nearest living thing and claw everything within 3 blocks twice a second, including players, villagers and clanmates. You cannot cast powers (awakening powers too) or change back.</li>
+<li>It ends at dawn, or early with wolfsbane, silver, or a Moonstone Ward on your armor. Control 70 or more (an Anchor with enough species level), a Moonstone Ward, being a hybrid or a True Alpha keeps you in control. A mountain ash Trap holds a beast in place but does not end it.</li>
+<li>Admin: <span class="cmd">beast_on</span>, <span class="cmd">beast_off</span>, <span class="cmd">stash_restore</span> and <span class="cmd">full_moon_now</span> (sets the time to a full moon night, which resets the day counter).</li></ul>
+<div class="note"><b>Risks</b>The wolf visual removes your gear while it lasts. If a slot is in use when you change back, that item waits in the stash until the slot is free (<span class="cmd">/trigger sl_wolf set 9</span> retries). Stashes of players who are offline when the pack is uninstalled stay in the world.</div>
+</article>
 <article data-page="history" data-group="Reference" data-title="Version History">
 <h1>Version History</h1>
 <p class="lede">Version numbers are informal, ordered by the time stamps in each build.</p>
-<div class="ver"><h3>v24: Uninstall fix and item textures <span class="tag">current · needs in-game test</span></h3><small>14 Nov</small>
+<div class="ver"><h3>v25: Species focus, menus, icons and the Beast Moon <span class="tag">current · needs in-game test</span></h3><small>14 Nov</small>
+<h3 style="font-size:15px">Added</h3>
+<ul><li>A Species Focus item so species powers work from the hotbar, with no awakening needed.</li>
+<li>Species chat menu, chest pages and pop-up. See <a href="#species-next">Species powers and the Beast Moon</a>.</li>
+<li>18 power icons and 8 menu icons.</li>
+<li>The Full Moon Beast: an uncontrolled wolf form on full-moon nights for low-Control werewolves.</li></ul>
+<h3 style="font-size:15px">Changed</h3>
+<ul><li>Shifting into a wolf now shows a real wolf model, and gear is stashed while it lasts.</li></ul></div>
+<div class="ver"><h3>v24: Uninstall fix and item textures <span class="tag">needs in-game test</span></h3><small>14 Nov</small>
 <h3 style="font-size:15px">Fixed</h3>
 <ul><li><span class="cmd">/function sl:system/uninstall</span> now removes every score (five were left behind) and switches the pack off, so a /reload can no longer bring it back. <span class="cmd">/function sl:system/reinstall</span> then <span class="cmd">/reload</span> turns it on again.</li></ul>
 <h3 style="font-size:15px">Added</h3>
