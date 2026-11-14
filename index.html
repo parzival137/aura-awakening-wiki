@@ -143,7 +143,7 @@ td.n{font-variant-numeric:tabular-nums;white-space:nowrap}
 <li><b>Multiplayer:</b> every player has their own level, stats, mana, skills and army.</li>
 <li><b>Level cap:</b> 100.</li>
 </ul>
-<div class="note plan"><b>New in v9 to v21</b>Hunter ranks and mastery, daily quests, three wave dungeons, clan levels and wars, the <a href="#tenrings">Ten Rings</a> path, six <a href="#stones">Infinity Stones</a> with the Gauntlet, the <a href="#custom">Custom Path</a> (v16: six abilities and two passives) the <a href="#kit">Arrest Kit</a> (v17) and the four <a href="#ninjago">Ninjago</a> paths (v18). These are built and loaded but still need in-game testing; each page is marked. The v8 additions (bulk stats, selective army) are tested and working.</div>
+<div class="note plan"><b>New in v9 to v24</b>Hunter ranks and mastery, daily quests, three wave dungeons, clan levels and wars, the <a href="#tenrings">Ten Rings</a> path, six <a href="#stones">Infinity Stones</a> with the Gauntlet, the <a href="#custom">Custom Path</a> (v16: six abilities and two passives) the <a href="#kit">Arrest Kit</a> (v17) and the four <a href="#ninjago">Ninjago</a> paths (v18). These are built and loaded but still need in-game testing; each page is marked. The v8 additions (bulk stats, selective army) are tested and working.</div>
 </article>
 <article data-page="install" data-group="Start" data-title="Installation">
 <h1>Installation</h1>
@@ -840,7 +840,7 @@ shadow damage per hit = level ÷ 4 + STR ÷ 2 + 4</div>
 <h2>How you become one</h2>
 <table><tr><th>Species</th><th>How</th></tr>
 <tr><td>Werewolf</td><td>Kill a player or villager, then survive 2 minutes of a full-moon night (every 8th day). Or be bitten by an Alpha, then survive the night.</td></tr>
-<tr><td>Vampire</td><td>Any vampire or Original uses Sire on you. You accept, then must die within 90 seconds.</td></tr>
+<tr><td>Vampire</td><td>Any vampire or Original uses Sire on you. You accept, then must die within 90 seconds, then feed within 5 minutes.</td></tr>
 <tr><td>Hybrid</td><td>Sire a werewolf. They rise as a vampire and keep the curse.</td></tr>
 <tr><td>Original</td><td>Right-click an Original Relic (6 exist in the world, dropped by dungeon clears).</td></tr>
 <tr><td>Original Hybrid</td><td>Use an Original Relic while you are a werewolf or hybrid.</td></tr></table>
@@ -856,7 +856,7 @@ shadow damage per hit = level ÷ 4 + STR ÷ 2 + 4</div>
 <li><span class="cmd">/trigger sl_humt</span> toggles Humanity. Off: big speed, strength and resistance, but no Mending, Line Order or finesse powers.</li></ul>
 <h2>Powers</h2>
 <table><tr><th>Lv</th><th>Power</th><th>Cost</th></tr>
-<tr><td>1</td><td>Vampire Speed</td><td>10</td></tr><tr><td>4</td><td>Vampire Strength</td><td>15</td></tr><tr><td>6</td><td>Feed (bite within 4 blocks)</td><td>0</td></tr>
+<tr><td>1</td><td>Vampire Speed</td><td>10</td></tr><tr><td>4</td><td>Vampire Strength</td><td>15</td></tr><tr><td>1</td><td>Feed (bite within 4 blocks)</td><td>0</td></tr>
 <tr><td>10</td><td>Compulsion (pull and freeze for 5 s; vervain resists)</td><td>20</td></tr><tr><td>12</td><td>Blood Mending</td><td>25</td></tr>
 <tr><td>15</td><td>Mist Dash</td><td>25</td></tr><tr><td>22</td><td>Blood Siphon</td><td>30</td></tr><tr><td>25</td><td>Sire</td><td>50 / 80</td></tr>
 <tr><td>30</td><td>Sever the Line (only when your line is dying)</td><td>100</td></tr><tr><td>35</td><td>Line Order (line buff, cures venom)</td><td>60</td></tr></table>
@@ -871,7 +871,13 @@ shadow damage per hit = level ÷ 4 + STR ÷ 2 + 4</div>
 <li>Originals are tougher, with strength that grows with the number of vampires online in their line.</li>
 <li>If an Original dies to the White Oak Stake, every online vampire in its line has 60 seconds left. Escape with Sever the Line, or by killing your own sire within about 3 seconds of their death.</li>
 <li>Final death removes vampirism only. Your awakening and any werewolf side stay.</li></ul>
-<div class="note"><b>Not built</b>Line members do not sense each other and share no Blood. A failed Transition does not cause permanent death. Offline line members are only affected when they log in.</div>
+<h2>Line perks</h2>
+<ul><li>Vampires in the same line see a faint blue flame over each other within 64 blocks (only line members see it).</li>
+<li>With another line member within 40 blocks you slowly regain Blood: +1 a second, +2 while in Hunger.</li></ul>
+<h2>The Transition fever</h2>
+<ul><li>After you rise, you have 5 minutes to feed on a living creature (Feed, or a Blood Bag). Fail and you die for good: you lose vampirism and are put in spectator mode until an admin runs <span class="cmd">function sl:admin/revive</span>.</li>
+<li>Admins can turn the permanent part off with <span class="cmd">function sl:admin/permadeath_off</span> (the failure is then an ordinary final death). <span class="cmd">permadeath_on</span> turns it back on.</li></ul>
+<div class="note"><b>Not built</b>Offline line members are only affected by a dying line when they log in. Feed is now level 1 so a new vampire can always complete the Transition.</div>
 </article>
 <article data-page="werewolves" data-group="Species" data-title="Werewolves">
 <h1>Werewolves</h1>
@@ -903,7 +909,7 @@ shadow damage per hit = level ÷ 4 + STR ÷ 2 + 4</div>
 <li><b>Blood Bag</b> (glass bottle, redstone, rotten flesh): +40 Blood.</li>
 <li><b>Wooden Stake</b> (2 sticks, flint), <b>Vervain</b> (fern, sugar, glass bottle), <b>Wolfsbane</b> (allium, fern, glass bottle), <b>Silver Dart</b> (iron ingot, iron nugget, stick): used on a player within sight.</li>
 <li><b>Mountain Ash (Ward)</b> (charcoal, bone meal, glass bottle) and <b>(Trap)</b> (the same plus redstone): right-click to lay a ring of radius 4 at your feet for 5 minutes. Ward pushes vampires and werewolves out. Trap holds them in.</li>
-<li><b>White Oak Stake, Original Relic, Anchor:</b> not craftable.</li></ul>
+<li><b>White Oak Stake, Original Relic, Anchor:</b> not craftable.</li><li><b>Textures:</b> install <b>aura_awakening_items_resourcepack.zip</b> to see custom icons. It can sit above the Ten Rings resource pack.</li></ul>
 <h2>Admin commands</h2>
 <p>Run as the target: <span class="cmd">/execute as &lt;name&gt; run function sl:admin/&lt;command&gt;</span>. The list is in <span class="cmd">function sl:admin/species_help</span>.</p>
 <ul><li><b>make_human, make_vamp, make_wolf, make_hybrid, make_original, make_original_hybrid</b></li>
@@ -913,7 +919,22 @@ shadow damage per hit = level ÷ 4 + STR ÷ 2 + 4</div>
 <article data-page="history" data-group="Reference" data-title="Version History">
 <h1>Version History</h1>
 <p class="lede">Version numbers are informal, ordered by the time stamps in each build.</p>
-<div class="ver"><h3>v21: Species rework <span class="tag">current · needs in-game test</span></h3><small>14 Nov</small>
+<div class="ver"><h3>v24: Uninstall fix and item textures <span class="tag">current · needs in-game test</span></h3><small>14 Nov</small>
+<h3 style="font-size:15px">Fixed</h3>
+<ul><li><span class="cmd">/function sl:system/uninstall</span> now removes every score (five were left behind) and switches the pack off, so a /reload can no longer bring it back. <span class="cmd">/function sl:system/reinstall</span> then <span class="cmd">/reload</span> turns it on again.</li></ul>
+<h3 style="font-size:15px">Added</h3>
+<ul><li>A resource pack with 16 hand-drawn item textures: the arrest kit, stakes, vervain, wolfsbane, silver dart, mountain ash, the books, relic, blood bag and anchor. The items point at these models, so install the resource pack or they show as missing-model cubes.</li></ul></div>
+<div class="ver"><h3>v23: Book and sunlight fixes <span class="tag">needs in-game test</span></h3><small>14 Nov</small>
+<h3 style="font-size:15px">Fixed</h3>
+<ul><li>The Ring books, Moonstone books, Blood Bag and Original Relic did nothing when right-clicked, because the knowledge book does not count as "used". They are now built on the same item as the arrest kit. Old books must be crafted again.</li>
+<li>Vampires (and Demons) burned inside houses. The outdoors check now compares the roof height with your height, so any roof counts, including low ones.</li></ul></div>
+<div class="ver"><h3>v22: Line perks and the Transition fever <span class="tag">needs in-game test</span></h3><small>14 Nov</small>
+<h3 style="font-size:15px">Added</h3>
+<ul><li>Line members see each other and share a little Blood.</li>
+<li>A new vampire must feed within 5 minutes or die for good (admin can switch the permanent part off, and revive).</li></ul>
+<h3 style="font-size:15px">Changed</h3>
+<ul><li>Feed is now unlocked at level 1.</li></ul></div>
+<div class="ver"><h3>v21: Species rework <span class="tag">needs in-game test</span></h3><small>14 Nov</small>
 <h3 style="font-size:15px">Changed</h3>
 <ul><li>Vampire and werewolf are now a base species that stacks on any awakening, not a path. See <a href="#species">Species</a>.</li>
 <li>Any vampire can sire, not only Originals.</li></ul>
